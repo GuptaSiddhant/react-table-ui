@@ -47,12 +47,20 @@ export const TableContainer = styled.div`
 
       .header {
         top: 0;
-        box-shadow: 0px 3px 3px #ccc;
+
+        .td,
+        .th {
+          box-shadow: 0px 3px 3px #ccc;
+        }
       }
 
       .footer {
         bottom: 0;
-        box-shadow: 0px -3px 3px #ccc;
+
+        .td,
+        .th {
+          box-shadow: 0px -3px 3px #ccc;
+        }
       }
 
       .body {
