@@ -1,10 +1,13 @@
-import { DataType, ReactTableUIProps } from 'utilities/interface'
+import type { Column } from 'react-table'
+import type { DataType } from 'utilities/interface'
 
 export const createClassName = (className: string) => '' + className
 
-export const createDefaultColumns = <Data extends DataType>(data: Data[]) => {
+export const createDefaultColumns = <Data extends DataType>(
+  data: Data[]
+): Column<Data>[] => {
   const uniqueKeys = Object.keys(Object.assign({}, ...data))
-  const columns: ReactTableUIProps<Data>['columns'] = uniqueKeys
+  const columns: Column<Data>[] = uniqueKeys
     .filter((key) => key !== 'subRows')
     .map((key) => ({
       accessor: key,

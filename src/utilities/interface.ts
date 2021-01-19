@@ -10,12 +10,18 @@ export interface ReactTableUIProps<Data extends DataType> {
 
   /** Memoised column definitions of the table. (Optional, can be generated from keys in `data` object).
    * Each column object can define its data accessor, properties and behavior. */
-  columns?: Column<DataType>[]
+  columns?: Column<Data>[]
 
   /**  */
 }
 
-export interface TableComponentProps<Data extends DataType> {
+export interface TableContext<Data extends DataType> {
   tableInstance: TableInstance<Data>
   tableProps: ReactTableUIProps<Data>
 }
+
+export type ElementRef<E extends Element = HTMLDivElement> =
+  | ((instance: E | null) => void)
+  | React.RefObject<E>
+  | null
+  | undefined

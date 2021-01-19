@@ -85,7 +85,8 @@ const columns = [
   },
   {
     Header: 'Column 2',
-    accessor: 'col2'
+    accessor: 'col2',
+    sticky: 'left'
   },
   {
     Header: 'Column 1',

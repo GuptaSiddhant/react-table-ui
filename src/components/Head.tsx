@@ -1,40 +1,33 @@
 import * as React from 'react'
+import styled from 'styled-components'
 import { createClassName } from 'utilities'
-import type { DataType, TableComponentProps } from 'utilities/interface'
+import { useTableContext } from 'utilities/Context'
+import type { DataType } from 'utilities/interface'
+import Row from 'components/Row'
+import Cell from 'components/Cell'
 
-const Head = <Data extends DataType>(
-  props: TableComponentProps<Data>
-): JSX.Element => {
-  const { headerGroups } = props.tableInstance
+const StyledHead = styled.div`
+  position: sticky;
+  z-index: 5;
+  width: 100%;
+  top: 0;
+`
+
+const Head = <Data extends DataType>(): JSX.Element => {
+  const { tableInstance } = useTableContext<Data>()
+  const { headerGroups } = tableInstance
   return (
-    <div className={createClassName('thead header')} role='rowgroup'>
-      {
-        // Loop over the header rows
-        headerGroups.map((headerGroup) => (
-          // Apply the header row props
-          <div
-            {...headerGroup.getHeaderGroupProps()}
-            className={createClassName('tr')}
-          >
-            {
-              // Loop over the headers in each row
-              headerGroup.headers.map((column) => (
-                // Apply the header cell props
-                <div
-                  {...column.getHeaderProps()}
-                  className={createClassName('th')}
-                >
-                  {
-                    // Render the header
-                    column.render('Header')
-                  }
-                </div>
-              ))
-            }
-          </div>
-        ))
-      }
-    </div>
+    <StyledHead className={createClassName('thead header')} role='rowgroup'>
+      {headerGroups.map((headerGroup) => (
+        <Row {...headerGroup.getHeaderGroupProps()}>
+          {headerGroup.headers.map((column) => (
+            <Cell.Header {...column.getHeaderProps()}>
+              {column.render('Header')}
+            </Cell.Header>
+          ))}
+        </Row>
+      ))}
+    </StyledHead>
   )
 }
 

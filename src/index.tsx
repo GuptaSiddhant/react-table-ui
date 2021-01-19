@@ -1,31 +1,26 @@
 import * as React from 'react'
-import { useTable, useFlexLayout } from 'react-table'
-import { useSticky } from 'react-table-sticky'
-import type { DataType, ReactTableUIProps } from 'utilities/interface'
-import { createDefaultColumns, createClassName } from 'utilities'
-import Head from 'components/Head'
-import Body from 'components/Body'
-import TableContainer from 'style/TableContainer'
+import type {
+  DataType,
+  ReactTableUIProps,
+  ElementRef
+} from 'utilities/interface'
+import useReactTableUI from 'utilities/useReactTableUI'
 
 const ReactTableUI = <Data extends DataType>(
-  props: ReactTableUIProps<Data>
+  tableProps: ReactTableUIProps<Data>,
+  ref: ElementRef
 ): JSX.Element => {
-  const { data, columns = createDefaultColumns(data) } = props
-  const tableInstance = useTable({ data, columns }, useFlexLayout, useSticky)
-
-  const { getTableProps } = tableInstance
-  console.log(getTableProps())
+  const { TableWrapper, Table } = useReactTableUI(tableProps)
 
   return (
-    // apply the table props
-    <TableContainer>
-      <div className={createClassName('table sticky')} {...getTableProps()}>
-        <Head tableInstance={tableInstance} tableProps={props} />
-        {/* Apply the table body props */}
-        <Body tableInstance={tableInstance} tableProps={props} />
-      </div>
-    </TableContainer>
+    <TableWrapper>
+      <Table ref={ref} />
+    </TableWrapper>
   )
 }
 
-export default ReactTableUI
+export { useReactTableUI, ReactTableUIProps }
+
+export default React.forwardRef<HTMLDivElement, ReactTableUIProps<DataType>>(
+  ReactTableUI
+)

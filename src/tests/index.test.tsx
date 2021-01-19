@@ -1,4 +1,4 @@
-import ReactTableUI from '.'
+import ReactTableUI from '..'
 
 describe('ExampleComponent', () => {
   it('is truthy', () => {
