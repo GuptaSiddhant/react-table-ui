@@ -81,10 +81,12 @@ const columns = [
   {
     Header: 'Column 1',
     accessor: 'col1',
-    sticky: 'left'
+    sticky: 'left',
+    Footer: 'Column 1'
   },
   {
     Header: 'Column 2',
+    Footer: 'Column 2',
     accessor: 'col2',
     sticky: 'left'
   },
@@ -94,6 +96,7 @@ const columns = [
   },
   {
     Header: 'Column 2',
+    Footer: 'Column 2',
     accessor: 'col4'
   },
   {

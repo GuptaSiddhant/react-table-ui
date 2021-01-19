@@ -15,7 +15,10 @@ const Body = <Data extends DataType>(): JSX.Element => {
   const { tableInstance } = useTableContext<Data>()
   const { rows, prepareRow, getTableBodyProps } = tableInstance
   return (
-    <StyledBody className={createClassName('tbody')} {...getTableBodyProps()}>
+    <StyledBody
+      className={createClassName('tbody body')}
+      {...getTableBodyProps()}
+    >
       {rows.map((row) => {
         prepareRow(row)
         return (
