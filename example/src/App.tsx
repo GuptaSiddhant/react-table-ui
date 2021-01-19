@@ -1,126 +1,47 @@
 import React from 'react'
-
-import ExampleComponent from 'react-table-ui'
-
-const data = [
-  {
-    col1: 'Hello',
-    col2: 'World'
-  },
-  {
-    col1: 'react-table',
-    col2: 'rocks'
-  },
-  {
-    col1: 'whatever',
-    col2: 'you want'
-  },
-  {
-    col1: 'Hello',
-    col2: 'World'
-  },
-  {
-    col1: 'react-table',
-    col2: 'rocks'
-  },
-  {
-    col1: 'whatever',
-    col2: 'you want'
-  },
-  {
-    col1: 'Hello',
-    col2: 'World'
-  },
-  {
-    col1: 'react-table',
-    col2: 'rocks'
-  },
-  {
-    col1: 'whatever',
-    col2: 'you want'
-  },
-  {
-    col1: 'Hello',
-    col2: 'World'
-  },
-  {
-    col1: 'react-table',
-    col2: 'rocks'
-  },
-  {
-    col1: 'whatever',
-    col2: 'you want'
-  },
-  {
-    col1: 'Hello',
-    col2: 'World'
-  },
-  {
-    col1: 'react-table',
-    col2: 'rocks'
-  },
-  {
-    col1: 'whatever',
-    col2: 'you want'
-  },
-  {
-    col1: 'Hello',
-    col2: 'World'
-  },
-  {
-    col1: 'react-table',
-    col2: 'rocks'
-  },
-  {
-    col1: 'whatever',
-    col2: 'you want'
-  }
-]
-
-const columns = [
-  {
-    Header: 'Column 1',
-    accessor: 'col1',
-    sticky: 'left',
-    Footer: 'Column 1'
-  },
-  {
-    Header: 'Column 2',
-    Footer: 'Column 2',
-    accessor: 'col2',
-    sticky: 'left'
-  },
-  {
-    Header: 'Column 1',
-    accessor: 'col3' // accessor is the "key" in the data
-  },
-  {
-    Header: 'Column 2',
-    Footer: 'Column 2',
-    accessor: 'col4'
-  },
-  {
-    Header: 'Column 1',
-    accessor: 'col5' // accessor is the "key" in the data
-  },
-  {
-    Header: 'Column 2',
-    accessor: 'col6'
-  },
-  {
-    id: '12',
-    Header: 'Column 1',
-    accessor: 'col1' // accessor is the "key" in the data
-  },
-  {
-    id: '13',
-    Header: 'Column 2',
-    accessor: 'col2',
-    sticky: 'right'
-  }
-]
+import ReactTableUI from 'react-table-ui'
+import makeData from './makeData'
 
 const App = () => {
+  const data = React.useMemo(() => makeData(100, 10), [])
+  const columns = React.useMemo(
+    () => [
+      {
+        Header: 'Name',
+        sticky: 'left',
+        Footer: 'Foot',
+        columns: [
+          {
+            Header: 'First Name',
+            accessor: 'firstName',
+            Footer: 'Foot'
+          },
+          {
+            Header: 'Last Name',
+            accessor: 'lastName'
+          }
+        ]
+      },
+
+      {
+        Header: 'Age',
+        accessor: 'age'
+      },
+      {
+        Header: 'Visits',
+        accessor: 'visits'
+      },
+      {
+        Header: 'Status',
+        accessor: 'status'
+      },
+      {
+        Header: 'Profile Progress',
+        accessor: 'progress'
+      }
+    ],
+    []
+  )
   return (
     <div
       style={{
@@ -130,7 +51,7 @@ const App = () => {
         overflow: 'hidden'
       }}
     >
-      <ExampleComponent data={data} columns={columns} />
+      <ReactTableUI data={data} columns={columns} />
     </div>
   )
 }

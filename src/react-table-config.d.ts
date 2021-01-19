@@ -1,4 +1,5 @@
-import {
+import type { ReactNode } from 'react'
+import type {
   UseColumnOrderInstanceProps,
   UseColumnOrderState,
   UseExpandedHooks,
@@ -105,7 +106,9 @@ declare module 'react-table' {
       UseGlobalFiltersColumnOptions<D>,
       UseGroupByColumnOptions<D>,
       UseResizeColumnsColumnOptions<D>,
-      UseSortByColumnOptions<D> {}
+      UseSortByColumnOptions<D> {
+    Footer: ReactNode
+  }
 
   export interface ColumnInstance<
     D extends Record<string, unknown> = Record<string, unknown>

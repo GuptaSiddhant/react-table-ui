@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { HeaderGroup } from 'react-table'
 import styled from 'styled-components'
 import { createClassName } from 'utilities'
 import { useTableContext } from 'utilities/Context'
@@ -13,21 +14,40 @@ const StyledFoot = styled.div`
   bottom: 0;
 `
 
-const Foot = <Data extends DataType>(): JSX.Element => {
-  const { tableInstance } = useTableContext<Data>()
+const renderFooter = <Data extends DataType>(
+  column: HeaderGroup<Data>
+): React.ReactNode => {
+  try {
+    const render = column.render('Footer')
+    return render
+  } catch {
+    return null
+  }
+}
+
+const Foot = <Data extends DataType>(): JSX.Element | null => {
+  const { tableInstance, tableProps } = useTableContext<Data>()
+
+  const showFooter = tableProps.columns?.some((column) => !!column.Footer)
+
   const { headerGroups } = tableInstance
   const footerGroups = headerGroups.slice().reverse()
-  return (
+
+  console.log(footerGroups)
+
+  return showFooter ? (
     <StyledFoot className={createClassName('tfoot footer')} role='rowgroup'>
       {footerGroups.map((group) => (
         <Row {...group.getHeaderGroupProps()}>
           {group.headers.map((column) => (
-            <Cell {...column.getHeaderProps()}>{column.render('Footer')}</Cell>
+            <Cell {...column.getHeaderProps()}>
+              {renderFooter<Data>(column)}
+            </Cell>
           ))}
         </Row>
       ))}
     </StyledFoot>
-  )
+  ) : null
 }
 
 export default Foot
