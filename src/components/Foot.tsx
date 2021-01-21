@@ -14,7 +14,7 @@ const StyledFoot = styled.div`
   bottom: 0;
 `
 
-const renderFooter = <Data extends DataType>(
+const renderFooterCellContent = <Data extends DataType>(
   column: HeaderGroup<Data>
 ): React.ReactNode => {
   try {
@@ -31,7 +31,9 @@ const Foot = <Data extends DataType>(): JSX.Element | null => {
     tableProps: { stickyHeaders = true, columns }
   } = useTableContext<Data>()
 
-  const showFooter = columns?.some((column) => !!column.Footer)
+  const showFooter = columns?.some(function hasFooter(column): boolean {
+    return !!column.Footer || !!column.columns?.some((c) => hasFooter(c))
+  })
 
   const { headerGroups } = tableInstance
   const footerGroups = headerGroups.slice().reverse()
@@ -44,15 +46,22 @@ const Foot = <Data extends DataType>(): JSX.Element | null => {
 
   return showFooter ? (
     <StyledFoot className={createClassName(classNames)} role='rowgroup'>
-      {footerGroups.map((group) => (
-        <Row {...group.getHeaderGroupProps()}>
-          {group.headers.map((column) => (
-            <Cell {...column.getHeaderProps()}>
-              {renderFooter<Data>(column)}
-            </Cell>
-          ))}
-        </Row>
-      ))}
+      {footerGroups.map((group) => {
+        const rowHasFooter = group.headers.some(({ Footer }) =>
+          typeof Footer === 'function'
+            ? Footer.name !== 'emptyRenderer'
+            : !!Footer
+        )
+        return rowHasFooter ? (
+          <Row {...group.getHeaderGroupProps()}>
+            {group.headers.map((column) => (
+              <Cell {...column.getHeaderProps()}>
+                {renderFooterCellContent<Data>(column)}
+              </Cell>
+            ))}
+          </Row>
+        ) : null
+      })}
     </StyledFoot>
   ) : null
 }

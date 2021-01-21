@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useTable, useSortBy, useFlexLayout } from 'react-table'
+import { useTable, useSortBy, useFilters, useFlexLayout } from 'react-table'
 import { useSticky } from 'react-table-sticky'
 import type {
   DataType,
@@ -22,6 +22,7 @@ export const useReactTableUI = <Data extends DataType>(
 
   const tableInstance = useTable<Data>(
     { data, columns, ...sortByOptions },
+    useFilters,
     useSortBy,
     useFlexLayout,
     useSticky

@@ -26,14 +26,13 @@ const HeadCell = <Data extends DataType>(
   const {
     descendingIndicator = '↓',
     ascendingIndicator = '↑',
-    defaultIndicator = '⥮'
+    defaultIndicator = '⇅'
   } = sortByOptions
 
   const renderContent = column.render('Header')
   const headCellProps = column.getHeaderProps(column.getSortByToggleProps())
   const title =
     typeof renderContent === 'string' ? 'Sort ' + renderContent : 'Sort'
-  console.log(headCellProps)
 
   return (
     <Cell className={createClassName('th')} {...headCellProps} title={title}>

@@ -108,6 +108,7 @@ declare module 'react-table' {
       UseResizeColumnsColumnOptions<D>,
       UseSortByColumnOptions<D> {
     Footer?: ReactNode
+    columns?: Column<D>[]
   }
 
   export interface ColumnInstance<

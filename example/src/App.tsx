@@ -1,15 +1,15 @@
 import React from 'react'
-import ReactTableUI from 'react-table-ui'
+import ReactTableUI, { ReactTableUIProps } from 'react-table-ui'
 import makeData from './makeData'
 
 const App = () => {
   const data = React.useMemo(() => makeData(100, 10), [])
-  const columns = React.useMemo(
+  const columns: ReactTableUIProps<any>['columns'] = React.useMemo(
     () => [
       {
         Header: 'Name',
         sticky: 'left',
-        Footer: 'Foot',
+        // Footer: 'Foot',
         columns: [
           {
             Header: 'First Name',
