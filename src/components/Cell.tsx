@@ -1,9 +1,11 @@
-import * as React from 'react'
+// import * as React from 'react'
 import styled from 'styled-components'
-import { createClassName } from 'utilities'
+import { createClassName } from '../utilities'
 
-const StyledCell = styled.div`
-  padding: 5px;
+const Cell = styled.div.attrs(() => ({
+  className: createClassName('td')
+}))`
+  padding: 4px;
   border-bottom: 1px solid #ddd;
   border-right: 1px solid #ddd;
   background-color: #fff;
@@ -23,19 +25,5 @@ const StyledCell = styled.div`
     box-shadow: -2px 0px 3px #ccc;
   }
 `
-
-const HeaderCell: React.FC = ({ children, ...props }) => (
-  <StyledCell className={createClassName('th')} {...props}>
-    {children}
-  </StyledCell>
-)
-
-const Cell: React.FC & { Header: React.FC } = ({ children, ...props }) => (
-  <StyledCell className={createClassName('td')} {...props}>
-    {children}
-  </StyledCell>
-)
-
-Cell.Header = HeaderCell
 
 export default Cell

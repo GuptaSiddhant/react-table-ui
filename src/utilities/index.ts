@@ -1,5 +1,5 @@
 import type { Column } from 'react-table'
-import type { DataType } from 'utilities/interface'
+import type { DataType } from './interface'
 
 export const createClassName = (className: string) => '' + className
 

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import type { DataType, TableContext } from 'utilities/interface'
+import type { DataType, TableContext } from './interface'
 
 const Context = React.createContext<TableContext<any>>({
   tableProps: {} as any,

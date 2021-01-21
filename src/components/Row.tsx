@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { createClassName } from 'utilities'
+import { createClassName } from '../utilities'
 
 const Row = styled.div.attrs((props) => ({
   className: createClassName('tr'),

@@ -1,4 +1,5 @@
-import type { Column, TableInstance } from 'react-table'
+import type { ReactNode } from 'react'
+import type { Column, TableInstance, UseSortByOptions } from 'react-table'
 
 export type DataType = Record<string, any>
 
@@ -12,7 +13,12 @@ export interface ReactTableUIProps<Data extends DataType> {
    * Each column object can define its data accessor, properties and behavior. */
   columns?: Column<Data>[]
 
-  /**  */
+  /** Stick headers to the top and footers to the bottom while scrolling. @default true */
+  stickyHeaders?: boolean | { header?: boolean; footer?: boolean }
+
+  /** Manages sorting of the table.
+   * @see [RT useSortBy API - Table options](https://react-table.tanstack.com/docs/api/useSortBy#table-options) */
+  sortByOptions?: UseSortByOptions<Data> & SortingOptions
 }
 
 export interface TableContext<Data extends DataType> {
@@ -25,3 +31,9 @@ export type ElementRef<E extends Element = HTMLDivElement> =
   | React.RefObject<E>
   | null
   | undefined
+
+interface SortingOptions {
+  defaultIndicator?: ReactNode
+  ascendingIndicator?: ReactNode
+  descendingIndicator?: ReactNode
+}
