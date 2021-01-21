@@ -17,20 +17,23 @@ export const useReactTableUI = <Data extends DataType>(
   const {
     data,
     columns = createDefaultColumns(data),
+    tableOptions,
     sortByOptions
   } = tableProps
 
   const tableInstance = useTable<Data>(
-    { data, columns, ...sortByOptions },
+    { data, columns, ...tableOptions, ...sortByOptions },
     useFilters,
     useSortBy,
     useFlexLayout,
     useSticky
   )
+
   const tableContext: TableContext<Data> = {
     tableInstance,
     tableProps
   }
+
   const TableWrapper: React.FC = ({ children }) => (
     <ContextProvider {...tableContext}>{children}</ContextProvider>
   )
