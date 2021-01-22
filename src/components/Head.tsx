@@ -2,8 +2,7 @@ import * as React from 'react'
 import styled from 'styled-components'
 import type { HeaderGroup } from 'react-table'
 import { createClassName } from '../utilities'
-import { useTableContext } from '../utilities/Context'
-import type { DataType } from '../utilities/interface'
+import type { DataType, TableContext } from '../utilities/interface'
 import Row from './Row'
 import Cell from './Cell'
 
@@ -19,9 +18,9 @@ const StyledHead = styled.div`
 `
 
 const HeadCell = <Data extends DataType>(
-  column: HeaderGroup<Data>
+  props: TableContext<Data> & { column: HeaderGroup<Data> }
 ): JSX.Element => {
-  const { tableProps } = useTableContext<Data>()
+  const { column, tableProps } = props
   const { sortByOptions = {} } = tableProps
   const {
     descendingIndicator = '↓',
@@ -35,8 +34,13 @@ const HeadCell = <Data extends DataType>(
     typeof renderContent === 'string' ? 'Sort ' + renderContent : 'Sort'
 
   return (
-    <Cell className={createClassName('th')} {...headCellProps} title={title}>
-      <div style={{ display: 'flex' }}>
+    <Cell
+      className={createClassName('th')}
+      {...headCellProps}
+      title={title}
+      onClick={undefined}
+    >
+      <div style={{ display: 'flex' }} onClick={(headCellProps as any).onClick}>
         {renderContent}
         {column.canSort ? (
           <div style={{ marginLeft: '8px' }}>
@@ -48,12 +52,15 @@ const HeadCell = <Data extends DataType>(
           </div>
         ) : null}
       </div>
+      <div>{column.canFilter ? column.render('Filter') : null}</div>
     </Cell>
   )
 }
 
-const Head = <Data extends DataType>(): JSX.Element => {
-  const { tableInstance, tableProps } = useTableContext<Data>()
+const Head = <Data extends DataType>(
+  props: TableContext<Data>
+): JSX.Element => {
+  const { tableInstance, tableProps } = props
   const { headerGroups } = tableInstance
   const { stickyHeaders = true } = tableProps
 
@@ -67,7 +74,9 @@ const Head = <Data extends DataType>(): JSX.Element => {
     <StyledHead className={createClassName(classNames)} role='rowgroup'>
       {headerGroups.map((headerGroup) => (
         <Row {...headerGroup.getHeaderGroupProps()}>
-          {headerGroup.headers.map(HeadCell)}
+          {headerGroup.headers.map((column) => (
+            <HeadCell {...{ column, ...props }} />
+          ))}
         </Row>
       ))}
     </StyledHead>

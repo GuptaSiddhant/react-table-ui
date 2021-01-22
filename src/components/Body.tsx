@@ -1,8 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import { createClassName } from '../utilities'
-import { useTableContext } from '../utilities/Context'
-import type { DataType } from '../utilities/interface'
+import type { DataType, TableContext } from '../utilities/interface'
 import Row from './Row'
 import Cell from './Cell'
 
@@ -11,8 +10,10 @@ const StyledBody = styled.div`
   z-index: 0;
 `
 
-const Body = <Data extends DataType>(): JSX.Element => {
-  const { tableInstance } = useTableContext<Data>()
+const Body = <Data extends DataType>(
+  props: TableContext<Data>
+): JSX.Element => {
+  const { tableInstance } = props
   const { rows, prepareRow, getTableBodyProps } = tableInstance
   return (
     <StyledBody

@@ -1,8 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import { createClassName } from '../utilities'
-import { useTableContext } from '../utilities/Context'
-import type { DataType, ElementRef } from '../utilities/interface'
+import type { DataType, ElementRef, TableContext } from '../utilities/interface'
 import Head from '../components/Head'
 import Body from '../components/Body'
 import Foot from '../components/Foot'
@@ -18,18 +17,20 @@ const StyledTable = styled.div`
   }
 `
 
-const Table = <Data extends DataType>(_: any, ref: ElementRef): JSX.Element => {
-  const { tableInstance } = useTableContext<Data>()
-  const { getTableProps } = tableInstance
+const Table = <Data extends DataType>(
+  props: TableContext<Data>,
+  ref: ElementRef
+): JSX.Element => {
+  const { getTableProps } = props.tableInstance
   return (
     <StyledTable
       ref={ref}
       className={createClassName('table sticky')}
       {...getTableProps()}
     >
-      <Head />
-      <Body />
-      <Foot />
+      <Head {...props} />
+      <Body {...props} />
+      <Foot {...props} />
     </StyledTable>
   )
 }

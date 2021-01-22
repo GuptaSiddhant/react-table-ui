@@ -2,8 +2,7 @@ import * as React from 'react'
 import { HeaderGroup } from 'react-table'
 import styled from 'styled-components'
 import { createClassName } from '../utilities'
-import { useTableContext } from '../utilities/Context'
-import type { DataType } from '../utilities/interface'
+import type { DataType, TableContext } from '../utilities/interface'
 import Row from './Row'
 import Cell from './Cell'
 
@@ -25,11 +24,13 @@ const renderFooterCellContent = <Data extends DataType>(
   }
 }
 
-const Foot = <Data extends DataType>(): JSX.Element | null => {
+const Foot = <Data extends DataType>(
+  props: TableContext<Data>
+): JSX.Element | null => {
   const {
     tableInstance,
     tableProps: { stickyHeaders = true, columns }
-  } = useTableContext<Data>()
+  } = props
 
   const showFooter = columns?.some(function hasFooter(column): boolean {
     return !!column.Footer || !!column.columns?.some((c) => hasFooter(c))

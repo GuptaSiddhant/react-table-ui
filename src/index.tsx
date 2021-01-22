@@ -1,18 +1,13 @@
 import * as React from 'react'
 import type { UseSortByOptions } from 'react-table'
-import useReactTableUI from './useReactTableUI'
+import useReactTableUI from './logic/useReactTableUI'
 import type { DataType, ReactTableUIProps } from './utilities/interface'
+import Table from './components/Table'
 
 const ReactTableUI = <Data extends DataType>(
   tableProps: ReactTableUIProps<Data>
 ): JSX.Element => {
-  const { TableWrapper, Table } = useReactTableUI(tableProps)
-
-  return (
-    <TableWrapper>
-      <Table />
-    </TableWrapper>
-  )
+  return <Table {...useReactTableUI(tableProps)} />
 }
 
 export default ReactTableUI
