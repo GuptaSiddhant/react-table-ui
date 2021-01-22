@@ -14,6 +14,7 @@ export const useReactTableUI = <Data extends DataType>(
     data,
     columns = createDefaultColumns(data),
     tableOptions,
+    filterOptions,
     sortByOptions
   } = tableProps
 
@@ -25,7 +26,14 @@ export const useReactTableUI = <Data extends DataType>(
   )
 
   const tableInstance = useTable<Data>(
-    { data, columns, defaultColumn, ...tableOptions, ...sortByOptions },
+    {
+      data,
+      columns,
+      defaultColumn,
+      ...tableOptions,
+      ...filterOptions,
+      ...sortByOptions
+    },
     useFilters,
     useSortBy,
     useFlexLayout,

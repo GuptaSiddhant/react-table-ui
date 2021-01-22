@@ -29,7 +29,7 @@ const Foot = <Data extends DataType>(
 ): JSX.Element | null => {
   const {
     tableInstance,
-    tableProps: { stickyHeaders = true, columns }
+    tableProps: { stickyOptions = true, columns }
   } = props
 
   const showFooter = columns?.some(function hasFooter(column): boolean {
@@ -40,8 +40,8 @@ const Foot = <Data extends DataType>(
   const footerGroups = headerGroups.slice().reverse()
 
   const stickyFoot =
-    stickyHeaders === true ||
-    (stickyHeaders !== false && stickyHeaders?.footer !== false)
+    stickyOptions === true ||
+    (stickyOptions !== false && stickyOptions?.footer !== false)
 
   const classNames = 'tfoot footer ' + (stickyFoot ? 'sticky' : '')
 

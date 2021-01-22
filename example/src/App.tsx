@@ -51,7 +51,11 @@ const App = () => {
         overflow: 'hidden'
       }}
     >
-      <ReactTableUI<object> data={data} columns={columns} />
+      <ReactTableUI<object>
+        data={data}
+        columns={columns}
+        filterOptions={{ disableFilters: true }}
+      />
     </div>
   )
 }

@@ -62,11 +62,11 @@ const Head = <Data extends DataType>(
 ): JSX.Element => {
   const { tableInstance, tableProps } = props
   const { headerGroups } = tableInstance
-  const { stickyHeaders = true } = tableProps
+  const { stickyOptions = true } = tableProps
 
   const stickyHead =
-    stickyHeaders === true ||
-    (stickyHeaders !== false && stickyHeaders?.header !== false)
+    stickyOptions === true ||
+    (stickyOptions !== false && stickyOptions?.header !== false)
 
   const classNames = 'thead header ' + (stickyHead ? 'sticky' : '')
 

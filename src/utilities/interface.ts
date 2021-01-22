@@ -3,7 +3,8 @@ import type {
   Column,
   TableInstance,
   UseTableOptions,
-  UseSortByOptions
+  UseSortByOptions,
+  UseFiltersOptions
 } from 'react-table'
 
 export type DataType = Record<string, any>
@@ -19,15 +20,20 @@ export interface ReactTableUIProps<Data extends DataType>
    * Each column object can define its data accessor, properties and behavior. */
   columns?: Column<Data>[]
 
-  /** Stick headers to the top and footers to the bottom while scrolling. @default true */
-  stickyHeaders?: boolean | { header?: boolean; footer?: boolean }
-
-  /** useTable Table options - @see [RT useTable API - Table options](https://react-table.tanstack.com/docs/api/useTable#table-options) */
+  /** useTable Table options
+   * @see [RT useTable API - Table options](https://react-table.tanstack.com/docs/api/useTable#table-options) */
   tableOptions?: Omit<UseTableOptions<Data>, 'columns' | 'data'>
 
-  /** Manages sorting of the table.
+  /** Manages sorting of the table columns.
    * @see [RT useSortBy API - Table options](https://react-table.tanstack.com/docs/api/useSortBy#table-options) */
   sortByOptions?: UseSortByOptions<Data> & SortingOptions
+
+  /** Manages filtering of the table columns.
+   * @see [RT useFilters API - Table options](https://react-table.tanstack.com/docs/api/useFilters#table-options) */
+  filterOptions?: UseFiltersOptions<Data> & SortingOptions
+
+  /** Stick headers to the top and footers to the bottom while scrolling. @default true */
+  stickyOptions?: boolean | { header?: boolean; footer?: boolean }
 }
 
 export interface TableContext<Data extends DataType> {
