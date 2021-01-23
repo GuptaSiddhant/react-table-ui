@@ -31,11 +31,13 @@ const HeadCell = <Data extends DataType>(
 
   const renderContent = column.render('Header')
   const headCellProps = column.getHeaderProps(column.getSortByToggleProps())
-  let titleArray: string[] = []
-  if (column.canSort) titleArray.push('Sort')
-  if (typeof renderContent === 'string') titleArray.push(renderContent)
-  const title = titleArray.join(' ')
   const className = createClassName('th')
+  const title = (() => {
+    let titleArray: string[] = []
+    if (column.canSort) titleArray.push('Sort')
+    if (typeof renderContent === 'string') titleArray.push(renderContent)
+    return titleArray.join(' ')
+  })()
 
   return (
     <Cell

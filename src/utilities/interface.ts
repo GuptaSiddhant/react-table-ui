@@ -4,7 +4,9 @@ import type {
   TableInstance,
   UseTableOptions,
   UseSortByOptions,
-  UseFiltersOptions
+  UseFiltersOptions,
+  UsePaginationOptions,
+  UsePaginationState
 } from 'react-table'
 
 export type DataType = Record<string, any>
@@ -30,7 +32,11 @@ export interface ReactTableUIProps<Data extends DataType>
 
   /** Manages filtering of the table columns.
    * @see [RT useFilters API - Table options](https://react-table.tanstack.com/docs/api/useFilters#table-options) */
-  filterOptions?: UseFiltersOptions<Data> & SortingOptions
+  filterOptions?: UseFiltersOptions<Data>
+
+  /** Manages pagination of the table.
+   * @see [RT usePagination API - Table options](https://react-table.tanstack.com/docs/api/usePagination#table-options) */
+  paginationOptions?: UsePaginationOptions<Data> & PaginationOptions<Data>
 
   /** Freeze headers to the top and footers to the bottom while scrolling. @default true */
   freezeOptions?: boolean | { header?: boolean; footer?: boolean }
@@ -48,7 +54,21 @@ export type ElementRef<E extends Element = HTMLDivElement> =
   | undefined
 
 interface SortingOptions {
+  /** @default '⇅' */
   defaultIndicator?: ReactNode
+  /** @default '↑' */
   ascendingIndicator?: ReactNode
+  /** @default '↓' */
   descendingIndicator?: ReactNode
+}
+
+interface PaginationOptions<Data extends DataType> {
+  /** Disable pagination. @default false */
+  disablePagination?: boolean
+  /** Initial settings of pagination */
+  initialState?: Partial<UsePaginationState<Data>>
+  /** Callback to fetch more data when `manualPagination` is enabled.
+   * It receives current pagination state as parameter.
+   * It should be wrapped in `React.useCallback`. */
+  fetchMoreData?: (paginationState: UsePaginationState<Data>) => void
 }

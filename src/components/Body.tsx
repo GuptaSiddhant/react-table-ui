@@ -14,13 +14,13 @@ const Body = <Data extends DataType>(
   props: TableContext<Data>
 ): JSX.Element => {
   const { tableInstance } = props
-  const { rows, prepareRow, getTableBodyProps } = tableInstance
+  const { rows, page, prepareRow, getTableBodyProps } = tableInstance
   return (
     <StyledBody
       className={createClassName('tbody body')}
       {...getTableBodyProps()}
     >
-      {rows.map((row) => {
+      {(page || rows).map((row) => {
         prepareRow(row)
         return (
           <Row {...row.getRowProps()}>

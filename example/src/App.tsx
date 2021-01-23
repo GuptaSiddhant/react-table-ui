@@ -1,7 +1,8 @@
 import React from 'react'
 import { HeaderProps } from 'react-table'
 import {
-  ReactTableUI,
+  Table,
+  Pagination,
   useReactTableUI,
   ReactTableUIProps
 } from 'react-table-ui'
@@ -23,12 +24,10 @@ const App = () => {
       {
         Header: 'Name',
         sticky: 'left',
-        // Footer: 'Foot',
         columns: [
           {
             Header: 'First Name',
-            accessor: 'firstName',
-            Footer: 'Foot'
+            accessor: 'firstName'
           },
           {
             Header: 'Last Name',
@@ -40,6 +39,7 @@ const App = () => {
       {
         Header: 'Age',
         accessor: 'age',
+        disableSortBy: true,
         Filter: (_: HeaderProps<User>) => null
       },
       {
@@ -58,18 +58,26 @@ const App = () => {
     []
   )
 
-  const state = useReactTableUI({ data, columns })
+  const state = useReactTableUI({
+    data,
+    columns,
+    paginationOptions: { initialState: { pageSize: 20, pageIndex: 0 } }
+  })
+
   return (
-    <div
-      style={{
-        width: '100%',
-        height: '500px',
-        border: '2px solid black',
-        overflow: 'hidden'
-      }}
-    >
-      <ReactTableUI {...state} />
-    </div>
+    <>
+      <div
+        style={{
+          width: '100%',
+          height: '500px',
+          border: '2px solid black',
+          overflow: 'hidden'
+        }}
+      >
+        <Table {...state} />
+      </div>
+      <Pagination {...state} />
+    </>
   )
 }
 

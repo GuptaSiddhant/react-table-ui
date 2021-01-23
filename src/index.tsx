@@ -1,8 +1,8 @@
 import * as React from 'react'
-import type { UseSortByOptions } from 'react-table'
 import useReactTableUI from './logic/useReactTableUI'
 import type { DataType, ReactTableUIProps } from './utilities/interface'
 import Table from './components/Table'
+import Pagination from './components/Pagination'
 
 const ReactTableUI = <Data extends DataType>(
   tableProps: ReactTableUIProps<Data>
@@ -12,6 +12,6 @@ const ReactTableUI = <Data extends DataType>(
 
 export default ReactTableUI
 
-export { useReactTableUI, Table as ReactTableUI }
+export { useReactTableUI, Table, Pagination }
 
-export type { ReactTableUIProps, UseSortByOptions }
+export type { ReactTableUIProps }
