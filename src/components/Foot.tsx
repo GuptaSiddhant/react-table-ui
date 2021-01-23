@@ -29,7 +29,7 @@ const Foot = <Data extends DataType>(
 ): JSX.Element | null => {
   const {
     tableInstance,
-    tableProps: { stickyOptions = true, columns }
+    tableProps: { freezeOptions = true, columns }
   } = props
 
   const showFooter = columns?.some(function hasFooter(column): boolean {
@@ -39,11 +39,11 @@ const Foot = <Data extends DataType>(
   const { headerGroups } = tableInstance
   const footerGroups = headerGroups.slice().reverse()
 
-  const stickyFoot =
-    stickyOptions === true ||
-    (stickyOptions !== false && stickyOptions?.footer !== false)
+  const freezeFoot =
+    freezeOptions === true ||
+    (freezeOptions !== false && freezeOptions?.footer !== false)
 
-  const classNames = 'tfoot footer ' + (stickyFoot ? 'sticky' : '')
+  const classNames = 'tfoot footer ' + (freezeFoot ? 'sticky' : '')
 
   return showFooter ? (
     <StyledFoot className={createClassName(classNames)} role='rowgroup'>

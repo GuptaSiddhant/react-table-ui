@@ -12,6 +12,6 @@ const ReactTableUI = <Data extends DataType>(
 
 export default ReactTableUI
 
-export { useReactTableUI }
+export { useReactTableUI, Table as ReactTableUI }
 
 export type { ReactTableUIProps, UseSortByOptions }

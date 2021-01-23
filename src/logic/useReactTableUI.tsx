@@ -4,7 +4,7 @@ import type { Column } from 'react-table'
 import { useSticky } from 'react-table-sticky'
 import type { DataType, ReactTableUIProps } from '../utilities/interface'
 import { createDefaultColumns } from '../utilities'
-import { DefaultColumnFilter } from '../utilities/filters'
+import { DefaultColumnFilter } from '../filters'
 
 /** Core */
 export const useReactTableUI = <Data extends DataType>(
@@ -40,7 +40,8 @@ export const useReactTableUI = <Data extends DataType>(
     useSticky
   )
 
-  return { tableInstance, tableProps }
+  const tableState = { tableInstance, tableProps }
+  return tableState
 }
 
 export default useReactTableUI

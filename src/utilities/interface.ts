@@ -32,8 +32,8 @@ export interface ReactTableUIProps<Data extends DataType>
    * @see [RT useFilters API - Table options](https://react-table.tanstack.com/docs/api/useFilters#table-options) */
   filterOptions?: UseFiltersOptions<Data> & SortingOptions
 
-  /** Stick headers to the top and footers to the bottom while scrolling. @default true */
-  stickyOptions?: boolean | { header?: boolean; footer?: boolean }
+  /** Freeze headers to the top and footers to the bottom while scrolling. @default true */
+  freezeOptions?: boolean | { header?: boolean; footer?: boolean }
 }
 
 export interface TableContext<Data extends DataType> {

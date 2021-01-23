@@ -1,10 +1,24 @@
 import React from 'react'
-import ReactTableUI, { ReactTableUIProps } from 'react-table-ui'
+import { HeaderProps } from 'react-table'
+import {
+  ReactTableUI,
+  useReactTableUI,
+  ReactTableUIProps
+} from 'react-table-ui'
 import makeData from './makeData'
 
+interface User {
+  firstName: string
+  lastName: string
+  age: number
+  visits: number
+  status: string
+  progress: number
+}
+
 const App = () => {
-  const data = React.useMemo(() => makeData(100, 10), [])
-  const columns: ReactTableUIProps<any>['columns'] = React.useMemo(
+  const data: User[] = React.useMemo(() => makeData(100, 10), [])
+  const columns: ReactTableUIProps<User>['columns'] = React.useMemo(
     () => [
       {
         Header: 'Name',
@@ -25,7 +39,8 @@ const App = () => {
 
       {
         Header: 'Age',
-        accessor: 'age'
+        accessor: 'age',
+        Filter: (_: HeaderProps<User>) => null
       },
       {
         Header: 'Visits',
@@ -42,6 +57,8 @@ const App = () => {
     ],
     []
   )
+
+  const state = useReactTableUI({ data, columns })
   return (
     <div
       style={{
@@ -51,11 +68,7 @@ const App = () => {
         overflow: 'hidden'
       }}
     >
-      <ReactTableUI<object>
-        data={data}
-        columns={columns}
-        filterOptions={{ disableFilters: true }}
-      />
+      <ReactTableUI {...state} />
     </div>
   )
 }
