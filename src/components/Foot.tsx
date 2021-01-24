@@ -5,12 +5,14 @@ import { createClassName } from '../utilities'
 import type { DataType, TableContext } from '../utilities/interface'
 import Row from './Row'
 import Cell from './Cell'
+import Status from './Status'
 
 const StyledFoot = styled.div`
   position: sticky;
   z-index: 5;
   width: 100%;
   bottom: 0;
+  background: white;
 `
 
 const renderFooterCellContent = <Data extends DataType>(
@@ -29,7 +31,7 @@ const Foot = <Data extends DataType>(
 ): JSX.Element | null => {
   const {
     tableInstance,
-    tableProps: { freezeOptions = true, columns }
+    tableProps: { freezeOptions, columns }
   } = props
 
   const showFooter = columns?.some(function hasFooter(column): boolean {
@@ -39,32 +41,32 @@ const Foot = <Data extends DataType>(
   const { headerGroups } = tableInstance
   const footerGroups = headerGroups.slice().reverse()
 
-  const freezeFoot =
-    freezeOptions === true ||
-    (freezeOptions !== false && freezeOptions?.footer !== false)
+  const freezeFoot = freezeOptions?.footer !== false
 
   const classNames = 'tfoot footer ' + (freezeFoot ? 'sticky' : '')
 
-  return showFooter ? (
+  return (
     <StyledFoot className={createClassName(classNames)} role='rowgroup'>
-      {footerGroups.map((group) => {
-        const rowHasFooter = group.headers.some(({ Footer }) =>
-          typeof Footer === 'function'
-            ? Footer.name !== 'emptyRenderer'
-            : !!Footer
-        )
-        return rowHasFooter ? (
-          <Row {...group.getHeaderGroupProps()}>
-            {group.headers.map((column) => (
-              <Cell {...column.getHeaderProps()}>
-                {renderFooterCellContent<Data>(column)}
-              </Cell>
-            ))}
-          </Row>
-        ) : null
-      })}
+      {showFooter &&
+        footerGroups.map((group) => {
+          const rowHasFooter = group.headers.some(({ Footer }) =>
+            typeof Footer === 'function'
+              ? Footer.name !== 'emptyRenderer'
+              : !!Footer
+          )
+          return rowHasFooter ? (
+            <Row {...group.getHeaderGroupProps()}>
+              {group.headers.map((column) => (
+                <Cell {...column.getHeaderProps()}>
+                  {renderFooterCellContent<Data>(column)}
+                </Cell>
+              ))}
+            </Row>
+          ) : null
+        })}
+      <Status {...props} />
     </StyledFoot>
-  ) : null
+  )
 }
 
 export default Foot

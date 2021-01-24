@@ -89,11 +89,9 @@ const Head = <Data extends DataType>(
 ): JSX.Element => {
   const { tableInstance, tableProps } = props
   const { headerGroups } = tableInstance
-  const { freezeOptions = true } = tableProps
+  const { freezeOptions } = tableProps
 
-  const freezeHead =
-    freezeOptions === true ||
-    (freezeOptions !== false && freezeOptions?.header !== false)
+  const freezeHead = freezeOptions?.header !== false
 
   const classNames = 'thead header ' + (freezeHead ? 'sticky' : '')
 

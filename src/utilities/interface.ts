@@ -12,8 +12,7 @@ import type {
 export type DataType = Record<string, any>
 
 /** Props supported by React Table UI. */
-export interface ReactTableUIProps<Data extends DataType>
-  extends Omit<UseTableOptions<Data>, 'columns'> {
+export interface ReactTableUIProps<Data extends DataType> {
   /** Memoised data-array of the table.
    * The data object should be structured as column:value pair. */
   data: Data[]
@@ -21,6 +20,9 @@ export interface ReactTableUIProps<Data extends DataType>
   /** Memoised column definitions of the table. (Optional, can be generated from keys in `data` object).
    * Each column object can define its data accessor, properties and behavior. */
   columns?: Column<Data>[]
+
+  /** Manage loading state of table. */
+  loadingOptions?: LoadingOptions
 
   /** useTable Table options
    * @see [RT useTable API - Table options](https://react-table.tanstack.com/docs/api/useTable#table-options) */
@@ -38,8 +40,8 @@ export interface ReactTableUIProps<Data extends DataType>
    * @see [RT usePagination API - Table options](https://react-table.tanstack.com/docs/api/usePagination#table-options) */
   paginationOptions?: UsePaginationOptions<Data> & PaginationOptions<Data>
 
-  /** Freeze headers to the top and footers to the bottom while scrolling. @default true */
-  freezeOptions?: boolean | { header?: boolean; footer?: boolean }
+  /** Freeze headers to the top and footers to the bottom while scrolling. @default true for both */
+  freezeOptions?: { header?: boolean; footer?: boolean }
 }
 
 export interface TableContext<Data extends DataType> {
@@ -71,4 +73,22 @@ interface PaginationOptions<Data extends DataType> {
    * It receives current pagination state as parameter.
    * It should be wrapped in `React.useCallback`. */
   fetchMoreData?: (paginationState: UsePaginationState<Data>) => void
+}
+
+interface LoadingOptions {
+  /** Loading state. @default false */
+  isLoading?: boolean
+  /** Whether to show loading state for whole table or each cell.
+   *  @default 'table' */
+  loaderType?: 'table' | 'cell'
+  /** Component rendered during loading.
+   * @default Spinner for Table
+   * @default Skeleton for Cell */
+  LoadingIndicator?: ReactNode
+  /** If true, loading is done in background.
+   * Loading indicator is not shown if there is data on screen.
+   * @default true */
+  backgroundLoading?: boolean
+  /** Loading status is shown in status bar @default true */
+  showLoadingStatus?: boolean
 }
