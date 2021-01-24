@@ -24,6 +24,14 @@ const Cell = styled.div.attrs(() => ({
   [data-sticky-first-right-td] {
     box-shadow: -2px 0px 3px #ccc;
   }
+
+  .loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
 `
 
 export default Cell

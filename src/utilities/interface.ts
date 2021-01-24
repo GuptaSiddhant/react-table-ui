@@ -78,13 +78,9 @@ interface PaginationOptions<Data extends DataType> {
 interface LoadingOptions {
   /** Loading state. @default false */
   isLoading?: boolean
-  /** Whether to show loading state for whole table or each cell.
-   *  @default 'table' */
-  loaderType?: 'table' | 'cell'
   /** Component rendered during loading.
-   * @default Spinner for Table
-   * @default Skeleton for Cell */
-  LoadingIndicator?: ReactNode
+   * @default Spinner */
+  loadingIndicator?: JSX.Element
   /** If true, loading is done in background.
    * Loading indicator is not shown if there is data on screen.
    * @default true */

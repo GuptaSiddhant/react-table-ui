@@ -61,8 +61,10 @@ const App = () => {
   const state = useReactTableUI({
     data,
     columns,
-    paginationOptions: { initialState: { pageSize: 20, pageIndex: 0 } }
-  })
+    loadingOptions: {
+      isLoading: true
+    }
+  } as any)
 
   return (
     <>

@@ -15,22 +15,51 @@ const StyledTable = styled.div`
   > * {
     box-sizing: border-box;
   }
+
+  .loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
 `
+
+const Loader: React.FC = () => <div className='loader'>Loading...</div>
 
 const Table = <Data extends DataType>(
   props: TableContext<Data>,
   ref: ElementRef
-): JSX.Element => {
+): JSX.Element | null => {
   const { getTableProps } = props.tableInstance
+  const { loadingOptions = {}, data = [] } = props.tableProps
+  const {
+    isLoading = false,
+    loadingIndicator = <Loader />,
+    backgroundLoading = true
+  } = loadingOptions
+
+  const showLoading = backgroundLoading
+    ? data.length === 0
+      ? isLoading
+      : false
+    : isLoading
+
   return (
     <StyledTable
       ref={ref}
       className={createClassName('table sticky')}
       {...getTableProps()}
     >
-      <Head {...props} />
-      <Body {...props} />
-      <Foot {...props} />
+      {showLoading ? (
+        loadingIndicator
+      ) : (
+        <React.Fragment>
+          <Head {...props} />
+          <Body {...props} />
+          <Foot {...props} />
+        </React.Fragment>
+      )}
     </StyledTable>
   )
 }
