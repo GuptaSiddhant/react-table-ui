@@ -30,13 +30,17 @@ const Status = <Data extends DataType>({
   else {
     if (disablePagination) status = `Total ${rows.length} rows`
     else {
-      if (manualPagination) {
-        status = `Showing ${page.length} of ~${pageCount * pageSize} results`
+      if (rows.length === 0) {
+        status = 'No records'
       } else {
-        const totalResults = rows.length.toLocaleString()
-        const startRow = pageIndex * pageSize + 1
-        const endRow = pageIndex * pageSize + page.length
-        status = `Showing ${startRow}-${endRow} of ${totalResults} results`
+        if (manualPagination) {
+          status = `Showing ${page.length} of ~${pageCount * pageSize} records`
+        } else {
+          const totalResults = rows.length.toLocaleString()
+          const startRow = pageIndex * pageSize + 1
+          const endRow = pageIndex * pageSize + page.length
+          status = `Showing ${startRow}-${endRow} of ${totalResults} records`
+        }
       }
     }
   }

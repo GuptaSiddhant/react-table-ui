@@ -31,7 +31,8 @@ export default function makeData(...lens: number[]) {
     return range(len).map(() => {
       return {
         ...newPerson(),
-        subRows: lens[depth + 1] ? makeDataLevel(depth + 1) : undefined
+        subRows: lens[depth + 1] ? makeDataLevel(depth + 1) : undefined,
+        subComponent: lens[depth + 1] ? undefined : 'Subs'
       }
     })
   }

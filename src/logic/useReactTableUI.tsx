@@ -4,7 +4,8 @@ import {
   useSortBy,
   useFilters,
   usePagination,
-  useFlexLayout
+  useFlexLayout,
+  useExpanded
 } from 'react-table'
 import type { Column } from 'react-table'
 import { useSticky } from 'react-table-sticky'
@@ -12,18 +13,22 @@ import type { DataType, ReactTableUIProps } from '../utilities/interface'
 import { createDefaultColumns } from '../utilities'
 import { DefaultColumnFilter } from '../filters'
 import useManualPagination from './useManualPagination'
+import getUseExpandedColumn from './useExpandedColumn'
 
 /** Core */
 export const useReactTableUI = <Data extends DataType>(
   tableProps: ReactTableUIProps<Data>
 ) => {
+  const useExpandedColumn = getUseExpandedColumn(tableProps)
+
   const {
     data = [],
     columns = createDefaultColumns(data),
     tableOptions = {},
     filterOptions = {},
     sortByOptions = {},
-    paginationOptions = {}
+    paginationOptions = {},
+    expandedOptions = {}
   } = tableProps
 
   const {
@@ -31,6 +36,10 @@ export const useReactTableUI = <Data extends DataType>(
     disablePagination,
     ...paginationTableOptions
   } = paginationOptions
+  const {
+    initialState: initialExpandedState,
+    ...expandedTableOptions
+  } = expandedOptions
 
   const defaultColumn: Partial<Column<Data>> = React.useMemo(
     () => ({
@@ -48,10 +57,16 @@ export const useReactTableUI = <Data extends DataType>(
       ...filterOptions,
       ...sortByOptions,
       ...paginationTableOptions,
-      initialState: { ...initialPaginationState }
+      ...expandedTableOptions,
+      initialState: {
+        ...initialPaginationState,
+        ...initialExpandedState
+      }
     },
     useFilters,
     useSortBy,
+    useExpanded,
+    useExpandedColumn,
     disablePagination ? () => {} : usePagination,
     useFlexLayout,
     useSticky

@@ -22,12 +22,18 @@ const Body = <Data extends DataType>(
     >
       {(page || rows).map((row) => {
         prepareRow(row)
+        const subComponent: React.ReactNode = row.original.subComponent
         return (
-          <Row {...row.getRowProps()}>
-            {row.cells.map((cell) => {
-              return <Cell {...cell.getCellProps()}>{cell.render('Cell')}</Cell>
-            })}
-          </Row>
+          <React.Fragment>
+            <Row {...row.getRowProps()}>
+              {row.cells.map((cell) => {
+                return (
+                  <Cell {...cell.getCellProps()}>{cell.render('Cell')}</Cell>
+                )
+              })}
+            </Row>
+            {subComponent && row.isExpanded && <Row>{subComponent}</Row>}
+          </React.Fragment>
         )
       })}
     </StyledBody>

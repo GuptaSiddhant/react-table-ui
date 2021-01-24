@@ -6,7 +6,9 @@ import type {
   UseSortByOptions,
   UseFiltersOptions,
   UsePaginationOptions,
-  UsePaginationState
+  UsePaginationState,
+  UseExpandedOptions,
+  UseExpandedState
 } from 'react-table'
 
 export type DataType = Record<string, any>
@@ -30,7 +32,7 @@ export interface ReactTableUIProps<Data extends DataType> {
 
   /** Manages sorting of the table columns.
    * @see [RT useSortBy API - Table options](https://react-table.tanstack.com/docs/api/useSortBy#table-options) */
-  sortByOptions?: UseSortByOptions<Data> & SortingOptions
+  sortByOptions?: SortingOptions<Data>
 
   /** Manages filtering of the table columns.
    * @see [RT useFilters API - Table options](https://react-table.tanstack.com/docs/api/useFilters#table-options) */
@@ -38,10 +40,14 @@ export interface ReactTableUIProps<Data extends DataType> {
 
   /** Manages pagination of the table.
    * @see [RT usePagination API - Table options](https://react-table.tanstack.com/docs/api/usePagination#table-options) */
-  paginationOptions?: UsePaginationOptions<Data> & PaginationOptions<Data>
+  paginationOptions?: PaginationOptions<Data>
 
-  /** Freeze headers to the top and footers to the bottom while scrolling. @default true for both */
-  freezeOptions?: { header?: boolean; footer?: boolean }
+  /** Manages pagination of the table.
+   * @see [RT usePagination API - Table options](https://react-table.tanstack.com/docs/api/usePagination#table-options) */
+  expandedOptions?: ExpandedOptions<Data>
+
+  /** Freeze headers to the top and footers to the bottom while scrolling. */
+  freezeOptions?: FreezeOptions
 }
 
 export interface TableContext<Data extends DataType> {
@@ -49,22 +55,17 @@ export interface TableContext<Data extends DataType> {
   tableProps: ReactTableUIProps<Data>
 }
 
-export type ElementRef<E extends Element = HTMLDivElement> =
-  | ((instance: E | null) => void)
-  | React.RefObject<E>
-  | null
-  | undefined
-
-interface SortingOptions {
-  /** @default '⇅' */
+interface SortingOptions<Data extends DataType> extends UseSortByOptions<Data> {
+  /** Indicator when column is not sorted. @default '⇅' */
   defaultIndicator?: ReactNode
-  /** @default '↑' */
+  /** Indicator when column is sorted in ascending order. @default '↑' */
   ascendingIndicator?: ReactNode
-  /** @default '↓' */
+  /** Indicator when column is sorted in descending order. @default '↓' */
   descendingIndicator?: ReactNode
 }
 
-interface PaginationOptions<Data extends DataType> {
+interface PaginationOptions<Data extends DataType>
+  extends UsePaginationOptions<Data> {
   /** Disable pagination. @default false */
   disablePagination?: boolean
   /** Initial settings of pagination */
@@ -78,9 +79,8 @@ interface PaginationOptions<Data extends DataType> {
 interface LoadingOptions {
   /** Loading state. @default false */
   isLoading?: boolean
-  /** Component rendered during loading.
-   * @default Spinner */
-  loadingIndicator?: JSX.Element
+  /** Component rendered during loading. @default Spinner */
+  loadingIndicator?: ReactNode
   /** If true, loading is done in background.
    * Loading indicator is not shown if there is data on screen.
    * @default true */
@@ -88,3 +88,24 @@ interface LoadingOptions {
   /** Loading status is shown in status bar @default true */
   showLoadingStatus?: boolean
 }
+
+interface ExpandedOptions<Data extends DataType>
+  extends UseExpandedOptions<Data> {
+  /** Initial settings of expanded. */
+  initialState?: Partial<UseExpandedState<Data>>
+  /** Indicator for collapsed row. @default '▶️' */
+  collapsedIndicator?: ReactNode
+  /** Indicator for expanded row. @default '🔽' */
+  expandedIndicator?: ReactNode
+}
+
+interface FreezeOptions {
+  /** @default true */ header?: boolean
+  /** @default true */ footer?: boolean
+}
+
+export type ElementRef<E extends Element = HTMLDivElement> =
+  | ((instance: E | null) => void)
+  | React.RefObject<E>
+  | null
+  | undefined

@@ -18,12 +18,12 @@ interface User {
 }
 
 const App = () => {
-  const data: User[] = React.useMemo(() => makeData(100, 10), [])
+  const data: User[] = React.useMemo(() => makeData(5, 5, 5), [])
   const columns: ReactTableUIProps<User>['columns'] = React.useMemo(
     () => [
       {
         Header: 'Name',
-        sticky: 'left',
+
         columns: [
           {
             Header: 'First Name',
@@ -61,9 +61,8 @@ const App = () => {
   const state = useReactTableUI({
     data,
     columns,
-    loadingOptions: {
-      isLoading: true
-    }
+    paginationOptions: { paginateExpandedRows: false }
+    // loadingOptions: { isLoading: true, backgroundLoading: false }
   } as any)
 
   return (
