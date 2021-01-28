@@ -23,16 +23,19 @@ const Body = <Data extends DataType>(
       {(page || rows).map((row) => {
         prepareRow(row)
         const subComponent: React.ReactNode = row.original.subComponent
+        const rowProps = row.getRowProps()
         return (
-          <React.Fragment>
-            <Row {...row.getRowProps()}>
+          <React.Fragment key={rowProps.key}>
+            <Row {...rowProps}>
               {row.cells.map((cell) => {
                 return (
                   <Cell {...cell.getCellProps()}>{cell.render('Cell')}</Cell>
                 )
               })}
             </Row>
-            {subComponent && row.isExpanded && <Row>{subComponent}</Row>}
+            {subComponent && row.isExpanded && (
+              <Row key={rowProps.key + '_subComponent'}>{subComponent}</Row>
+            )}
           </React.Fragment>
         )
       })}

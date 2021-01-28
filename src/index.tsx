@@ -14,4 +14,4 @@ export default ReactTableUI
 
 export { useReactTableUI, Table, Pagination }
 
-export type { ReactTableUIProps }
+export type { ReactTableUIProps, DataType }

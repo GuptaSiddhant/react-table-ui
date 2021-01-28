@@ -1,5 +1,5 @@
 import * as React from 'react'
-import type { Hooks, CellProps, HeaderProps } from 'react-table'
+import type { Hooks, CellProps, HeaderProps, Column } from 'react-table'
 import type { DataType, ReactTableUIProps } from '../utilities/interface'
 
 const getUseExpandedColumn = <Data extends DataType>(
@@ -7,6 +7,10 @@ const getUseExpandedColumn = <Data extends DataType>(
 ) => {
   const { collapsedIndicator = '▶️', expandedIndicator = '🔽' } =
     props.expandedOptions || {}
+
+  const disableExpander = !props.data.some(
+    (d) => d.subRows?.length || d.subComponent
+  )
 
   const Header = ({
     getToggleAllRowsExpandedProps,
@@ -28,18 +32,20 @@ const getUseExpandedColumn = <Data extends DataType>(
       </span>
     ) : null
 
-  return (hooks: Hooks<Data>): void => {
-    hooks.visibleColumns.push((columns) => [
-      {
-        id: 'expander',
-        minWidth: 10,
-        maxWidth: 50,
-        sticky: 'left',
-        Header,
-        Cell
-      },
-      ...columns
-    ])
+  const expanderColumn: Column<Data> = {
+    id: 'expander',
+    minWidth: 10,
+    maxWidth: 50,
+    sticky: 'left',
+    Header,
+    Cell
+  }
+
+  return {
+    useExpandedColumn: (hooks: Hooks<Data>): void => {
+      hooks.visibleColumns.push((columns) => [expanderColumn, ...columns])
+    },
+    disableExpander
   }
 }
 export default getUseExpandedColumn

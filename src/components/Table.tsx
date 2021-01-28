@@ -31,7 +31,7 @@ const Table = <Data extends DataType>(
   props: TableContext<Data>,
   ref: ElementRef
 ): JSX.Element | null => {
-  const { getTableProps } = props.tableInstance
+  const { getTableProps, rows } = props.tableInstance
   const { loadingOptions = {}, data = [] } = props.tableProps
   const {
     isLoading = false,
@@ -50,6 +50,7 @@ const Table = <Data extends DataType>(
       ref={ref}
       className={createClassName('table sticky')}
       {...getTableProps()}
+      aria-rowcount={rows.length}
     >
       {showLoading ? (
         loadingIndicator

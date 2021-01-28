@@ -18,24 +18,17 @@ interface User {
 }
 
 const App = () => {
-  const data: User[] = React.useMemo(() => makeData(5, 5, 5), [])
+  const data: User[] = React.useMemo(() => makeData(5), [])
   const columns: ReactTableUIProps<User>['columns'] = React.useMemo(
     () => [
       {
-        Header: 'Name',
-
-        columns: [
-          {
-            Header: 'First Name',
-            accessor: 'firstName'
-          },
-          {
-            Header: 'Last Name',
-            accessor: 'lastName'
-          }
-        ]
+        Header: 'First Name',
+        accessor: 'firstName'
       },
-
+      {
+        Header: 'Last Name',
+        accessor: 'lastName'
+      },
       {
         Header: 'Age',
         accessor: 'age',
@@ -60,17 +53,18 @@ const App = () => {
 
   const state = useReactTableUI({
     data,
-    columns,
-    paginationOptions: { paginateExpandedRows: false }
+    columns
+    // rowSelectOptions: { disableRowSelect: true }
+    // paginationOptions: { paginateExpandedRows: false }
     // loadingOptions: { isLoading: true, backgroundLoading: false }
-  } as any)
+  })
 
   return (
     <>
       <div
         style={{
           width: '100%',
-          height: '500px',
+          height: 'calc(100vh - 40px)',
           border: '2px solid black',
           overflow: 'hidden'
         }}

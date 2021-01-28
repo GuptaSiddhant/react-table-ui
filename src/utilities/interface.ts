@@ -8,10 +8,25 @@ import type {
   UsePaginationOptions,
   UsePaginationState,
   UseExpandedOptions,
-  UseExpandedState
+  UseExpandedState,
+  UseSortByState,
+  UseRowSelectOptions,
+  UseRowSelectState,
+  TableToggleCommonProps
 } from 'react-table'
 
-export type DataType = Record<string, any>
+export interface DataType {
+  /** Select data-row by default. */
+  isSelected?: boolean
+  /** Always expanded data-row, regardless of state. */
+  expanded?: boolean
+  /** Sub rows visible when expanded. */
+  subRows?: DataType[]
+  /** Custom component shown when row is expanded. */
+  subComponent?: ReactNode
+  /** Custom data properties. */
+  [key: string]: any
+}
 
 /** Props supported by React Table UI. */
 export interface ReactTableUIProps<Data extends DataType> {
@@ -46,6 +61,10 @@ export interface ReactTableUIProps<Data extends DataType> {
    * @see [RT usePagination API - Table options](https://react-table.tanstack.com/docs/api/usePagination#table-options) */
   expandedOptions?: ExpandedOptions<Data>
 
+  /** Manages row-selection of the table.
+   * @see [RT useRowSelect API - Table options](https://react-table.tanstack.com/docs/api/useRowSelect#table-options) */
+  rowSelectOptions?: RowSelectOptions<Data>
+
   /** Freeze headers to the top and footers to the bottom while scrolling. */
   freezeOptions?: FreezeOptions
 }
@@ -62,6 +81,8 @@ interface SortingOptions<Data extends DataType> extends UseSortByOptions<Data> {
   ascendingIndicator?: ReactNode
   /** Indicator when column is sorted in descending order. @default '↓' */
   descendingIndicator?: ReactNode
+  /** Initial settings of sorting */
+  initialState?: Partial<UseSortByState<Data>>
 }
 
 interface PaginationOptions<Data extends DataType>
@@ -97,6 +118,16 @@ interface ExpandedOptions<Data extends DataType>
   collapsedIndicator?: ReactNode
   /** Indicator for expanded row. @default '🔽' */
   expandedIndicator?: ReactNode
+}
+
+interface RowSelectOptions<Data extends DataType>
+  extends UseRowSelectOptions<Data> {
+  /** Disable row selection. @default false */
+  disableRowSelect?: boolean
+  /** Initial settings of rowSelect. */
+  initialState?: Partial<UseRowSelectState<Data>>
+  /** Component to render to denote row selection */
+  Checkbox?: React.FC<TableToggleCommonProps>
 }
 
 interface FreezeOptions {

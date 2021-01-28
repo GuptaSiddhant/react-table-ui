@@ -109,6 +109,7 @@ declare module 'react-table' {
       UseSortByColumnOptions<D> {
     Footer?: ReactNode
     columns?: Column<D>[]
+    sticky?: 'left' | 'right'
   }
 
   export interface ColumnInstance<

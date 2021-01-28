@@ -4,6 +4,7 @@ import {
   useSortBy,
   useFilters,
   usePagination,
+  useRowSelect,
   useFlexLayout,
   useExpanded
 } from 'react-table'
@@ -14,12 +15,18 @@ import { createDefaultColumns } from '../utilities'
 import { DefaultColumnFilter } from '../filters'
 import useManualPagination from './useManualPagination'
 import getUseExpandedColumn from './useExpandedColumn'
+import getUseRowSelectColumn from './useRowSelectColumn'
+
+const NOOP = () => {}
 
 /** Core */
 export const useReactTableUI = <Data extends DataType>(
   tableProps: ReactTableUIProps<Data>
 ) => {
-  const useExpandedColumn = getUseExpandedColumn(tableProps)
+  const { useExpandedColumn, disableExpander } = getUseExpandedColumn(
+    tableProps
+  )
+  const useRowSelectColumn = getUseRowSelectColumn(tableProps)
 
   const {
     data = [],
@@ -28,9 +35,14 @@ export const useReactTableUI = <Data extends DataType>(
     filterOptions = {},
     sortByOptions = {},
     paginationOptions = {},
-    expandedOptions = {}
+    expandedOptions = {},
+    rowSelectOptions = {}
   } = tableProps
 
+  const {
+    initialState: initialSortByState,
+    ...sortByTableOptions
+  } = sortByOptions
   const {
     initialState: initialPaginationState,
     disablePagination,
@@ -40,6 +52,11 @@ export const useReactTableUI = <Data extends DataType>(
     initialState: initialExpandedState,
     ...expandedTableOptions
   } = expandedOptions
+  const {
+    initialState: initialRowSelectState,
+    disableRowSelect = false,
+    ...rowSelectTableOptions
+  } = rowSelectOptions
 
   const defaultColumn: Partial<Column<Data>> = React.useMemo(
     () => ({
@@ -55,19 +72,24 @@ export const useReactTableUI = <Data extends DataType>(
       defaultColumn,
       ...tableOptions,
       ...filterOptions,
-      ...sortByOptions,
+      ...sortByTableOptions,
       ...paginationTableOptions,
       ...expandedTableOptions,
+      ...rowSelectTableOptions,
       initialState: {
-        ...initialPaginationState,
-        ...initialExpandedState
+        ...initialSortByState,
+        ...{ pageSize: 20, ...initialPaginationState },
+        ...initialExpandedState,
+        ...initialRowSelectState
       }
     },
     useFilters,
     useSortBy,
-    useExpanded,
-    useExpandedColumn,
-    disablePagination ? () => {} : usePagination,
+    disableExpander ? NOOP : useExpanded,
+    disableExpander ? NOOP : useExpandedColumn,
+    disablePagination ? NOOP : usePagination,
+    disableRowSelect ? NOOP : useRowSelect,
+    disableRowSelect ? NOOP : useRowSelectColumn,
     useFlexLayout,
     useSticky
   )

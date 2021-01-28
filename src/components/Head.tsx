@@ -44,13 +44,16 @@ const HeadCell = <Data extends DataType>(
       {...{
         ...headCellProps,
         onClick: undefined,
-        style: {
-          ...headCellProps.style,
-          cursor: 'inherit',
-          fontWeight: 'bold'
-        },
         title,
         className
+      }}
+      style={{
+        ...headCellProps.style,
+        cursor: 'inherit',
+        fontWeight: 'bold',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between'
       }}
     >
       <div style={{ display: 'flex' }}>
@@ -92,14 +95,13 @@ const Head = <Data extends DataType>(
   const { freezeOptions } = tableProps
 
   const freezeHead = freezeOptions?.header !== false
-
   const classNames = 'thead header ' + (freezeHead ? 'sticky' : '')
 
   return (
     <StyledHead className={createClassName(classNames)} role='rowgroup'>
-      {headerGroups.map((headerGroup) => (
-        <Row {...headerGroup.getHeaderGroupProps()}>
-          {headerGroup.headers.map((column) => (
+      {headerGroups.map(({ getHeaderGroupProps, headers }) => (
+        <Row {...getHeaderGroupProps()}>
+          {headers.map((column) => (
             <HeadCell
               key={column.getHeaderProps().key || ''}
               {...{ column, ...props }}
