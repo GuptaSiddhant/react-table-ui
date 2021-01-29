@@ -1,17 +1,13 @@
 import * as React from 'react'
-import styled from 'styled-components'
 import { createClassName } from '../utilities'
 import type { DataType, ElementRef, TableContext } from '../utilities/interface'
 
-const StyledPagination = styled.div`
-  height: 100%;
-  min-width: 100%;
-  border: 1px solid #ddd;
-  &,
-  > * {
-    box-sizing: border-box;
-  }
-`
+const stylesPagination: React.CSSProperties = {
+  height: '100%',
+  width: '100%',
+  border: '1px solid #ddd',
+  boxSizing: 'border-box'
+}
 
 const Pagination = <Data extends DataType>(
   props: TableContext<Data>,
@@ -30,9 +26,10 @@ const Pagination = <Data extends DataType>(
   } = props.tableInstance
   const isLoading = props.tableProps.loadingOptions?.isLoading
   return (
-    <StyledPagination
+    <div
       ref={ref}
       className={createClassName('pagination' + (isLoading ? ' loading' : ''))}
+      style={stylesPagination}
     >
       <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
         {'<<'}
@@ -76,7 +73,7 @@ const Pagination = <Data extends DataType>(
           </option>
         ))}
       </select>
-    </StyledPagination>
+    </div>
   )
 }
 

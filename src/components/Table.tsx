@@ -1,31 +1,42 @@
 import * as React from 'react'
-import styled from 'styled-components'
-import { createClassName } from '../utilities'
+import { createClassName, addStylesheet } from '../utilities'
 import type { DataType, ElementRef, TableContext } from '../utilities/interface'
 import Head from '../components/Head'
 import Body from '../components/Body'
 import Foot from '../components/Foot'
 
-const StyledTable = styled.div`
-  height: 100%;
-  min-width: 100%;
-  overflow: scroll;
-  border: 1px solid #ddd;
-  &,
-  > * {
+const cssString = `
+  .table * {
     box-sizing: border-box;
   }
 
-  .loader {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
+  [data-sticky-td] {
+    position: sticky;
+  }
+
+  [data-sticky-last-left-td] {
+    box-shadow: 2px 0px 3px #ccc;
+  }
+
+  [data-sticky-first-right-td] {
+    box-shadow: -2px 0px 3px #ccc;
   }
 `
 
-const Loader: React.FC = () => <div className='loader'>Loading...</div>
+const Loader: React.FC = () => (
+  <div
+    className='loader'
+    style={{
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '100%',
+      height: '100%'
+    }}
+  >
+    Loading...
+  </div>
+)
 
 const Table = <Data extends DataType>(
   props: TableContext<Data>,
@@ -45,12 +56,21 @@ const Table = <Data extends DataType>(
       : false
     : isLoading
 
+  addStylesheet(cssString)
+
   return (
-    <StyledTable
+    <div
       ref={ref}
       className={createClassName('table sticky')}
       {...getTableProps()}
       aria-rowcount={rows.length}
+      style={{
+        height: '100%',
+        minWidth: '100%',
+        overflow: 'scroll',
+        border: '1px solid #ddd',
+        boxSizing: 'border-box'
+      }}
     >
       {showLoading ? (
         loadingIndicator
@@ -61,7 +81,7 @@ const Table = <Data extends DataType>(
           <Foot {...props} />
         </React.Fragment>
       )}
-    </StyledTable>
+    </div>
   )
 }
 

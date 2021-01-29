@@ -1,15 +1,14 @@
 import * as React from 'react'
-import styled from 'styled-components'
 import { createClassName } from '../utilities'
 import type { DataType, TableContext } from '../utilities/interface'
 
-const StyledStatus = styled.div`
-  position: relative;
-  z-index: 0;
-  width: 100%;
-  padding: 4px;
-  border-top: 1px solid;
-`
+const stylesStatus: React.CSSProperties = {
+  position: 'relative',
+  zIndex: 0,
+  width: '100%',
+  padding: '4px',
+  borderTop: '1px solid'
+}
 
 const Status = <Data extends DataType>({
   tableProps,
@@ -45,7 +44,9 @@ const Status = <Data extends DataType>({
     }
   }
   return status !== '' ? (
-    <StyledStatus className={createClassName('status')}>{status}</StyledStatus>
+    <div className={createClassName('status')} style={stylesStatus}>
+      {status}
+    </div>
   ) : null
 }
 

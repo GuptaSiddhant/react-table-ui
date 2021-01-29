@@ -51,12 +51,13 @@ const App = () => {
     []
   )
 
+  const [isLoading, setLoading] = React.useState(false)
   const state = useReactTableUI({
     data,
-    columns
+    columns,
+    loadingOptions: { isLoading }
     // rowSelectOptions: { disableRowSelect: true }
     // paginationOptions: { paginateExpandedRows: false }
-    // loadingOptions: { isLoading: true, backgroundLoading: false }
   })
 
   return (
@@ -71,7 +72,16 @@ const App = () => {
       >
         <Table {...state} />
       </div>
-      <Pagination {...state} />
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          width: '100%'
+        }}
+      >
+        <Pagination {...state} />
+        <button onClick={() => setLoading((s) => !s)}>Load</button>
+      </div>
     </>
   )
 }

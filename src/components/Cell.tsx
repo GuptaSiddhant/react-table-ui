@@ -1,37 +1,24 @@
-// import * as React from 'react'
-import styled from 'styled-components'
+import * as React from 'react'
 import { createClassName } from '../utilities'
 
-const Cell = styled.div.attrs(() => ({
-  className: createClassName('td')
-}))`
-  padding: 4px;
-  border-bottom: 1px solid #ddd;
-  border-right: 1px solid #ddd;
-  background-color: #fff;
-  overflow: hidden;
-  :last-child {
-    border-right: 0;
-  }
-  [data-sticky-td] {
-    position: sticky;
-  }
+const style: React.CSSProperties = {
+  padding: '4px',
+  background: 'white',
+  overflow: 'hidden'
+}
 
-  [data-sticky-last-left-td] {
-    box-shadow: 2px 0px 3px #ccc;
-  }
-
-  [data-sticky-first-right-td] {
-    box-shadow: -2px 0px 3px #ccc;
-  }
-
-  .loader {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-  }
-`
+const Cell = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>((props, ref) => {
+  return (
+    <div
+      className={createClassName('td')}
+      {...props}
+      style={{ ...style, ...props.style }}
+      ref={ref}
+    />
+  )
+})
 
 export default Cell

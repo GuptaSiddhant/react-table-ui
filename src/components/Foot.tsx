@@ -1,19 +1,17 @@
 import * as React from 'react'
 import { HeaderGroup } from 'react-table'
-import styled from 'styled-components'
 import { createClassName } from '../utilities'
 import type { DataType, TableContext } from '../utilities/interface'
-import Row from './Row'
 import Cell from './Cell'
 import Status from './Status'
 
-const StyledFoot = styled.div`
-  position: sticky;
-  z-index: 5;
-  width: 100%;
-  bottom: 0;
-  background: white;
-`
+const stylesFoot: React.CSSProperties = {
+  position: 'sticky',
+  zIndex: 5,
+  width: '100%',
+  bottom: 0,
+  background: 'white'
+}
 
 const renderFooterCellContent = <Data extends DataType>(
   column: HeaderGroup<Data>
@@ -46,7 +44,11 @@ const Foot = <Data extends DataType>(
   const classNames = 'tfoot footer ' + (freezeFoot ? 'sticky' : '')
 
   return (
-    <StyledFoot className={createClassName(classNames)} role='rowgroup'>
+    <div
+      className={createClassName(classNames)}
+      role='rowgroup'
+      style={stylesFoot}
+    >
       {showFooter &&
         footerGroups.map((group) => {
           const rowHasFooter = group.headers.some(({ Footer }) =>
@@ -55,17 +57,20 @@ const Foot = <Data extends DataType>(
               : !!Footer
           )
           return rowHasFooter ? (
-            <Row {...group.getHeaderGroupProps()}>
+            <div
+              {...group.getHeaderGroupProps()}
+              className={createClassName('tr')}
+            >
               {group.headers.map((column) => (
                 <Cell {...column.getHeaderProps()}>
                   {renderFooterCellContent<Data>(column)}
                 </Cell>
               ))}
-            </Row>
+            </div>
           ) : null
         })}
       <Status {...props} />
-    </StyledFoot>
+    </div>
   )
 }
 

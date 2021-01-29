@@ -1,9 +1,7 @@
 import * as React from 'react'
-import styled from 'styled-components'
 import type { HeaderGroup } from 'react-table'
 import { createClassName } from '../utilities'
 import type { DataType, TableContext } from '../utilities/interface'
-import Row from './Row'
 import Cell from './Cell'
 
 type HeadCellProps<Data extends DataType> = TableContext<Data> & {
@@ -76,17 +74,6 @@ const HeadCell = <Data extends DataType>(
   )
 }
 
-const StyledHead = styled.div`
-  position: relative;
-  z-index: 5;
-  width: 100%;
-  top: 0;
-
-  &.sticky {
-    position: sticky;
-  }
-`
-
 const Head = <Data extends DataType>(
   props: TableContext<Data>
 ): JSX.Element => {
@@ -96,20 +83,30 @@ const Head = <Data extends DataType>(
 
   const freezeHead = freezeOptions?.header !== false
   const classNames = 'thead header ' + (freezeHead ? 'sticky' : '')
+  const stylesHead: React.CSSProperties = {
+    position: freezeHead ? 'sticky' : 'relative',
+    zIndex: 5,
+    width: '100%',
+    top: 0
+  }
 
   return (
-    <StyledHead className={createClassName(classNames)} role='rowgroup'>
+    <div
+      className={createClassName(classNames)}
+      role='rowgroup'
+      style={stylesHead}
+    >
       {headerGroups.map(({ getHeaderGroupProps, headers }) => (
-        <Row {...getHeaderGroupProps()}>
+        <div {...getHeaderGroupProps()} className={createClassName('tr')}>
           {headers.map((column) => (
             <HeadCell
               key={column.getHeaderProps().key || ''}
               {...{ column, ...props }}
             />
           ))}
-        </Row>
+        </div>
       ))}
-    </StyledHead>
+    </div>
   )
 }
 

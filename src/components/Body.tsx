@@ -1,14 +1,7 @@
 import * as React from 'react'
-import styled from 'styled-components'
 import { createClassName } from '../utilities'
 import type { DataType, TableContext } from '../utilities/interface'
-import Row from './Row'
 import Cell from './Cell'
-
-const StyledBody = styled.div`
-  position: relative;
-  z-index: 0;
-`
 
 const Body = <Data extends DataType>(
   props: TableContext<Data>
@@ -16,8 +9,9 @@ const Body = <Data extends DataType>(
   const { tableInstance } = props
   const { rows, page, prepareRow, getTableBodyProps } = tableInstance
   return (
-    <StyledBody
+    <div
       className={createClassName('tbody body')}
+      style={{ position: 'relative', zIndex: 0 }}
       {...getTableBodyProps()}
     >
       {(page || rows).map((row) => {
@@ -26,20 +20,25 @@ const Body = <Data extends DataType>(
         const rowProps = row.getRowProps()
         return (
           <React.Fragment key={rowProps.key}>
-            <Row {...rowProps}>
+            <div {...rowProps} className={createClassName('tr')}>
               {row.cells.map((cell) => {
                 return (
                   <Cell {...cell.getCellProps()}>{cell.render('Cell')}</Cell>
                 )
               })}
-            </Row>
+            </div>
             {subComponent && row.isExpanded && (
-              <Row key={rowProps.key + '_subComponent'}>{subComponent}</Row>
+              <div
+                key={rowProps.key + '_subComponent'}
+                className={createClassName('tr subComponent')}
+              >
+                {subComponent}
+              </div>
             )}
           </React.Fragment>
         )
       })}
-    </StyledBody>
+    </div>
   )
 }
 
