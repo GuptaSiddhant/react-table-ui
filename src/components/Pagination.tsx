@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { createClassName } from '../utilities'
-import type { DataType, ElementRef, TableContext } from '../utilities/interface'
+import createClassName from '../utilities/createClassName'
+import type { DataType, TableContext } from '../types'
 
 const stylesPagination: React.CSSProperties = {
   height: '100%',
@@ -9,11 +9,49 @@ const stylesPagination: React.CSSProperties = {
   boxSizing: 'border-box'
 }
 
-const Pagination = <Data extends DataType>(
-  props: TableContext<Data>,
-  ref: ElementRef
-): JSX.Element => {
+const getStatus = <Data extends DataType>({
+  tableProps,
+  tableInstance
+}: TableContext<Data>) => {
+  const { isLoading = false, showLoadingStatus = true } =
+    tableProps.loadingOptions || {}
+  const { disablePagination = false, manualPagination = false } =
+    tableProps.paginationOptions || {}
   const {
+    page,
+    rows,
+    pageCount,
+    state: { pageSize, pageIndex }
+  } = tableInstance
+  let status = ''
+  if (showLoadingStatus && isLoading) status = 'Loading...'
+  else {
+    if (disablePagination) status = `Total ${rows.length} rows`
+    else {
+      if (rows.length === 0) {
+        status = 'No records'
+      } else {
+        if (manualPagination) {
+          status = `Showing ${page.length} of ~${pageCount * pageSize} records`
+        } else {
+          const totalResults = rows.length.toLocaleString()
+          const startRow = pageIndex * pageSize + 1
+          const endRow = pageIndex * pageSize + page.length
+          status = `Showing ${startRow}-${endRow} of ${totalResults} records`
+        }
+      }
+    }
+  }
+  return status
+}
+
+const Pagination = <Data extends DataType>(
+  props: TableContext<Data>
+): JSX.Element => {
+  const Component = props.tableProps.paginationOptions?.Component
+  const status = getStatus(props)
+  const {
+    page,
     canPreviousPage,
     canNextPage,
     pageOptions,
@@ -24,13 +62,33 @@ const Pagination = <Data extends DataType>(
     setPageSize,
     state: { pageIndex, pageSize }
   } = props.tableInstance
-  const isLoading = props.tableProps.loadingOptions?.isLoading
-  return (
+
+  const isLoading: boolean = !!(props.tableProps.loadingOptions?.isLoading)
+
+  return Component ? (
+    <Component
+      {...{
+        page,
+        canPreviousPage,
+        canNextPage,
+        pageOptions,
+        pageCount,
+        gotoPage,
+        nextPage,
+        previousPage,
+        setPageSize,
+        pageIndex,
+        pageSize,
+        isLoading,
+        status
+      }}
+    />
+  ) : (
     <div
-      ref={ref}
       className={createClassName('pagination' + (isLoading ? ' loading' : ''))}
       style={stylesPagination}
     >
+      {status && <span>{status}</span>}
       <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
         {'<<'}
       </button>{' '}
@@ -77,4 +135,4 @@ const Pagination = <Data extends DataType>(
   )
 }
 
-export default React.forwardRef<HTMLDivElement, any>(Pagination)
+export default Pagination

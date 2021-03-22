@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { createClassName } from '../utilities'
+import createClassName from '../utilities/createClassName'
 
 const style: React.CSSProperties = {
   padding: '4px',

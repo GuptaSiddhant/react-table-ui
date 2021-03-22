@@ -1,17 +1,21 @@
 import * as React from 'react'
 import useReactTableUI from './logic/useReactTableUI'
-import type { DataType, ReactTableUIProps } from './utilities/interface'
+import type { DataType, ReactTableUIProps } from './types'
 import Table from './components/Table'
 import Pagination from './components/Pagination'
 
 const ReactTableUI = <Data extends DataType>(
   tableProps: ReactTableUIProps<Data>
 ): JSX.Element => {
-  return <Table {...useReactTableUI(tableProps)} />
+  const context = useReactTableUI(tableProps)
+  return (
+    <div>
+      <Table {...context} />
+      <Pagination {...context} />
+    </div>
+  )
 }
 
-export default ReactTableUI
+export { ReactTableUI as default, useReactTableUI, Table, Pagination }
 
-export { useReactTableUI, Table, Pagination }
-
-export type { ReactTableUIProps, DataType }
+export * from './types'

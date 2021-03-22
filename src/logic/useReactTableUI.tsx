@@ -10,7 +10,7 @@ import {
 } from 'react-table'
 import type { Column } from 'react-table'
 import { useSticky } from 'react-table-sticky'
-import type { DataType, ReactTableUIProps } from '../utilities/interface'
+import type { DataType, ReactTableUIProps } from '../types'
 import { createDefaultColumns } from '../utilities'
 import { DefaultColumnFilter } from '../filters'
 import useManualPagination from './useManualPagination'

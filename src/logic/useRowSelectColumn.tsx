@@ -5,7 +5,7 @@ import type {
   HeaderProps,
   TableToggleCommonProps
 } from 'react-table'
-import type { DataType, ReactTableUIProps } from '../utilities/interface'
+import type { DataType, ReactTableUIProps } from '../types'
 
 const IndeterminateCheckbox = React.forwardRef<
   HTMLInputElement,

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import type { Column } from 'react-table'
-import { DataType } from '../utilities/interface'
+import { DataType } from '../types'
 
 type ColumnFilter = Column<DataType>['Filter']
 

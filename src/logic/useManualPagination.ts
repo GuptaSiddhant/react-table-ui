@@ -1,5 +1,5 @@
 import * as React from 'react'
-import type { DataType, TableContext } from '../utilities/interface'
+import type { DataType, TableContext } from '../types'
 
 /** Execute callback to fetch data
  * when working with manual pagination */

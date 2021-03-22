@@ -1,9 +1,8 @@
 import * as React from 'react'
 import { HeaderGroup } from 'react-table'
-import { createClassName } from '../utilities'
-import type { DataType, TableContext } from '../utilities/interface'
+import createClassName from '../utilities/createClassName'
+import type { DataType, TableContext } from '../types'
 import Cell from './Cell'
-import Status from './Status'
 
 const stylesFoot: React.CSSProperties = {
   position: 'sticky',
@@ -69,7 +68,6 @@ const Foot = <Data extends DataType>(
             </div>
           ) : null
         })}
-      <Status {...props} />
     </div>
   )
 }

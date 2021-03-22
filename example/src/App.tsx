@@ -1,14 +1,14 @@
 import React from 'react'
-import { HeaderProps } from 'react-table'
-import {
-  Table,
-  Pagination,
+import { HeaderProps, Column } from 'react-table'
+import ReactTableUI, {
   useReactTableUI,
-  ReactTableUIProps
+  Table,
+  Pagination
 } from 'react-table-ui'
+import type { DataType } from 'react-table-ui'
 import makeData from './makeData'
 
-interface User {
+interface User extends DataType {
   firstName: string
   lastName: string
   age: number
@@ -19,7 +19,7 @@ interface User {
 
 const App = () => {
   const data: User[] = React.useMemo(() => makeData(5), [])
-  const columns: ReactTableUIProps<User>['columns'] = React.useMemo(
+  const columns: Column<User>[] = React.useMemo(
     () => [
       {
         Header: 'First Name',
@@ -52,10 +52,11 @@ const App = () => {
   )
 
   const [isLoading, setLoading] = React.useState(false)
-  const state = useReactTableUI({
+  const context = useReactTableUI({
     data,
     columns,
-    loadingOptions: { isLoading }
+    loadingOptions: { isLoading },
+    paginationOptions: { Component: ({ status }) => <div>{status}</div> }
     // rowSelectOptions: { disableRowSelect: true }
     // paginationOptions: { paginateExpandedRows: false }
   })
@@ -65,13 +66,22 @@ const App = () => {
       <div
         style={{
           width: '100%',
-          height: 'calc(100vh - 40px)',
+          height: 'calc(100vh - 500px)',
           border: '2px solid black',
           overflow: 'hidden'
         }}
       >
-        <Table {...state} />
+        <ReactTableUI
+          data={data}
+          columns={columns}
+          loadingOptions={{ isLoading }}
+          sortByOptions={{
+            initialState: { sortBy: [{ id: 'age', desc: true }] }
+          }}
+        />
       </div>
+      <Table {...context} />
+      <Pagination {...context} />
       <div
         style={{
           display: 'flex',
@@ -79,7 +89,7 @@ const App = () => {
           width: '100%'
         }}
       >
-        <Pagination {...state} />
+        {/* <Pagination {...state} /> */}
         <button onClick={() => setLoading((s) => !s)}>Load</button>
       </div>
     </>

@@ -1,11 +1,11 @@
 import * as React from 'react'
 import type { Hooks, CellProps, HeaderProps, Column } from 'react-table'
-import type { DataType, ReactTableUIProps } from '../utilities/interface'
+import type { DataType, ReactTableUIProps } from '../types'
 
 const getUseExpandedColumn = <Data extends DataType>(
   props: ReactTableUIProps<Data>
 ) => {
-  const { collapsedIndicator = '▶️', expandedIndicator = '🔽' } =
+  const { collapsedIndicator = '→', expandedIndicator = '↓' } =
     props.expandedOptions || {}
 
   const disableExpander = !props.data.some(

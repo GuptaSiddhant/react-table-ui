@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { createClassName } from '../utilities'
-import type { DataType, TableContext } from '../utilities/interface'
+import createClassName from '../utilities/createClassName'
+import type { DataType, TableContext } from '../types'
 import Cell from './Cell'
 
 const Body = <Data extends DataType>(

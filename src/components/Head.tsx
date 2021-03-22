@@ -1,7 +1,7 @@
 import * as React from 'react'
 import type { HeaderGroup } from 'react-table'
-import { createClassName } from '../utilities'
-import type { DataType, TableContext } from '../utilities/interface'
+import createClassName from '../utilities/createClassName'
+import type { DataType, TableContext } from '../types'
 import Cell from './Cell'
 
 type HeadCellProps<Data extends DataType> = TableContext<Data> & {

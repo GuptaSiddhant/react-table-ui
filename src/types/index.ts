@@ -5,8 +5,6 @@ import type {
   UseTableOptions,
   UseSortByOptions,
   UseFiltersOptions,
-  UsePaginationOptions,
-  UsePaginationState,
   UseExpandedOptions,
   UseExpandedState,
   UseSortByState,
@@ -15,17 +13,18 @@ import type {
   TableToggleCommonProps
 } from 'react-table'
 
-export interface DataType {
-  /** Select data-row by default. */
-  isSelected?: boolean
-  /** Always expanded data-row, regardless of state. */
-  expanded?: boolean
-  /** Sub rows visible when expanded. */
-  subRows?: DataType[]
-  /** Custom component shown when row is expanded. */
-  subComponent?: ReactNode
-  /** Custom data properties. */
-  [key: string]: any
+import DataType from './DataType'
+import PaginationOptions from './PaginationOptions'
+
+export { Column, DataType }
+
+export * from './PaginationOptions'
+
+export interface TableContext<Data extends DataType> {
+  /** Initiated instance of react-table. */
+  tableInstance: TableInstance<Data>
+  /** Props passed by user to react-table. */
+  tableProps: ReactTableUIProps<Data>
 }
 
 /** Props supported by React Table UI. */
@@ -69,11 +68,6 @@ export interface ReactTableUIProps<Data extends DataType> {
   freezeOptions?: FreezeOptions
 }
 
-export interface TableContext<Data extends DataType> {
-  tableInstance: TableInstance<Data>
-  tableProps: ReactTableUIProps<Data>
-}
-
 interface SortingOptions<Data extends DataType> extends UseSortByOptions<Data> {
   /** Indicator when column is not sorted. @default '⇅' */
   defaultIndicator?: ReactNode
@@ -83,18 +77,6 @@ interface SortingOptions<Data extends DataType> extends UseSortByOptions<Data> {
   descendingIndicator?: ReactNode
   /** Initial settings of sorting */
   initialState?: Partial<UseSortByState<Data>>
-}
-
-interface PaginationOptions<Data extends DataType>
-  extends UsePaginationOptions<Data> {
-  /** Disable pagination. @default false */
-  disablePagination?: boolean
-  /** Initial settings of pagination */
-  initialState?: Partial<UsePaginationState<Data>>
-  /** Callback to fetch more data when `manualPagination` is enabled.
-   * It receives current pagination state as parameter.
-   * It should be wrapped in `React.useCallback`. */
-  fetchMoreData?: (paginationState: UsePaginationState<Data>) => void
 }
 
 interface LoadingOptions {
@@ -114,9 +96,9 @@ interface ExpandedOptions<Data extends DataType>
   extends UseExpandedOptions<Data> {
   /** Initial settings of expanded. */
   initialState?: Partial<UseExpandedState<Data>>
-  /** Indicator for collapsed row. @default '▶️' */
+  /** Indicator for collapsed row. @default '→' */
   collapsedIndicator?: ReactNode
-  /** Indicator for expanded row. @default '🔽' */
+  /** Indicator for expanded row. @default '↓' */
   expandedIndicator?: ReactNode
 }
 
@@ -140,3 +122,5 @@ export type ElementRef<E extends Element = HTMLDivElement> =
   | React.RefObject<E>
   | null
   | undefined
+
+export default TableContext
