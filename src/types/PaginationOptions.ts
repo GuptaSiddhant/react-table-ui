@@ -9,19 +9,26 @@ import type DataType from './DataType'
 /** Type interface for pagination options. */
 export interface PaginationOptions<Data extends DataType>
   extends UsePaginationOptions<Data> {
-  /** Disable pagination. @default false */
-  disablePagination?: boolean
   /** Initial settings of pagination */
   initialState?: Partial<UsePaginationState<Data>>
+
+  /** Disable pagination. @default false */
+  disablePagination?: boolean
+
   /** Reset pagination when data changes (sorting, filtering, etc.).
    *  @default true */
   autoResetPage?: boolean
+
   /** Count expanded sub-rows while calculating rows on a page.
    *  @default true  */
   paginateExpandedRows?: boolean
 
+  // -----------------
+  // Manual pagination
+
   /** Manually paginate data using external methods. */
   manualPagination?: boolean
+
   /** Number of pages available. Required for manual pagination. */
   pageCount?: number
   /**
@@ -29,7 +36,10 @@ export interface PaginationOptions<Data extends DataType>
    * It receives current pagination state as parameter.
    * It should be wrapped in `React.useCallback`.
    */
-  fetchMoreData?: (paginationState: UsePaginationState<Data>) => void
+  fetchData?: (paginationState: UsePaginationState<Data>) => void
+
+  // ----------
+  // Components
 
   /** Custom component to be rendered for pagination. */
   Component?: PaginationComponent<Data>

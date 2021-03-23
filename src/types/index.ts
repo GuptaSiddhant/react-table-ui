@@ -1,24 +1,23 @@
-import type { ReactNode } from 'react'
 import type {
   Column,
   TableInstance,
   UseTableOptions,
-  UseSortByOptions,
-  UseFiltersOptions,
-  UseExpandedOptions,
-  UseExpandedState,
-  UseSortByState,
-  UseRowSelectOptions,
-  UseRowSelectState,
-  TableToggleCommonProps
+  UseFiltersOptions
 } from 'react-table'
 
 import DataType from './DataType'
+import SortingOptions from './SortingOptions'
+import ExpandedOptions from './ExpandedOptions'
+import RowSelectOptions from './RowSelectOptions'
 import PaginationOptions from './PaginationOptions'
+import { LoadingOptions, FreezeOptions } from './OtherOptions'
 
 export { Column, DataType }
-
+export * from './SortingOptions'
+export * from './ExpandedOptions'
+export * from './RowSelectOptions'
 export * from './PaginationOptions'
+export * from './OtherOptions'
 
 export interface TableContext<Data extends DataType> {
   /** Initiated instance of react-table. */
@@ -67,60 +66,5 @@ export interface ReactTableUIProps<Data extends DataType> {
   /** Freeze headers to the top and footers to the bottom while scrolling. */
   freezeOptions?: FreezeOptions
 }
-
-interface SortingOptions<Data extends DataType> extends UseSortByOptions<Data> {
-  /** Indicator when column is not sorted. @default '⇅' */
-  defaultIndicator?: ReactNode
-  /** Indicator when column is sorted in ascending order. @default '↑' */
-  ascendingIndicator?: ReactNode
-  /** Indicator when column is sorted in descending order. @default '↓' */
-  descendingIndicator?: ReactNode
-  /** Initial settings of sorting */
-  initialState?: Partial<UseSortByState<Data>>
-}
-
-interface LoadingOptions {
-  /** Loading state. @default false */
-  isLoading?: boolean
-  /** Component rendered during loading. @default Spinner */
-  loadingIndicator?: ReactNode
-  /** If true, loading is done in background.
-   * Loading indicator is not shown if there is data on screen.
-   * @default true */
-  backgroundLoading?: boolean
-  /** Loading status is shown in status bar @default true */
-  showLoadingStatus?: boolean
-}
-
-interface ExpandedOptions<Data extends DataType>
-  extends UseExpandedOptions<Data> {
-  /** Initial settings of expanded. */
-  initialState?: Partial<UseExpandedState<Data>>
-  /** Indicator for collapsed row. @default '→' */
-  collapsedIndicator?: ReactNode
-  /** Indicator for expanded row. @default '↓' */
-  expandedIndicator?: ReactNode
-}
-
-interface RowSelectOptions<Data extends DataType>
-  extends UseRowSelectOptions<Data> {
-  /** Disable row selection. @default false */
-  disableRowSelect?: boolean
-  /** Initial settings of rowSelect. */
-  initialState?: Partial<UseRowSelectState<Data>>
-  /** Component to render to denote row selection */
-  Checkbox?: React.FC<TableToggleCommonProps>
-}
-
-interface FreezeOptions {
-  /** @default true */ header?: boolean
-  /** @default true */ footer?: boolean
-}
-
-export type ElementRef<E extends Element = HTMLDivElement> =
-  | ((instance: E | null) => void)
-  | React.RefObject<E>
-  | null
-  | undefined
 
 export default TableContext

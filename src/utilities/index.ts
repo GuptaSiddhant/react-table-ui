@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import type { Column } from 'react-table'
-import type { DataType } from './interface'
+import type { DataType } from '../types'
 import stylesheet from './stylesheet'
 import createClassName from './createClassName'
 

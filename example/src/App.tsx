@@ -18,7 +18,7 @@ interface User extends DataType {
 }
 
 const App = () => {
-  const data: User[] = React.useMemo(() => makeData(5), [])
+  const data: User[] = React.useMemo(() => makeData(5, 3), [])
   const columns: Column<User>[] = React.useMemo(
     () => [
       {
@@ -32,7 +32,6 @@ const App = () => {
       {
         Header: 'Age',
         accessor: 'age',
-        disableSortBy: true,
         Filter: (_: HeaderProps<User>) => null
       },
       {
@@ -56,8 +55,8 @@ const App = () => {
     data,
     columns,
     loadingOptions: { isLoading },
-    paginationOptions: { Component: ({ status }) => <div>{status}</div> }
-    // rowSelectOptions: { disableRowSelect: true }
+    paginationOptions: { Component: ({ status }) => <div>{status}</div> },
+    rowSelectOptions: { selectSubRows: false }
     // paginationOptions: { paginateExpandedRows: false }
   })
 
@@ -66,7 +65,7 @@ const App = () => {
       <div
         style={{
           width: '100%',
-          height: 'calc(100vh - 500px)',
+          height: 'calc(50vh)',
           border: '2px solid black',
           overflow: 'hidden'
         }}
@@ -75,9 +74,6 @@ const App = () => {
           data={data}
           columns={columns}
           loadingOptions={{ isLoading }}
-          sortByOptions={{
-            initialState: { sortBy: [{ id: 'age', desc: true }] }
-          }}
         />
       </div>
       <Table {...context} />

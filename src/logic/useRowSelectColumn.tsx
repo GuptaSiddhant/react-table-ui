@@ -39,19 +39,21 @@ const CheckboxContainer: React.FC = ({ children }) => (
 const getUseRowSelectColumn = <Data extends DataType>(
   props: ReactTableUIProps<Data>
 ) => {
-  const { Checkbox = IndeterminateCheckbox } = props.rowSelectOptions || {}
+  const { Component = IndeterminateCheckbox, selectSubRows = true } =
+    props.rowSelectOptions || {}
 
   const Header = ({ getToggleAllRowsSelectedProps }: HeaderProps<Data>) => (
     <CheckboxContainer>
-      <Checkbox {...getToggleAllRowsSelectedProps()} />
+      <Component {...getToggleAllRowsSelectedProps()} />
     </CheckboxContainer>
   )
 
-  const Cell = ({ row }: CellProps<Data>) => (
-    <CheckboxContainer>
-      <Checkbox {...row.getToggleRowSelectedProps()} />
-    </CheckboxContainer>
-  )
+  const Cell = ({ row }: CellProps<Data>) =>
+    row.depth > 0 && !selectSubRows ? null : (
+      <CheckboxContainer>
+        <Component {...row.getToggleRowSelectedProps()} />
+      </CheckboxContainer>
+    )
 
   return (hooks: Hooks<Data>): void => {
     hooks.visibleColumns.push((columns) => [

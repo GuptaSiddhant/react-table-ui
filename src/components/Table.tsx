@@ -17,7 +17,7 @@ const Table = <Data extends DataType>(
   const { loadingOptions = {}, data = [] } = tableProps
   const {
     isLoading = false,
-    loadingIndicator = <Loader />,
+    Component: LoadingComponent = <Loader />,
     backgroundLoading = true
   } = loadingOptions
 
@@ -35,7 +35,7 @@ const Table = <Data extends DataType>(
       className={createClassName('table', 'sticky', className)}
     >
       {showLoading ? (
-        loadingIndicator
+        LoadingComponent
       ) : (
         <React.Fragment>
           <Head {...{ tableProps, tableInstance }} />

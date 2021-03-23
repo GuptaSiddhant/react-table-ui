@@ -2,10 +2,40 @@ import * as React from 'react'
 import type { HeaderGroup } from 'react-table'
 import createClassName from '../utilities/createClassName'
 import type { DataType, TableContext } from '../types'
+import type { SortingComponent } from '../types/SortingOptions'
 import Cell from './Cell'
 
 type HeadCellProps<Data extends DataType> = TableContext<Data> & {
   column: HeaderGroup<Data>
+}
+
+const createSortComponent = <Data extends DataType>({
+  tableProps
+}: HeadCellProps<Data>): SortingComponent<Data> => {
+  const {
+    Component,
+    descendingIndicator = '↑',
+    ascendingIndicator = '↓',
+    defaultIndicator = '⇅'
+  } = tableProps.sortByOptions || {}
+
+  const DefaultSortComponent: SortingComponent<Data> = ({
+    canSort,
+    isSorted,
+    isSortedDesc,
+    onClick
+  }) =>
+    canSort ? (
+      <div style={{ marginLeft: '8px', cursor: 'pointer' }} onClick={onClick}>
+        {isSorted
+          ? isSortedDesc
+            ? descendingIndicator
+            : ascendingIndicator
+          : defaultIndicator}
+      </div>
+    ) : null
+
+  return Component || DefaultSortComponent
 }
 
 const HeadFilter = <Data extends DataType>(
@@ -19,14 +49,8 @@ const HeadFilter = <Data extends DataType>(
 const HeadCell = <Data extends DataType>(
   props: HeadCellProps<Data>
 ): JSX.Element | null => {
-  const { column, tableProps } = props
-  const { sortByOptions = {} } = tableProps
-  const {
-    descendingIndicator = '↓',
-    ascendingIndicator = '↑',
-    defaultIndicator = '⇅'
-  } = sortByOptions
-
+  const { column } = props
+  const SortComponent = createSortComponent(props)
   const renderContent = column.render('Header')
   const headCellProps = column.getHeaderProps(column.getSortByToggleProps())
   const className = createClassName('th')
@@ -56,18 +80,10 @@ const HeadCell = <Data extends DataType>(
     >
       <div style={{ display: 'flex' }}>
         {renderContent}
-        {column.canSort ? (
-          <div
-            style={{ marginLeft: '8px', cursor: 'pointer' }}
-            onClick={(headCellProps as any).onClick}
-          >
-            {column.isSorted
-              ? column.isSortedDesc
-                ? descendingIndicator
-                : ascendingIndicator
-              : defaultIndicator}
-          </div>
-        ) : null}
+        <SortComponent
+          {...column}
+          onClick={(column.getSortByToggleProps() as any).onClick}
+        />
       </div>
       <HeadFilter {...props} />
     </Cell>
