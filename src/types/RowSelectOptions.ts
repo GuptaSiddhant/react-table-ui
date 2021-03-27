@@ -5,7 +5,7 @@ import type {
   TableToggleCommonProps,
   IdType
 } from 'react-table'
-import type DataType from './DataType'
+import type { DataType, StateChangeHandler } from './DataType'
 
 /** Type interface for RowSelect options. */
 export interface RowSelectOptions<Data extends DataType>
@@ -27,6 +27,10 @@ export interface RowSelectOptions<Data extends DataType>
 
   /** Allow sub-rows to be selected. @default true */
   selectSubRows?: boolean
+
+  /** Callback executed when rows are selected or deselected.
+   *  The function must be wrapped in useCallback hook. */
+  onStateChange?: StateChangeHandler<UseRowSelectState<Data>>
 
   // ----------
   // Components

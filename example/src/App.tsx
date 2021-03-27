@@ -3,7 +3,8 @@ import { HeaderProps, Column } from 'react-table'
 import ReactTableUI, {
   useReactTableUI,
   Table,
-  Pagination
+  Pagination,
+  useTableSetterRef
 } from 'react-table-ui'
 import type { DataType } from 'react-table-ui'
 import makeData from './makeData'
@@ -56,9 +57,14 @@ const App = () => {
     columns,
     loadingOptions: { isLoading },
     paginationOptions: { Component: ({ status }) => <div>{status}</div> },
-    rowSelectOptions: { selectSubRows: false }
-    // paginationOptions: { paginateExpandedRows: false }
+    columnOptions: { initialState: { columnOrder: ['status', 'age'] } }
   })
+
+  const ref = useTableSetterRef<User>()
+
+  React.useEffect(() => {
+    console.table(ref.current)
+  }, [ref])
 
   return (
     <>
@@ -74,10 +80,11 @@ const App = () => {
           data={data}
           columns={columns}
           loadingOptions={{ isLoading }}
+          tableRef={ref}
         />
       </div>
       <Table {...context} />
-      <Pagination {...context} />
+
       <div
         style={{
           display: 'flex',
@@ -85,7 +92,7 @@ const App = () => {
           width: '100%'
         }}
       >
-        {/* <Pagination {...state} /> */}
+        <Pagination {...context} />
         <button onClick={() => setLoading((s) => !s)}>Load</button>
       </div>
     </>

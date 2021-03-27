@@ -4,7 +4,7 @@ import type {
   UsePaginationState,
   UsePaginationInstanceProps
 } from 'react-table'
-import type DataType from './DataType'
+import type { DataType, StateChangeHandler } from './DataType'
 
 /** Type interface for pagination options. */
 export interface PaginationOptions<Data extends DataType>
@@ -22,6 +22,10 @@ export interface PaginationOptions<Data extends DataType>
   /** Count expanded sub-rows while calculating rows on a page.
    *  @default true  */
   paginateExpandedRows?: boolean
+
+  /** Callback executed when page changes (all pagination changes).
+   *  The function must be wrapped in useCallback hook. */
+  onStateChange?: StateChangeHandler<UsePaginationState<Data>>
 
   // -----------------
   // Manual pagination

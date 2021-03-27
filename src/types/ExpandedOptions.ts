@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import type { UseExpandedOptions, UseExpandedState, IdType } from 'react-table'
-import type DataType from './DataType'
+import type { DataType, StateChangeHandler } from './DataType'
 
 /** Type interface for expanded rows options. */
 export interface ExpandedOptions<Data extends DataType>
@@ -26,6 +26,10 @@ export interface ExpandedOptions<Data extends DataType>
 
   /** Custom method to extract sub-rows from a given row. */
   getSubRows?: (rowData: Data, relativeIndex: number) => Data[]
+
+  /** Callback executed when rows are expanded or collapsed.
+   *  The function must be wrapped in useCallback hook. */
+  onStateChange?: StateChangeHandler<UseExpandedState<Data>>
 
   // ----------
   // Components

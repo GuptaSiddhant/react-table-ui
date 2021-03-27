@@ -14,4 +14,6 @@ export interface DataType extends Record<string, any> {
   subComponent?: ReactNode
 }
 
+export type StateChangeHandler<State> = (state: State) => void
+
 export default DataType

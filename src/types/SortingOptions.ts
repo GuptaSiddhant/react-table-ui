@@ -6,7 +6,7 @@ import type {
   SortByFn,
   UseSortByColumnProps
 } from 'react-table'
-import type DataType from './DataType'
+import type { DataType, StateChangeHandler } from './DataType'
 
 /** Type interface for sorting options. */
 export interface SortingOptions<Data extends DataType>
@@ -62,6 +62,10 @@ export interface SortingOptions<Data extends DataType>
     sortFns: Array<SortByFn<Data>>,
     directions: boolean[]
   ) => Array<Row<Data>>
+
+  /** Callback executed when columns are sorted.
+   *  The function must be wrapped in useCallback hook. */
+  onStateChange?: StateChangeHandler<UseSortByState<Data>>
 
   // ----------
   // Components

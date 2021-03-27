@@ -39,3 +39,5 @@ export const useStylesheet = (cssString: string = stylesheet): void => {
     }
   }, [])
 }
+
+export const NOOP = () => {}

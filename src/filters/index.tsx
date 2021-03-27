@@ -1,10 +1,7 @@
 import * as React from 'react'
-import type { Column } from 'react-table'
-import { DataType } from '../types'
+import { DataType, FilterComponent } from '../types'
 
-type ColumnFilter = Column<DataType>['Filter']
-
-export const DefaultColumnFilter: ColumnFilter = ({
+export const DefaultColumnFilter: FilterComponent<DataType> = ({
   column: { filterValue, preFilteredRows, setFilter }
 }) => {
   return (
