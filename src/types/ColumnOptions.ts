@@ -21,9 +21,23 @@ export interface ColumnOptions<Data extends DataType>
   /** Reset hidden columns when columns is changed. @default true */
   autoResetHiddenColumns?: boolean
 
-  /** Callback executed when rows are selected or deselected.
+  /** Callback executed when column's state is changed .
    *  The function must be wrapped in useCallback hook. */
   onStateChange?: StateChangeHandler<ColumnState<Data>>
+
+  /** Callback executed when column order is changed .
+   *  The function must be wrapped in useCallback hook. */
+  onOrderStateChange?: StateChangeHandler<ColumnState<Data>['columnOrder']>
+
+  /** Callback executed when column size is changed .
+   *  The function must be wrapped in useCallback hook. */
+  onResizeStateChange?: StateChangeHandler<ColumnState<Data>['columnResizing']>
+
+  /** Callback executed when column's visibility is changed .
+   *  The function must be wrapped in useCallback hook. */
+  onVisibilityStateChange?: StateChangeHandler<
+    ColumnState<Data>['hiddenColumns']
+  >
 
   // ----------
   // Components

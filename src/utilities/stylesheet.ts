@@ -32,6 +32,11 @@ const stylesheet = styled('')`
   [data-sticky-first-right-td] {
     box-shadow: -2px 0px 3px #ccc;
   }
+
+  .pagination {
+    display: flex;
+    justify-content: space-between;
+  }
 `
 
 export default stylesheet

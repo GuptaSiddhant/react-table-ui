@@ -8,19 +8,23 @@ import type {
 import { DataType, StateChangeHandler } from './DataType'
 import SortingOptions from './SortingOptions'
 import FiltersOptions from './FiltersOptions'
+import GlobalFilterOptions from './GlobalFilterOptions'
 import ExpandedOptions from './ExpandedOptions'
 import RowSelectOptions from './RowSelectOptions'
 import PaginationOptions from './PaginationOptions'
 import { LoadingOptions, FreezeOptions } from './OtherOptions'
 import ColumnOptions from './ColumnOptions'
+import RowStateOptions from './RowStateOptions'
 
 export { Column, DataType }
 export * from './SortingOptions'
 export * from './FiltersOptions'
+export * from './GlobalFilterOptions'
 export * from './ExpandedOptions'
 export * from './RowSelectOptions'
 export * from './PaginationOptions'
 export * from './OtherOptions'
+export * from './RowStateOptions'
 
 export interface TableContext<Data extends DataType> {
   /** Initiated instance of react-table. */
@@ -54,6 +58,10 @@ export interface ReactTableUIProps<Data extends DataType> {
    * @see [RT useFilters API - Table options](https://react-table.tanstack.com/docs/api/useFilters#table-options) */
   filtersOptions?: FiltersOptions<Data>
 
+  /** Manages global filtering of the table.
+   * @see [RT useGlobalFilter API - Table options](https://react-table.tanstack.com/docs/api/useGlobalFilter#table-options) */
+  globalFilterOptions?: GlobalFilterOptions<Data>
+
   /** Manages pagination of the table.
    * @see [RT usePagination API - Table options](https://react-table.tanstack.com/docs/api/usePagination#table-options) */
   paginationOptions?: PaginationOptions<Data>
@@ -70,6 +78,10 @@ export interface ReactTableUIProps<Data extends DataType> {
    * @see [RT useColumnOrder API - Table options](https://react-table.tanstack.com/docs/api/useColumnOrder#table-options)
    * @see [RT useResizeColumns API - Table options](https://react-table.tanstack.com/docs/api/useResizeColumns#table-options) */
   columnOptions?: ColumnOptions<Data>
+
+  /** Manage options for row state.
+   * @see [RT useRowState API - Table options](https://react-table.tanstack.com/docs/api/useRowState#table-options) */
+  rowStateOptions?: RowStateOptions<Data>
 
   /** Freeze headers to the top and footers to the bottom while scrolling. */
   freezeOptions?: FreezeOptions

@@ -1,9 +1,11 @@
 import * as React from 'react'
-import { DataType, FilterComponent } from '../types'
+import { useAsyncDebounce } from 'react-table'
+import type { UseGlobalFiltersInstanceProps, HeaderProps } from 'react-table'
+import { DataType } from '../types'
 
-export const DefaultColumnFilter: FilterComponent<DataType> = ({
+export const DefaultColumnFilter = <Data extends DataType>({
   column: { filterValue, preFilteredRows, setFilter }
-}) => {
+}: HeaderProps<Data>) => {
   return (
     <input
       style={{ width: '100%' }}
@@ -13,6 +15,37 @@ export const DefaultColumnFilter: FilterComponent<DataType> = ({
       }}
       placeholder={`Search ${preFilteredRows.length} records...`}
     />
+  )
+}
+
+// Define a default UI for filtering
+export const DefaultGlobalFilter = <Data extends DataType>({
+  preGlobalFilteredRows,
+  globalFilterValue,
+  setGlobalFilter
+}: UseGlobalFiltersInstanceProps<Data> & { globalFilterValue: string }) => {
+  const count = preGlobalFilteredRows.length
+  const [value, setValue] = React.useState(globalFilterValue)
+  const onChange = useAsyncDebounce((value) => {
+    setGlobalFilter(value || undefined)
+  }, 200)
+
+  return (
+    <span>
+      Search:{' '}
+      <input
+        value={value || ''}
+        onChange={(e) => {
+          setValue(e.target.value)
+          onChange(e.target.value)
+        }}
+        placeholder={`${count} records...`}
+        style={{
+          fontSize: '1.1rem',
+          border: '0'
+        }}
+      />
+    </span>
   )
 }
 

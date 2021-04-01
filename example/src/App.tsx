@@ -60,11 +60,7 @@ const App = () => {
     columnOptions: { initialState: { columnOrder: ['status', 'age'] } }
   })
 
-  const ref = useTableSetterRef<User>()
-
-  React.useEffect(() => {
-    console.table(ref.current)
-  }, [ref])
+  const tableSetterRef = useTableSetterRef<User>()
 
   return (
     <>
@@ -80,7 +76,7 @@ const App = () => {
           data={data}
           columns={columns}
           loadingOptions={{ isLoading }}
-          tableRef={ref}
+          tableSetterRef={tableSetterRef}
         />
       </div>
       <Table {...context} />

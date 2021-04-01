@@ -10,14 +10,14 @@ import {
 } from './logic/useTableSetterRef'
 
 const ReactTableUI = <Data extends DataType>({
-  tableRef,
+  tableSetterRef,
   ...tableProps
 }: ReactTableUIProps<Data> & {
-  tableRef?: React.RefObject<UseTableSetterRefProps<Data>>
+  tableSetterRef?: React.RefObject<UseTableSetterRefProps<Data>>
 }): JSX.Element => {
   const context = useReactTableUI(tableProps)
 
-  useHandleTableSetterRef(context, tableRef)
+  useHandleTableSetterRef(context, tableSetterRef)
 
   return (
     <div>
@@ -28,7 +28,8 @@ const ReactTableUI = <Data extends DataType>({
 }
 
 // Export components
-export { ReactTableUI as default, Table, Pagination }
+export default ReactTableUI
+export { Table, Pagination }
 
 // Export helpers
 export { useReactTableUI, useTableSetterRef }

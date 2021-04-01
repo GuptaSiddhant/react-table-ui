@@ -37,9 +37,11 @@ const useHandleStateChange = <Data extends DataType>({
   const rowStateOptions = {
     onStateChange: (_: UseRowStateState<Data>) => {}
   }
+  /** @todo Remove */
   const globalFilterOptions = {
     onStateChange: (_: UseGlobalFiltersState<Data>) => {}
   }
+  /** @todo Remove */
   const groupingOptions = {
     onStateChange: (_: UseGroupByState<Data>) => {}
   }
@@ -97,6 +99,21 @@ const useHandleStateChange = <Data extends DataType>({
       hiddenColumns
     })
   }, [columnOptions?.onStateChange, columnOrder, columnResizing, hiddenColumns])
+
+  // Column order
+  useEffect(() => {
+    columnOptions?.onOrderStateChange?.(columnOrder)
+  }, [columnOptions?.onOrderStateChange, columnOrder])
+
+  // Column resize
+  useEffect(() => {
+    columnOptions?.onResizeStateChange?.(columnResizing)
+  }, [columnOptions?.onResizeStateChange, columnResizing])
+
+  // Column resize
+  useEffect(() => {
+    columnOptions?.onVisibilityStateChange?.(hiddenColumns)
+  }, [columnOptions?.onVisibilityStateChange, hiddenColumns])
 }
 
 export default useHandleStateChange
