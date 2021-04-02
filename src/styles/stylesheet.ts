@@ -1,4 +1,5 @@
-import { commonClassName, styled } from './createClassName'
+import { commonClassName } from '../utilities/createClassName'
+import styled from './styled'
 
 const stylesheet = styled('')`
   .${commonClassName} {
@@ -30,7 +31,7 @@ const stylesheet = styled('')`
   .${commonClassName}.body {
     height: max-content;
   }
-  
+
   .${commonClassName}.subComponent {
     box-shadow: inset 0 0 8px 0 #0002;
     padding: 8px;

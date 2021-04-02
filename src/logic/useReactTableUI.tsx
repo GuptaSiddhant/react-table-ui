@@ -14,14 +14,17 @@ import {
 } from 'react-table'
 import type { Column } from 'react-table'
 import { useSticky } from 'react-table-sticky'
+
 import type { TableContext, DataType, ReactTableUIProps } from '../types'
-import { createDefaultColumns, NOOP } from '../utilities'
 import { DefaultColumnFilter } from '../components/Filters'
+import { fixColumnOrder } from '../utilities/systemColumns'
+import { NOOP } from '../utilities'
+
 import useManualPagination from './useManualPagination'
 import getUseExpandedColumn from './useExpandedColumn'
 import getUseRowSelectColumn from './useRowSelectColumn'
 import useHandleStateChange from './useHandleStateChange'
-import { fixColumnOrder } from '../utilities/systemColumns'
+import useCreateDefaultColumns from './useCreateDefaultColumns'
 
 /** Core */
 export const useReactTableUI = <Data extends DataType>(
@@ -29,7 +32,7 @@ export const useReactTableUI = <Data extends DataType>(
 ): TableContext<Data> => {
   const {
     data = [],
-    columns = createDefaultColumns(data),
+    columns = useCreateDefaultColumns(data),
     tableOptions = {},
     filtersOptions = {},
     globalFilterOptions = {},

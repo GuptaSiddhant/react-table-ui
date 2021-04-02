@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { useStylesheet } from '../utilities'
 import createClassName from '../utilities/createClassName'
 import type { DataType, TableContext } from '../types'
 import Head from '../components/Head'
@@ -11,7 +10,6 @@ const Loader: React.FC = () => <div className='loader'>Loading...</div>
 const Table = <Data extends DataType>(
   props: TableContext<Data> & React.HTMLAttributes<HTMLDivElement>
 ) => {
-  useStylesheet()
   const { tableInstance, tableProps, className = '', ...htmlAttributes } = props
 
   const { getTableProps, rows } = tableInstance
