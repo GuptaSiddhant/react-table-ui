@@ -1,14 +1,14 @@
 import * as React from 'react'
 
 import useReactTableUI from '../logic/useReactTableUI'
+import useGlobalFilterComponent from '../logic/useGlobalFilterComponent'
 import {
   useHandleTableSetterRef,
   UseTableSetterRefProps
 } from '../logic/useTableSetterRef'
-import useGlobalFilterComponent from '../logic/useGlobalFilterComponent'
 
 import createClassName from '../utilities/createClassName'
-import useStyleSheet from '../styles'
+import useStyleSheet from '../styles/useStylesheet'
 import { DataType, ReactTableUIProps } from '../types'
 
 import Table from './Table'

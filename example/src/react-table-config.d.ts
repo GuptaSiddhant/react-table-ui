@@ -108,6 +108,8 @@ declare module 'react-table' {
       UseResizeColumnsColumnOptions<D>,
       UseSortByColumnOptions<D> {
     Footer?: ReactNode
+    columns?: Column<D>[]
+    sticky?: 'left' | 'right'
   }
 
   export interface ColumnInstance<
@@ -129,4 +131,8 @@ declare module 'react-table' {
       UseGroupByRowProps<D>,
       UseRowSelectRowProps<D>,
       UseRowStateRowProps<D> {}
+
+  export interface Test {
+    hi: string
+  }
 }

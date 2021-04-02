@@ -26,8 +26,7 @@ import getUseRowSelectColumn from './useRowSelectColumn'
 import useHandleStateChange from './useHandleStateChange'
 import useCreateDefaultColumns from './useCreateDefaultColumns'
 
-/** Core */
-export const useReactTableUI = <Data extends DataType>(
+const useReactTableUI = <Data extends DataType>(
   tableProps: ReactTableUIProps<Data>
 ): TableContext<Data> => {
   const {
