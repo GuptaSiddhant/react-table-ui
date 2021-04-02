@@ -1,6 +1,6 @@
 import * as React from 'react'
 import type { Hooks, CellProps, HeaderProps, Column } from 'react-table'
-import systemColumns from './systemColumns'
+import systemColumns from '../utilities/systemColumns'
 import type { DataType, ReactTableUIProps } from '../types'
 
 const getUseExpandedColumn = <Data extends DataType>(
@@ -36,10 +36,11 @@ const getUseExpandedColumn = <Data extends DataType>(
   const expanderColumn: Column<Data> = {
     id: systemColumns.expander.id,
     sticky: systemColumns.expander.order < 0 ? 'left' : 'right',
-    minWidth: 10,
+    minWidth: 50,
     maxWidth: 50,
     Header,
-    Cell
+    Cell,
+    disableResizing: true
   }
 
   return {

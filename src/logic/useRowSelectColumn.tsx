@@ -5,7 +5,7 @@ import type {
   HeaderProps,
   TableToggleCommonProps
 } from 'react-table'
-import systemColumns from './systemColumns'
+import systemColumns from '../utilities/systemColumns'
 import type { DataType, ReactTableUIProps } from '../types'
 
 const IndeterminateCheckbox = React.forwardRef<
@@ -61,10 +61,11 @@ const getUseRowSelectColumn = <Data extends DataType>(
       {
         id: systemColumns.selection.id,
         sticky: systemColumns.selection.order < 0 ? 'left' : 'right',
-        minWidth: 20,
-        maxWidth: 20,
+        minWidth: 40,
+        maxWidth: 40,
         Header,
-        Cell
+        Cell,
+        disableResizing: true
       },
       ...columns
     ])

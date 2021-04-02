@@ -2,9 +2,10 @@ import * as React from 'react'
 import { useAsyncDebounce } from 'react-table'
 import type { UseGlobalFiltersInstanceProps, HeaderProps } from 'react-table'
 import { DataType } from '../types'
+import createClassName from '../utilities/createClassName'
 
 export const DefaultColumnFilter = <Data extends DataType>({
-  column: { filterValue, preFilteredRows, setFilter }
+  column: { filterValue, setFilter,  }
 }: HeaderProps<Data>) => {
   return (
     <input
@@ -13,7 +14,7 @@ export const DefaultColumnFilter = <Data extends DataType>({
       onChange={(e) => {
         setFilter(e.target.value || undefined) // Set undefined to remove the filter entirely
       }}
-      placeholder={`Search ${preFilteredRows.length} records...`}
+      placeholder={`Filter...`}
     />
   )
 }
@@ -31,7 +32,7 @@ export const DefaultGlobalFilter = <Data extends DataType>({
   }, 200)
 
   return (
-    <span>
+    <div className={createClassName('globalFilter')}>
       Search:{' '}
       <input
         value={value || ''}
@@ -45,7 +46,7 @@ export const DefaultGlobalFilter = <Data extends DataType>({
           border: '0'
         }}
       />
-    </span>
+    </div>
   )
 }
 

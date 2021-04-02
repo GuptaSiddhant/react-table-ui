@@ -1,11 +1,6 @@
 import React from 'react'
 import { HeaderProps, Column } from 'react-table'
-import ReactTableUI, {
-  useReactTableUI,
-  Table,
-  Pagination,
-  useTableSetterRef
-} from 'react-table-ui'
+import ReactTableUI, { useTableSetterRef } from 'react-table-ui'
 import type { DataType } from 'react-table-ui'
 import makeData from './makeData'
 
@@ -52,13 +47,6 @@ const App = () => {
   )
 
   const [isLoading, setLoading] = React.useState(false)
-  const context = useReactTableUI({
-    data,
-    columns,
-    loadingOptions: { isLoading },
-    paginationOptions: { Component: ({ status }) => <div>{status}</div> },
-    columnOptions: { initialState: { columnOrder: ['status', 'age'] } }
-  })
 
   const tableSetterRef = useTableSetterRef<User>()
 
@@ -67,7 +55,7 @@ const App = () => {
       <div
         style={{
           width: '100%',
-          height: 'calc(50vh)',
+          height: 'calc(100vh - 100px)',
           border: '2px solid black',
           overflow: 'hidden'
         }}
@@ -79,18 +67,7 @@ const App = () => {
           tableSetterRef={tableSetterRef}
         />
       </div>
-      <Table {...context} />
-
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          width: '100%'
-        }}
-      >
-        <Pagination {...context} />
-        <button onClick={() => setLoading((s) => !s)}>Load</button>
-      </div>
+      <button onClick={() => setLoading((s) => !s)}>Load</button>
     </>
   )
 }

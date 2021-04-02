@@ -5,12 +5,12 @@ import {
   useFilters,
   usePagination,
   useRowSelect,
-  useFlexLayout,
   useExpanded,
   useColumnOrder,
   useResizeColumns,
   useGlobalFilter,
-  useRowState
+  useRowState,
+  useFlexLayout
 } from 'react-table'
 import type { Column } from 'react-table'
 import { useSticky } from 'react-table-sticky'
@@ -21,7 +21,7 @@ import useManualPagination from './useManualPagination'
 import getUseExpandedColumn from './useExpandedColumn'
 import getUseRowSelectColumn from './useRowSelectColumn'
 import useHandleStateChange from './useHandleStateChange'
-import { fixColumnOrder } from './systemColumns'
+import { fixColumnOrder } from '../utilities/systemColumns'
 
 /** Core */
 export const useReactTableUI = <Data extends DataType>(
@@ -142,8 +142,8 @@ export const useReactTableUI = <Data extends DataType>(
     disableRowSelect ? NOOP : useRowSelectColumn,
     disableRowState ? NOOP : useRowState,
     disableOrdering ? NOOP : useColumnOrder,
-    disableResizing ? NOOP : useResizeColumns,
     useFlexLayout,
+    disableResizing ? NOOP : useResizeColumns,
     useSticky
   )
 

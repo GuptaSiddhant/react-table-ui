@@ -4,7 +4,8 @@ import type {
   UseSortByState,
   Row,
   SortByFn,
-  UseSortByColumnProps
+  UseSortByColumnProps,
+  HeaderGroup
 } from 'react-table'
 import type { DataType, StateChangeHandler } from './DataType'
 
@@ -88,7 +89,11 @@ export interface SortingOptions<Data extends DataType>
 }
 
 export type SortingComponent<Data extends DataType> = FC<
-  UseSortByColumnProps<Data> & { onClick: (e: MouseEvent) => void }
+  UseSortByColumnProps<Data> & {
+    onClick: (e: MouseEvent) => void
+    column: HeaderGroup<Data>
+    title: string
+  }
 >
 
 export default SortingOptions

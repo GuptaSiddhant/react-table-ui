@@ -32,7 +32,7 @@ export const useStylesheet = (cssString: string = stylesheet): void => {
     styleTag.innerHTML = cssString
 
     if (!existingStyleTag)
-      document.head.insertAdjacentElement('beforeend', styleTag)
+      document.head.insertAdjacentElement('afterbegin', styleTag)
 
     return () => {
       if (styleTag) document.head.removeChild(styleTag)

@@ -1,3 +1,4 @@
+/** Mock "styled-components" function to trick JS-in-CSS Intellisense */
 export const styled: (
   e: string
 ) => (literals: TemplateStringsArray, ...args: string[]) => string = () => (

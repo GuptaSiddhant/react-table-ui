@@ -26,13 +26,6 @@ export * from './PaginationOptions'
 export * from './OtherOptions'
 export * from './RowStateOptions'
 
-export interface TableContext<Data extends DataType> {
-  /** Initiated instance of react-table. */
-  tableInstance: TableInstance<Data>
-  /** Props passed by user to react-table. */
-  tableProps: ReactTableUIProps<Data>
-}
-
 /** Props supported by React Table UI. */
 export interface ReactTableUIProps<Data extends DataType> {
   /** Memoised data-array of the table.
@@ -87,11 +80,18 @@ export interface ReactTableUIProps<Data extends DataType> {
   freezeOptions?: FreezeOptions
 }
 
-export default TableContext
-
-interface TableOptions<Data extends DataType>
+export interface TableOptions<Data extends DataType>
   extends Omit<UseTableOptions<Data>, 'columns' | 'data'> {
   /** Callback executed when table's state is updated.
    *  The function must be wrapped in useCallback hook. */
   onStateChange?: StateChangeHandler<TableState<Data>>
 }
+export interface TableContext<Data extends DataType> {
+  /** Initiated instance of react-table. */
+  tableInstance: TableInstance<Data>
+
+  /** Props passed by user to react-table. */
+  tableProps: ReactTableUIProps<Data>
+}
+
+export default TableContext

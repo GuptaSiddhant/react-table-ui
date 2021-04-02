@@ -23,10 +23,15 @@ const createSortComponent = <Data extends DataType>({
     canSort,
     isSorted,
     isSortedDesc,
-    onClick
+    onClick,
+    title
   }) =>
     canSort ? (
-      <div style={{ marginLeft: '8px', cursor: 'pointer' }} onClick={onClick}>
+      <div
+        style={{ marginLeft: '8px', cursor: 'pointer' }}
+        onClick={onClick}
+        title={title}
+      >
         {isSorted
           ? isSortedDesc
             ? descendingIndicator
@@ -49,25 +54,26 @@ const HeadFilter = <Data extends DataType>(
 const HeadCell = <Data extends DataType>(
   props: HeadCellProps<Data>
 ): JSX.Element | null => {
-  const { column } = props
+  const { column, tableProps } = props
+
+  const { disableResizing = false } = tableProps.columnOptions || {}
+
   const SortComponent = createSortComponent(props)
   const renderContent = column.render('Header')
+  const renderContentString =
+    typeof renderContent === 'string'
+      ? renderContent
+      : renderContent?.toString() || ''
   const headCellProps = column.getHeaderProps(column.getSortByToggleProps())
   const className = createClassName('th')
-  const title = (() => {
-    let titleArray: string[] = []
-    if (column.canSort) titleArray.push('Sort')
-    if (typeof renderContent === 'string') titleArray.push(renderContent)
-    return titleArray.join(' ')
-  })()
 
   return (
     <Cell
       {...{
         ...headCellProps,
         onClick: undefined,
-        title,
-        className
+        className,
+        title: renderContentString
       }}
       style={{
         ...headCellProps.style,
@@ -83,7 +89,19 @@ const HeadCell = <Data extends DataType>(
         <SortComponent
           {...column}
           onClick={(column.getSortByToggleProps() as any).onClick}
+          column={column}
+          title={`Sort ${renderContentString}`}
         />
+        {!disableResizing && !column.disableResizing && (
+          <div
+            {...column?.getResizerProps?.()}
+            title={`Resize ${renderContentString}`}
+            className={createClassName(
+              'resizer',
+              column.isResizing ? 'isResizing' : ''
+            )}
+          />
+        )}
       </div>
       <HeadFilter {...props} />
     </Cell>
