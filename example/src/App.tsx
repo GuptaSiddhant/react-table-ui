@@ -55,16 +55,18 @@ const App = () => {
       <div
         style={{
           width: '100%',
-          height: 'calc(100vh - 100px)',
-          border: '2px solid black',
-          overflow: 'hidden'
+          height: 'calc(100vh - 100px)',          
+          overflow: 'hidden',
+          padding: '20px'
         }}
       >
         <ReactTableUI
+        title="Test table"
           data={data}
           columns={columns}
           loadingOptions={{ isLoading }}
           tableSetterRef={tableSetterRef}
+          // globalFilterOptions={{disableGlobalFilter: true}}
         />
       </div>
       <button onClick={() => setLoading((s) => !s)}>Load</button>

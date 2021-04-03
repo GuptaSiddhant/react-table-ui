@@ -1,16 +1,16 @@
 import * as React from 'react'
 
 import useReactTableUI from '../logic/useReactTableUI'
-import useGlobalFilterComponent from '../logic/useGlobalFilterComponent'
 import {
   useHandleTableSetterRef,
   UseTableSetterRefProps
 } from '../logic/useTableSetterRef'
 
-import createClassName from '../utilities/createClassName'
-import useStyleSheet from '../styles/useStylesheet'
+import createClassName, { commonClassName } from '../utilities/createClassName'
+import useStyleSheet from '../utilities/useStylesheet'
 import { DataType, ReactTableUIProps } from '../types'
 
+import Title from './Title'
 import Table from './Table'
 import Pagination from './Pagination'
 
@@ -26,12 +26,17 @@ const ReactTableUI = <Data extends DataType>({
   useStyleSheet()
   // Add setters to ref
   useHandleTableSetterRef(context, tableSetterRef)
-  // Get instance of GlobalFilter
-  const globalFilterComponent = useGlobalFilterComponent(context)
+
+  const { borderless = false } = context.tableProps.tableOptions || {}
 
   return (
-    <div className={createClassName()}>
-      {globalFilterComponent}
+    <div
+      className={createClassName(
+        commonClassName,
+        borderless ? '' : 'withBorder'
+      )}
+    >
+      <Title {...context} />
       <Table {...context} />
       <Pagination {...context} />
     </div>

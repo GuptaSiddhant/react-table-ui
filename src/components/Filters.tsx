@@ -1,11 +1,10 @@
 import * as React from 'react'
-import { useAsyncDebounce } from 'react-table'
-import type { UseGlobalFiltersInstanceProps, HeaderProps } from 'react-table'
+
+import type { HeaderProps } from 'react-table'
 import { DataType } from '../types'
-import createClassName from '../utilities/createClassName'
 
 export const DefaultColumnFilter = <Data extends DataType>({
-  column: { filterValue, setFilter,  }
+  column: { filterValue, setFilter }
 }: HeaderProps<Data>) => {
   return (
     <input
@@ -16,37 +15,6 @@ export const DefaultColumnFilter = <Data extends DataType>({
       }}
       placeholder={`Filter...`}
     />
-  )
-}
-
-// Define a default UI for filtering
-export const DefaultGlobalFilter = <Data extends DataType>({
-  preGlobalFilteredRows,
-  globalFilterValue,
-  setGlobalFilter
-}: UseGlobalFiltersInstanceProps<Data> & { globalFilterValue: string }) => {
-  const count = preGlobalFilteredRows.length
-  const [value, setValue] = React.useState(globalFilterValue)
-  const onChange = useAsyncDebounce((value) => {
-    setGlobalFilter(value || undefined)
-  }, 200)
-
-  return (
-    <div className={createClassName('globalFilter')}>
-      Search:{' '}
-      <input
-        value={value || ''}
-        onChange={(e) => {
-          setValue(e.target.value)
-          onChange(e.target.value)
-        }}
-        placeholder={`${count} records...`}
-        style={{
-          fontSize: '1.1rem',
-          border: '0'
-        }}
-      />
-    </div>
   )
 }
 

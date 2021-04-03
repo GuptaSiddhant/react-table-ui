@@ -1,6 +1,6 @@
-import type { Column, UseTableOptions, TableState } from 'react-table'
-
-import { DataType, StateChangeHandler } from './DataType'
+import type { ReactNode } from 'react'
+import type { Column } from 'react-table'
+import { DataType } from './DataType'
 import SortingOptions from './SortingOptions'
 import FiltersOptions from './FiltersOptions'
 import GlobalFilterOptions from './GlobalFilterOptions'
@@ -10,6 +10,7 @@ import PaginationOptions from './PaginationOptions'
 import { LoadingOptions, FreezeOptions } from './OtherOptions'
 import ColumnOptions from './ColumnOptions'
 import RowStateOptions from './RowStateOptions'
+import TableOptions from './TableOptions'
 
 /** Props supported by React Table UI. */
 export interface ReactTableUIProps<Data extends DataType> {
@@ -18,8 +19,12 @@ export interface ReactTableUIProps<Data extends DataType> {
   data: Data[]
 
   /** Memoised column definitions of the table. (Optional, can be generated from keys in `data` object).
-   * Each column object can define its data accessor, properties and behavior. */
+   * Each column object can define its data accessor, properties and behavior.
+   * Optional - Columns can be auto-generated based on provided dataset. */
   columns?: Column<Data>[]
+
+  /** Title of the table. @default 'Table' */
+  title?: ReactNode
 
   /** Manage loading state of table. */
   loadingOptions?: LoadingOptions
@@ -63,13 +68,6 @@ export interface ReactTableUIProps<Data extends DataType> {
 
   /** Freeze headers to the top and footers to the bottom while scrolling. */
   freezeOptions?: FreezeOptions
-}
-
-export interface TableOptions<Data extends DataType>
-  extends Omit<UseTableOptions<Data>, 'columns' | 'data'> {
-  /** Callback executed when table's state is updated.
-   *  The function must be wrapped in useCallback hook. */
-  onStateChange?: StateChangeHandler<TableState<Data>>
 }
 
 export default ReactTableUIProps

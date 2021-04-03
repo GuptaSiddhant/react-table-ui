@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
-import { createClassName } from '../utilities/createClassName'
-import stylesheet from './stylesheet'
+import { createClassName } from './createClassName'
+import styles from '../styles'
 
 /**  Place Styles in DOM */
-const useStylesheet = (cssString: string = stylesheet): void => {
+const useStylesheet = (cssString: string = styles): void => {
   useEffect(() => {
     const styleTagID = createClassName('styles')
     const existingStyleTag = document.getElementById(
