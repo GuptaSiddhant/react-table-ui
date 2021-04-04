@@ -14,12 +14,13 @@ interface User extends DataType {
 }
 
 const App = () => {
-  const data: User[] = React.useMemo(() => makeData(5, 3), [])
+  const data: User[] = React.useMemo(() => makeData(100, 3), [])
   const columns: Column<User>[] = React.useMemo(
     () => [
       {
         Header: 'First Name',
-        accessor: 'firstName'
+        accessor: 'firstName',
+sticky: 'left'
       },
       {
         Header: 'Last Name',
@@ -67,6 +68,7 @@ const App = () => {
           loadingOptions={{ isLoading }}
           tableSetterRef={tableSetterRef}
           // globalFilterOptions={{disableGlobalFilter: true}}
+          // paginationOptions={{paginateExpandedRows: false}}
         />
       </div>
       <button onClick={() => setLoading((s) => !s)}>Load</button>

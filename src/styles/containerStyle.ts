@@ -1,12 +1,12 @@
 import styled from '../utilities/styled'
-import { border, color, radius } from './theme'
+import { border, pxToEm, radius, spacing } from './theme'
 
 export default styled.div`
   &,
   & * {
     box-sizing: border-box;
     font-size: 16px;
-    line-height: 1.5;    
+    line-height: 1.5;
   }
 
   & {
@@ -20,32 +20,46 @@ export default styled.div`
     border: ${border.default};
     border-radius: ${radius.md};
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   }
 
-  & .pagination {
+  & .Pagination {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
-  }
-
-  & input {
+    align-items: center;
+    min-height: ${pxToEm(56)};
     width: 100%;
+    border-top: ${border.default};
   }
 
-  & .IconButton {
-    background: none;
-    border: none;
-    line-height: 1;
-    padding: 1em;
-    border-radius: ${radius.sm};
-    cursor: pointer;
+  & .Pagination .Status {
+    flex-basis: 1;
+    flex-grow: 1;
+    min-height: ${pxToEm(40)};
+    padding: 0 ${spacing.xl};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: max-content;
+    max-width: 100%;
   }
 
-  & .IconButton:hover {
-    background: ${color.background.selected};
+  & .Pagination .spacer {
+    flex-basis: 1;
+    flex-grow: 999;
   }
-  & .IconButton:disabled {
-    cursor: not-allowed;
-    background: none;
+
+  & .Pagination .Pager {
+    display: flex;
+    flex-basis: 1;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: space-between;
+    min-width: max-content;
+    max-width: 100%;
+  }
+  & .Pagination .Pager input {
+    margin: 0 ${spacing.md};
+    text-align: center;
   }
 `

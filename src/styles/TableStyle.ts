@@ -1,11 +1,31 @@
 import styled from '../utilities/styled'
+import { color } from './theme'
 
 export default styled.table`
-  & .table {
+  & {
     height: 100%;
     min-width: 100%;
     overflow: scroll;
     border: 1px solid #ddd;
+  }
+
+  & .Thead {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    top: 0;
+  }
+
+  & .Thead.sticky {
+    position: sticky;
+  }
+
+  & .Thead .th {
+    cursor: inherit;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   & .loader {
@@ -16,13 +36,20 @@ export default styled.table`
     height: 100%;
   }
 
-  & .tbody {
+  & .TBody {
     height: max-content;
+    position: relative;
+    z-index: 0;
   }
 
   & .subComponent {
     box-shadow: inset 0 0 8px 0 #0002;
+  }
+  & .subComponent .content {
     padding: 8px;
+    position: sticky;
+    left: 0px;
+    width: max-content; /* TODO */
   }
 
   & [data-sticky-td] {
@@ -54,5 +81,13 @@ export default styled.table`
   & .resizer.isResizing {
     opacity: 1;
     width: 6px;
+  }
+
+  & .TFoot {
+    position: sticky;
+    bottom: 0;
+    z-index: 5;
+    width: 100%;
+    background: ${color.background.secondary};
   }
 `

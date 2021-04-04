@@ -10,7 +10,7 @@ import createClassName, { commonClassName } from '../utilities/createClassName'
 import useStyleSheet from '../utilities/useStylesheet'
 import { DataType, ReactTableUIProps } from '../types'
 
-import Title from './Title'
+import TitleBar from './TitleBar'
 import Table from './Table'
 import Pagination from './Pagination'
 
@@ -36,7 +36,7 @@ const ReactTableUI = <Data extends DataType>({
         borderless ? '' : 'withBorder'
       )}
     >
-      <Title {...context} />
+      <TitleBar {...context} />
       <Table {...context} />
       <Pagination {...context} />
     </div>

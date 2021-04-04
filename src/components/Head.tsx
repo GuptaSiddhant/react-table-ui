@@ -3,7 +3,7 @@ import type { HeaderGroup } from 'react-table'
 import createClassName from '../utilities/createClassName'
 import type { DataType, TableContext } from '../types'
 import type { SortingComponent } from '../types/SortingOptions'
-import Cell from './Cell'
+import Cell from '../common/Cell'
 
 type HeadCellProps<Data extends DataType> = TableContext<Data> & {
   column: HeaderGroup<Data>
@@ -75,14 +75,7 @@ const HeadCell = <Data extends DataType>(
         className,
         title: renderContentString
       }}
-      style={{
-        ...headCellProps.style,
-        cursor: 'inherit',
-        fontWeight: 'bold',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between'
-      }}
+      style={headCellProps.style}
     >
       <div style={{ display: 'flex' }}>
         {renderContent}
@@ -114,21 +107,12 @@ const Head = <Data extends DataType>(
   const { tableInstance, tableProps } = props
   const { headerGroups } = tableInstance
   const { freezeOptions } = tableProps
-
   const freezeHead = freezeOptions?.header !== false
-  const classNames = 'thead header ' + (freezeHead ? 'sticky' : '')
-  const stylesHead: React.CSSProperties = {
-    position: freezeHead ? 'sticky' : 'relative',
-    zIndex: 5,
-    width: '100%',
-    top: 0
-  }
 
   return (
     <div
-      className={createClassName(classNames)}
+      className={createClassName('Thead', 'header', freezeHead ? 'sticky' : '')}
       role='rowgroup'
-      style={stylesHead}
     >
       {headerGroups.map(({ getHeaderGroupProps, headers }) => (
         <div {...getHeaderGroupProps()} className={createClassName('tr')}>

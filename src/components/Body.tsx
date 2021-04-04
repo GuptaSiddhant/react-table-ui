@@ -1,19 +1,21 @@
 import * as React from 'react'
 import createClassName from '../utilities/createClassName'
 import type { DataType, TableContext } from '../types'
-import Cell from './Cell'
+import Cell from '../common/Cell'
 
 const Body = <Data extends DataType>(
   props: TableContext<Data>
 ): JSX.Element => {
   const { tableInstance } = props
-  const { rows, page, prepareRow, getTableBodyProps } = tableInstance
+  const {
+    rows,
+    page,
+    prepareRow,
+    getTableBodyProps,
+    totalColumnsWidth
+  } = tableInstance
   return (
-    <div
-      className={createClassName('tbody body')}
-      style={{ position: 'relative', zIndex: 0 }}
-      {...getTableBodyProps()}
-    >
+    <div className={createClassName('TBody body')} {...getTableBodyProps()}>
       {(page || rows).map((row) => {
         prepareRow(row)
         const subComponent: React.ReactNode = row.original.subComponent
@@ -31,8 +33,9 @@ const Body = <Data extends DataType>(
               <div
                 key={rowProps.key + '_subComponent'}
                 className={createClassName('tr subComponent')}
+                style={{ minWidth: totalColumnsWidth + 'px', maxWidth: '100%' }}
               >
-                {subComponent}
+                <div className='content'>{subComponent}</div>
               </div>
             )}
           </React.Fragment>

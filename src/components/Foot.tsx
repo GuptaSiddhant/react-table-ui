@@ -2,15 +2,7 @@ import * as React from 'react'
 import { HeaderGroup } from 'react-table'
 import createClassName from '../utilities/createClassName'
 import type { DataType, TableContext } from '../types'
-import Cell from './Cell'
-
-const stylesFoot: React.CSSProperties = {
-  position: 'sticky',
-  zIndex: 5,
-  width: '100%',
-  bottom: 0,
-  background: 'white'
-}
+import Cell from '../common/Cell'
 
 const renderFooterCellContent = <Data extends DataType>(
   column: HeaderGroup<Data>
@@ -40,13 +32,10 @@ const Foot = <Data extends DataType>(
 
   const freezeFoot = freezeOptions?.footer !== false
 
-  const classNames = 'tfoot footer ' + (freezeFoot ? 'sticky' : '')
-
   return (
     <div
-      className={createClassName(classNames)}
+      className={createClassName('Tfoot', 'footer', freezeFoot ? 'sticky' : '')}
       role='rowgroup'
-      style={stylesFoot}
     >
       {showFooter &&
         footerGroups.map((group) => {

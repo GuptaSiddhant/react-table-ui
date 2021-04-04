@@ -1,11 +1,15 @@
 import * as React from 'react'
+import { color, spacing } from '../styles/theme'
 import createClassName from '../utilities/createClassName'
+import styled from '../utilities/styled'
 
-const style: React.CSSProperties = {
-  padding: '4px',
-  background: 'white',
-  overflow: 'hidden'
-}
+export const CellStyle = styled('td')`
+  &, .th {
+    padding: ${spacing.sm} ${spacing.md}; 
+    background: ${color.background.primary};
+    overflow: hidden;
+  }
+`
 
 const Cell = React.forwardRef<
   HTMLDivElement,
@@ -15,7 +19,7 @@ const Cell = React.forwardRef<
     <div
       className={createClassName('td')}
       {...props}
-      style={{ ...style, ...props.style }}
+      style={props.style}
       ref={ref}
     />
   )

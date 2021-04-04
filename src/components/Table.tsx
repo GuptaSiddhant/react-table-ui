@@ -32,7 +32,7 @@ const Table = <Data extends DataType>(
       {...getTableProps()}
       {...htmlAttributes}
       aria-rowcount={rows.length}
-      className={createClassName('table', 'sticky', className)}
+      className={createClassName('Table', 'sticky', className)}
     >
       {showLoading ? (
         LoadingComponent

@@ -1,13 +1,7 @@
 import * as React from 'react'
 import createClassName from '../utilities/createClassName'
 import type { DataType, TableContext } from '../types'
-
-const stylesPagination: React.CSSProperties = {
-  height: '100%',
-  width: '100%',
-  border: '1px solid #ddd',
-  boxSizing: 'border-box'
-}
+import IconButton from '../common/IconButton'
 
 const getStatus = <Data extends DataType>({
   tableProps,
@@ -85,37 +79,33 @@ const Pagination = <Data extends DataType>(
     />
   ) : (
     <div
-      className={createClassName('pagination' + (isLoading ? ' loading' : ''))}
-      style={stylesPagination}
+      className={createClassName('Pagination' + (isLoading ? ' loading' : ''))}
     >
-      {status && <span>{status}</span>}
+      {status && <div className='Status'>{status}</div>}
+      <div className='spacer' />
       {pageOptions.length > 0 && (
-        <div>
-          <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+        <div className='Pager'>
+          <IconButton onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
             {'<<'}
-          </button>{' '}
-          <button onClick={() => previousPage()} disabled={!canPreviousPage}>
+          </IconButton>
+          <IconButton
+            onClick={() => previousPage()}
+            disabled={!canPreviousPage}
+          >
             {'<'}
-          </button>{' '}
-          <span>
-            Page{' '}
-            <strong>
-              {pageIndex + 1} of {pageOptions.length}
-            </strong>{' '}
-          </span>
-          <span>
-            | Go to page:{' '}
-            <input
-              type='number'
-              value={pageIndex + 1}
-              onChange={(e) => {
-                const page = e.target.value ? Number(e.target.value) - 1 : 0
-                gotoPage(page)
-              }}
-              style={{ width: '100px' }}
-            />
-          </span>{' '}
-          <select
+          </IconButton>
+          <span>Page</span>
+          <input
+            type='number'
+            value={pageIndex + 1}
+            onChange={(e) => {
+              const page = e.target.value ? Number(e.target.value) - 1 : 0
+              gotoPage(page)
+            }}
+            style={{ width: '60px' }}
+          />
+          <span>of {pageOptions.length}</span>
+          {/* <select
             value={pageSize}
             onChange={(e) => {
               setPageSize(Number(e.target.value))
@@ -126,16 +116,16 @@ const Pagination = <Data extends DataType>(
                 Show {pageSize}
               </option>
             ))}
-          </select>{' '}
-          <button onClick={() => nextPage()} disabled={!canNextPage}>
+          </select> */}
+          <IconButton onClick={() => nextPage()} disabled={!canNextPage}>
             {'>'}
-          </button>{' '}
-          <button
+          </IconButton>
+          <IconButton
             onClick={() => gotoPage(pageCount - 1)}
             disabled={!canNextPage}
           >
             {'>>'}
-          </button>
+          </IconButton>
         </div>
       )}
     </div>

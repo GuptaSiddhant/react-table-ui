@@ -2,8 +2,8 @@ import * as React from 'react'
 import { useAsyncDebounce } from 'react-table'
 import type { UseGlobalFiltersInstanceProps } from 'react-table'
 import { TableContext, DataType } from '../types'
-import IconButton from './IconButton'
-import createClassName from '../utilities/createClassName'
+import IconButton from '../common/IconButton'
+// import createClassName from '../utilities/createClassName'
 
 // Define a default UI for filtering
 export const DefaultGlobalFilter = <Data extends DataType>({
@@ -35,6 +35,8 @@ export const DefaultGlobalFilter = <Data extends DataType>({
 }
 
 const GlobalFilter = <Data extends DataType>(context: TableContext<Data>) => {
+  const { globalFilterOptions = {}, title = 'Table' } = context.tableProps
+
   const {
     rows,
     state: { globalFilter },
@@ -48,7 +50,6 @@ const GlobalFilter = <Data extends DataType>(context: TableContext<Data>) => {
     preGlobalFilteredRowsById,
     rowsById
   } = context.tableInstance
-  const { globalFilterOptions = {}, title = 'Table' } = context.tableProps
 
   const {
     Component: CustomGlobalFilter = DefaultGlobalFilter,
@@ -88,27 +89,26 @@ const GlobalFilter = <Data extends DataType>(context: TableContext<Data>) => {
 
   const Title = () => <div className='title'>{title}</div>
 
-  return disableGlobalFilter ? (
-    <Title />
-  ) : (
-    <React.Fragment>
-      <div className='Search'>
-        {isGlobalFilterVisible ? (
-          <div className={createClassName('GlobalFilter')}>
-            <IconButton title={searchText} onClick={hideGlobalFilterComponent}>
-              ❌
-            </IconButton>
-            <CustomGlobalFilter {...globalFilterProps} />
-          </div>
-        ) : (
-          <IconButton title={searchText} onClick={showGlobalFilterComponent}>
-            🔍
+  return (
+    <div className='titleSearch'>
+      {isGlobalFilterVisible ? (
+        <React.Fragment>
+          <CustomGlobalFilter {...globalFilterProps} />
+          <IconButton title={searchText} onClick={hideGlobalFilterComponent}>
+            ✕
           </IconButton>
-        )}
-      </div>
-
-      {isGlobalFilterVisible ? null : <div className='title'>{title}</div>}
-    </React.Fragment>
+        </React.Fragment>
+      ) : (
+        <React.Fragment>
+          <Title />
+          {!disableGlobalFilter && (
+            <IconButton title={searchText} onClick={showGlobalFilterComponent}>
+              🔍
+            </IconButton>
+          )}
+        </React.Fragment>
+      )}
+    </div>
   )
 }
 

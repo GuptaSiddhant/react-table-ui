@@ -4,6 +4,8 @@ const accent = {
   dark: ''
 }
 
+export const typography = {} as const
+
 export const color = {
   text: {
     primary: '#1a1a1a',
@@ -28,17 +30,19 @@ export const color = {
   }
 } as const
 
+export const pxToEm = (px: number) => px / 16 + 'em'
+
 export const border = {
   default: `1px solid ${color.border.default}`
 } as const
 
-export const radius = {
-  none: '0px',
-  xs: '2px',
-  sm: '4px',
-  md: '8px',
-  lg: '12px',
-  xl: '16px'
+export const spacing = {
+  none: pxToEm(0),
+  xs: pxToEm(2),
+  sm: pxToEm(4),
+  md: pxToEm(8),
+  lg: pxToEm(12),
+  xl: pxToEm(16)
 } as const
 
-export const typography = {} as const
+export const radius = spacing

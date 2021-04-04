@@ -1,6 +1,7 @@
 import { commonClassName } from './createClassName'
 
-const styledLiteral = (
+/** Mock "styled-components" function to trick JS-in-CSS Intellisense */
+const styled = (element: string) => (
   literals: TemplateStringsArray,
   ...args: string[]
 ): string => {
@@ -14,16 +15,17 @@ const styledLiteral = (
   // add the last literal
   result += literals[literals.length - 1]
 
-  // Replace "&" with common className  
-  return result.replaceAll('&', `.${commonClassName}`)
+  // Replace "&" with common className
+  const replacementClassName = [commonClassName, element]
+    .filter((str) => !!str)
+    .map((c) => `.${c}`)
+    .join(' ')
+  return result.replaceAll('&', replacementClassName)
 }
 
-/** Mock "styled-components" function to trick JS-in-CSS Intellisense */
-const styled = (_: string) => styledLiteral
-
 /** Add element shorthands */
-styled.rtui = styled('rtui')
-styled.div = styled('div')
-styled.table = styled('table')
+styled.div = styled('')
+styled.rtui = styled('RTUI')
+styled.table = styled('Table')
 
 export default styled
