@@ -20,40 +20,26 @@ const IndeterminateCheckbox = React.forwardRef<
       resolvedRef.current.indeterminate = indeterminate
   }, [resolvedRef, indeterminate])
 
-  return <input type='checkbox' ref={resolvedRef} {...rest} />
+  return (
+    <div className='RowSelectCheckbox'>
+      <input type='checkbox' ref={resolvedRef} {...rest} />
+    </div>
+  )
 })
-
-const CheckboxContainer: React.FC = ({ children }) => (
-  <div
-    style={{
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      width: '100%',
-      height: '100%'
-    }}
-  >
-    {children}
-  </div>
-)
 
 const getUseRowSelectColumn = <Data extends DataType>(
   props: ReactTableUIProps<Data>
 ) => {
-  const { Component = IndeterminateCheckbox, selectSubRows = true } =
+  const { Component = IndeterminateCheckbox, selectSubRows = false } =
     props.rowSelectOptions || {}
 
   const Header = ({ getToggleAllRowsSelectedProps }: HeaderProps<Data>) => (
-    <CheckboxContainer>
-      <Component {...getToggleAllRowsSelectedProps()} />
-    </CheckboxContainer>
+    <Component {...getToggleAllRowsSelectedProps()} />
   )
 
   const Cell = ({ row }: CellProps<Data>) =>
     row.depth > 0 && !selectSubRows ? null : (
-      <CheckboxContainer>
-        <Component {...row.getToggleRowSelectedProps()} />
-      </CheckboxContainer>
+      <Component {...row.getToggleRowSelectedProps()} />
     )
 
   return (hooks: Hooks<Data>): void => {
@@ -61,11 +47,15 @@ const getUseRowSelectColumn = <Data extends DataType>(
       {
         id: systemColumns.selection.id,
         sticky: systemColumns.selection.order < 0 ? 'left' : 'right',
-        minWidth: 40,
-        maxWidth: 40,
+        minWidth: 48,
+        maxWidth: 48,
         Header,
         Cell,
-        disableResizing: true
+        disableResizing: true,
+        disableFilters: true,
+        disableGlobalFilter: true,
+        disableGroupBy: true,
+        disableSortBy: true
       },
       ...columns
     ])

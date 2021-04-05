@@ -1,4 +1,4 @@
-import type { FC } from 'react'
+import type { FC, ReactNode } from 'react'
 import type {
   UseFiltersOptions,
   UseFiltersState,
@@ -12,12 +12,12 @@ export interface FiltersOptions<Data extends DataType>
   extends UseFiltersOptions<Data> {
   /** Initial settings of filters.
    *  List of objects containing column id and value.
-   *  @example { filters: [{ id: 'columnsId', value: 'filterValue' }] } */
-  initialState?: UseFiltersState<Data>
+   *  @example { filters: [{ id: 'columnsId', value: 'filterValue' }], visible: true } */
+  initialState?: FiltersState<Data>
 
   /** Callback executed when columns are sorted.
    *  The function must be wrapped in useCallback hook. */
-  onStateChange?: StateChangeHandler<UseFiltersState<Data>>
+  onStateChange?: StateChangeHandler<FiltersState<Data>>
 
   /** Disable column filtering for table. @default false */
   disableFilters?: boolean
@@ -28,6 +28,9 @@ export interface FiltersOptions<Data extends DataType>
 
   /** Reset filtering when data is changed. @default true */
   autoResetFilters?: boolean
+
+  /** Filters are always visible. Removes the button to show/hide filters. @default false */
+  alwaysShowFilters?: boolean
 
   /** Manual filtering with custom logic, eg. server-side.
    * @default false */
@@ -45,8 +48,22 @@ export interface FiltersOptions<Data extends DataType>
    *  This overrides the fallback text-input-field.
    *  Column specific components will override this component. */
   DefaultComponent?: FilterComponent<Data>
+
+  /** Indicator/icon used for action/button to
+   * show the Filters Row. @default '👁️' */
+  showFiltersActionIndicator?: ReactNode
+
+  /** Indicator/icon used for action/button to
+   * hide the Filters Row. @default '👀' */
+  hideFiltersActionIndicator?: ReactNode
 }
 
 export type FilterComponent<Data extends DataType> = FC<HeaderProps<Data>>
+
+export interface FiltersState<Data extends DataType>
+  extends Partial<UseFiltersState<Data>> {
+  /** Set visibility of filters in the table. @default false */
+  filtersVisible?: boolean
+}
 
 export default FiltersOptions

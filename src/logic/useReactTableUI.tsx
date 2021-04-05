@@ -25,6 +25,7 @@ import getUseExpandedColumn from './useExpandedColumn'
 import getUseRowSelectColumn from './useRowSelectColumn'
 import useHandleStateChange from './useHandleStateChange'
 import useCreateDefaultColumns from './useCreateDefaultColumns'
+import useVisibleFilters from './useVisibleFilters'
 
 const useReactTableUI = <Data extends DataType>(
   tableProps: ReactTableUIProps<Data>
@@ -46,19 +47,19 @@ const useReactTableUI = <Data extends DataType>(
   const {
     initialState: initialFiltersState,
     DefaultComponent: DefaultFilterComponent,
-    disableFilters,
+
     ...filtersTableOptions
   } = filtersOptions
 
   const {
     initialState: initialGlobalFilterState,
-    disableGlobalFilter,
+
     ...globalFilterTableOptions
   } = globalFilterOptions
 
   const {
     initialState: initialSortByState,
-    disableSortBy,
+
     ...sortByTableOptions
   } = sortByOptions
 
@@ -69,26 +70,25 @@ const useReactTableUI = <Data extends DataType>(
 
   const {
     initialState: initialRowSelectState,
-    disableRowSelect = false,
+
     ...rowSelectTableOptions
   } = rowSelectOptions
 
   const {
     initialState: initialPaginationState,
-    disablePagination,
+
     ...paginationTableOptions
   } = paginationOptions
 
   const {
     initialState: initialColumnState,
-    disableOrdering,
-    disableResizing,
+
     ...columnTableOptions
   } = columnOptions
 
   const {
     initialState: initialRowStateState,
-    disableRowState,
+
     ...rowStateTableOptions
   } = rowStateOptions
 
@@ -134,18 +134,19 @@ const useReactTableUI = <Data extends DataType>(
         }
       }
     },
-    disableFilters ? NOOP : useFilters,
-    disableGlobalFilter ? NOOP : useGlobalFilter,
-    disableSortBy ? NOOP : useSortBy,
+    filtersOptions.disableFilters ? NOOP : useFilters,
+    globalFilterOptions.disableGlobalFilter ? NOOP : useGlobalFilter,
+    sortByOptions.disableSortBy ? NOOP : useSortBy,
     disableExpander ? NOOP : useExpanded,
     disableExpander ? NOOP : useExpandedColumn,
-    disablePagination ? NOOP : usePagination,
-    disableRowSelect ? NOOP : useRowSelect,
-    disableRowSelect ? NOOP : useRowSelectColumn,
-    disableRowState ? NOOP : useRowState,
-    disableOrdering ? NOOP : useColumnOrder,
+    paginationOptions.disablePagination ? NOOP : usePagination,
+    rowSelectOptions.disableRowSelect ? NOOP : useRowSelect,
+    rowSelectOptions.disableRowSelect ? NOOP : useRowSelectColumn,
+    rowStateOptions.disableRowState ? NOOP : useRowState,
+    columnOptions.disableOrdering ? NOOP : useColumnOrder,
+    columnOptions.disableResizing ? NOOP : useResizeColumns,
     useFlexLayout,
-    disableResizing ? NOOP : useResizeColumns,
+    useVisibleFilters,
     useSticky
   )
 

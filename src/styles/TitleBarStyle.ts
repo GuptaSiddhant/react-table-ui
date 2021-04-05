@@ -1,6 +1,5 @@
 import styled from '../utilities/styled'
-import { border } from './theme'
-// import { border, radius } from './theme'
+import { border, pxToEm, spacing } from './theme'
 
 /* TitleBar */
 export default styled('TitleBar')`
@@ -22,6 +21,7 @@ export default styled('TitleBar')`
     justify-content: space-between;
     align-items: center;
     padding-inline-start: 1em;
+    gap: 0.5em;
   }
   & .end {
     grid-area: end;
@@ -40,13 +40,15 @@ export default styled('TitleBar')`
     width: 100%;
   }
 
-  /* Global Filter */
-  & .GlobalFilter {
-    display: flex;
-    width: 100%;
-    height: 40px;
-    align-items: center;
-    padding: 0 1em;
-    gap: 0.5em;
+  & .titleSearch input {
+    min-height: ${pxToEm(32)};
+    position: relative;
+    width: calc(100% + ${spacing.xl});
+    padding: ${spacing.sm} ${spacing.md};
+    left: -${spacing.md};
+  }
+
+  & .titleSearch input::placeholder {
+    font-weight: bold;
   }
 `

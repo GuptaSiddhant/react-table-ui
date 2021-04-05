@@ -3,15 +3,19 @@ import { useAsyncDebounce } from 'react-table'
 import type { UseGlobalFiltersInstanceProps } from 'react-table'
 import { TableContext, DataType } from '../types'
 import IconButton from '../common/IconButton'
-// import createClassName from '../utilities/createClassName'
+
+interface GlobalFilterProps<Data extends DataType>
+  extends UseGlobalFiltersInstanceProps<Data> {
+  globalFilterValue: string
+  placeholder: string
+}
 
 // Define a default UI for filtering
 export const DefaultGlobalFilter = <Data extends DataType>({
-  preGlobalFilteredRows,
   globalFilterValue,
-  setGlobalFilter
-}: UseGlobalFiltersInstanceProps<Data> & { globalFilterValue: string }) => {
-  const count = preGlobalFilteredRows.length
+  setGlobalFilter,
+  placeholder
+}: GlobalFilterProps<Data>) => {
   const [value, setValue] = React.useState(globalFilterValue)
   const onChange = useAsyncDebounce((value) => {
     setGlobalFilter(value || undefined)
@@ -19,23 +23,20 @@ export const DefaultGlobalFilter = <Data extends DataType>({
 
   return (
     <input
+      type='search'
       value={value || ''}
       autoFocus
       onChange={(e) => {
         setValue(e.target.value)
         onChange(e.target.value)
       }}
-      placeholder={`${count} records...`}
-      style={{
-        fontSize: '1.1rem',
-        border: '0'
-      }}
+      placeholder={placeholder}
     />
   )
 }
 
 const GlobalFilter = <Data extends DataType>(context: TableContext<Data>) => {
-  const { globalFilterOptions = {}, title = 'Table' } = context.tableProps
+  const { globalFilterOptions = {}, title } = context.tableProps
 
   const {
     rows,
@@ -56,9 +57,22 @@ const GlobalFilter = <Data extends DataType>(context: TableContext<Data>) => {
     disableGlobalFilter = false
   } = globalFilterOptions
 
-  const globalFilterProps: UseGlobalFiltersInstanceProps<Data> & {
-    globalFilterValue: string
-  } = {
+  const [isGlobalFilterVisible, setIsGlobalFilterComponent] = React.useState(
+    false
+  )
+
+  const showGlobalFilterComponent = React.useCallback(
+    () => setIsGlobalFilterComponent(true),
+    []
+  )
+  const hideGlobalFilterComponent = React.useCallback(() => {
+    setGlobalFilter(undefined)
+    setIsGlobalFilterComponent(false)
+  }, [])
+
+  const searchText = `Search ${title || 'Table'}`
+
+  const globalFilterProps: GlobalFilterProps<Data> = {
     globalFilterValue: globalFilter,
     flatRows,
     globalFilteredFlatRows,
@@ -69,38 +83,25 @@ const GlobalFilter = <Data extends DataType>(context: TableContext<Data>) => {
     preGlobalFilteredRowsById,
     rows,
     rowsById,
-    setGlobalFilter
+    setGlobalFilter,
+    placeholder: searchText
   }
-
-  const [isGlobalFilterVisible, setIsGlobalFilterComponent] = React.useState(
-    false
-  )
-
-  const showGlobalFilterComponent = React.useCallback(
-    () => setIsGlobalFilterComponent(true),
-    []
-  )
-  const hideGlobalFilterComponent = React.useCallback(
-    () => setIsGlobalFilterComponent(false),
-    []
-  )
-
-  const searchText = `Search ${title}`
-
-  const Title = () => <div className='title'>{title}</div>
 
   return (
     <div className='titleSearch'>
       {isGlobalFilterVisible ? (
         <React.Fragment>
           <CustomGlobalFilter {...globalFilterProps} />
-          <IconButton title={searchText} onClick={hideGlobalFilterComponent}>
+          <IconButton
+            title={'Close search'}
+            onClick={hideGlobalFilterComponent}
+          >
             ✕
           </IconButton>
         </React.Fragment>
       ) : (
         <React.Fragment>
-          <Title />
+          <div className='title'>{title}</div>
           {!disableGlobalFilter && (
             <IconButton title={searchText} onClick={showGlobalFilterComponent}>
               🔍

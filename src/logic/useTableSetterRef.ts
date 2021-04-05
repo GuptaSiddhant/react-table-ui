@@ -12,6 +12,7 @@ export interface UseTableSetterRefProps<Data extends DataType> {
   setPageSize: TableInstance<Data>['setPageSize']
   setRowState: TableInstance<Data>['setRowState']
   setSortBy: TableInstance<Data>['setSortBy']
+  setVisibleFilters: TableInstance<Data>['setVisibleFilters']
 }
 
 export const useHandleTableSetterRef = <Data extends DataType>(
@@ -27,7 +28,8 @@ export const useHandleTableSetterRef = <Data extends DataType>(
     setHiddenColumns,
     setPageSize,
     setRowState,
-    setSortBy
+    setSortBy,
+    setVisibleFilters
   } = tableInstance
 
   useImperativeHandle(tableRef, () => ({
@@ -39,7 +41,8 @@ export const useHandleTableSetterRef = <Data extends DataType>(
     setHiddenColumns,
     setPageSize,
     setRowState,
-    setSortBy
+    setSortBy,
+    setVisibleFilters
   }))
 }
 

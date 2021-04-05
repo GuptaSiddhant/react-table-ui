@@ -1,27 +1,37 @@
-# react-table-ui
+# React-Table UI
 
-> UI for React-Table-7
+UI for React-Table 7
 
 [![NPM](https://img.shields.io/npm/v/react-table-ui.svg)](https://www.npmjs.com/package/react-table-ui) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Install
 
 ```bash
-npm install --save react-table-ui
+npm install react-table-ui
+```
+
+```bash
+yarn add react-table-ui
 ```
 
 ## Usage
 
 ```tsx
-import React, { Component } from 'react'
+import ReactTableUI from 'react-table-ui'
+import { useMemo } from 'react'
 
-import MyComponent from 'react-table-ui'
-import 'react-table-ui/dist/index.css'
+const App = () => {
+  const data = useMemo(
+    () => [
+      { name: 'Abc Xyx', age: 20 },
+      { name: 'Def Uvw', age: 25 },
+      { name: 'Ghi Rst', age: 23 },
+      { name: 'Jklm Nopq', age: 30 }
+    ],
+    []
+  )
 
-class Example extends Component {
-  render() {
-    return <MyComponent />
-  }
+  return <ReactTableUI data={data} />
 }
 ```
 

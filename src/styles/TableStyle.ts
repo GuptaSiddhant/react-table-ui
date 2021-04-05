@@ -1,31 +1,148 @@
 import styled from '../utilities/styled'
-import { color } from './theme'
+import { border, CenterStyle, color, pxToEm, spacing } from './theme'
 
-export default styled.table`
+const THeadStyle = styled('THead')`
   & {
-    height: 100%;
-    min-width: 100%;
-    overflow: scroll;
-    border: 1px solid #ddd;
-  }
-
-  & .Thead {
     position: relative;
     z-index: 5;
     width: 100%;
     top: 0;
   }
 
-  & .Thead.sticky {
+  &.sticky {
     position: sticky;
   }
 
-  & .Thead .th {
+  & .Row {
+    min-height: ${pxToEm(48)};
+    background-color: ${color.background.secondary};
+  }
+
+  .Table.scrollY .THead .Row {
+    box-shadow: 0px 2px 8px 0 rgba(0, 0, 0, 0.2);
+  }
+
+  & .Cell {
     cursor: inherit;
-    font-weight: bold;
+    display: flex;    
+    align-items: center;
+    background-color: inherit;
+    gap: ${spacing.md};
+    border-bottom: ${border.default};
+    color: ${color.text.secondary}
+  }
+
+  & .Sort {
+    visibility: hidden;
+  }
+
+  & .Cell:hover .Sort {
+    visibility: visible;
+  }
+
+  & .Filter {
+    width: 100%;
+  }
+
+  & .FilterRow {
+    height: ${pxToEm(48)};
+    background-color: ${color.background.disabled};
+  }
+
+  & .Filter input {
+    position: relative;
+    width: calc(100% + ${spacing.xl});
+    padding: ${spacing.sm} ${spacing.md};
+    left: -${spacing.md};
+    font-weight: normal;
+  }
+
+  & .resizer {
+    display: inline-block;
+    background: ${color.border.default};
+    width: 2px;
+    height: ${pxToEm(24)};
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    touch-action: none;
+  }
+  & .resizer:hover,
+  & .resizer.isResizing {
+    background: ${color.border.selected};
+  }
+`
+
+const TBodyStyle = styled('TBody')`
+  & {
+    height: max-content;
+    position: relative;
+    z-index: 0;
+  }
+
+  & .Row {
+    min-height: ${pxToEm(48)};
+    background: ${color.background.primary};
+  }
+
+  & .Row.selected {
+    background: ${color.background.selected};
+  }
+
+  & .Cell {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    align-items: center;
+    background-color: inherit;
+    border-bottom: ${border.default};
+  }
+
+  & .subComponent {
+    box-shadow: inset 0 0 8px 0 #0002;
+  }
+  & .subComponent .content {
+    position: sticky;
+    left: 0px;
+    width: max-content; /* TODO */
+    padding: ${pxToEm(16)};
+  }
+`
+
+export default styled.table`
+  & {
+    height: 100%;
+    min-width: 100%;
+    overflow: auto;
+  }
+
+  ${THeadStyle}
+  ${TBodyStyle}
+
+  & .RowSelectCheckbox {
+    ${CenterStyle}
+  }
+
+  & [data-sticky-td] {
+    position: sticky;
+  }
+
+  &.scrollX [data-sticky-last-left-td] {
+    box-shadow: 1px 0px 2px ${color.border.default};
+  }
+
+  &.scrollX [data-sticky-first-right-td] {
+    box-shadow: -1px 0px 2px ${color.border.default};
+  }
+
+  & .Cell {
+    padding: ${spacing.md} ${spacing.xl};
+  }
+
+  & .Cell.noSpacing {
+    flex-direction: row;
+    align-items: center;
+    padding: 0;
   }
 
   & .loader {
@@ -34,53 +151,6 @@ export default styled.table`
     align-items: center;
     width: 100%;
     height: 100%;
-  }
-
-  & .TBody {
-    height: max-content;
-    position: relative;
-    z-index: 0;
-  }
-
-  & .subComponent {
-    box-shadow: inset 0 0 8px 0 #0002;
-  }
-  & .subComponent .content {
-    padding: 8px;
-    position: sticky;
-    left: 0px;
-    width: max-content; /* TODO */
-  }
-
-  & [data-sticky-td] {
-    position: sticky;
-  }
-
-  & [data-sticky-last-left-td] {
-    box-shadow: 2px 0px 3px #ccc;
-  }
-
-  & [data-sticky-first-right-td] {
-    box-shadow: -2px 0px 3px #ccc;
-  }
-
-  & .resizer {
-    display: inline-block;
-    background: black;
-    width: 4px;
-    height: 100%;
-    position: absolute;
-    right: 0;
-    top: 0;
-    transform: translateX(50%);
-    z-index: 1;
-    touch-action: none;
-    opacity: 0.5;
-  }
-  & .resizer:hover,
-  & .resizer.isResizing {
-    opacity: 1;
-    width: 6px;
   }
 
   & .TFoot {

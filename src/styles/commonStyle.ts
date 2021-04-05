@@ -1,8 +1,20 @@
 import styled from '../utilities/styled'
-// import { color, radius, spacing, pxToEm } from './theme'
+import { border, radius } from './theme'
 
 export default styled.div`
-  & input {
+  & input[type='search'] {
+    font: inherit;
     width: 100%;
+    border-radius: ${radius.xs};
+    border: ${border.default};
+    padding: ${radius.sm} ${radius.md};
+  }
+
+  & input[type='search'] {
+    -webkit-appearance: none;
+  }
+
+  & input[type='search']::-webkit-search-decoration {
+    -webkit-appearance: none;
   }
 `

@@ -25,7 +25,7 @@ export interface RowSelectOptions<Data extends DataType>
   /** Reset row-selection when data changes. @default true */
   autoResetSelectedRows?: boolean
 
-  /** Allow sub-rows to be selected. @default true */
+  /** Allow sub-rows to be selected. @default false */
   selectSubRows?: boolean
 
   /** Callback executed when rows are selected or deselected.

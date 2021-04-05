@@ -20,10 +20,10 @@ const ReactTableUI = <Data extends DataType>({
 }: ReactTableUIProps<Data> & {
   tableSetterRef?: React.RefObject<UseTableSetterRefProps<Data>>
 }): JSX.Element => {
-  // Create Table's context
-  const context = useReactTableUI(tableProps)
   // Add styles to DOM
   useStyleSheet()
+  // Create Table's context
+  const context = useReactTableUI(tableProps)
   // Add setters to ref
   useHandleTableSetterRef(context, tableSetterRef)
 

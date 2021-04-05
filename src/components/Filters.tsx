@@ -4,16 +4,15 @@ import type { HeaderProps } from 'react-table'
 import { DataType } from '../types'
 
 export const DefaultColumnFilter = <Data extends DataType>({
-  column: { filterValue, setFilter }
+  column: { filterValue, setFilter, render }
 }: HeaderProps<Data>) => {
   return (
     <input
-      style={{ width: '100%' }}
+      type='search'
       value={filterValue || ''}
-      onChange={(e) => {
-        setFilter(e.target.value || undefined) // Set undefined to remove the filter entirely
-      }}
-      placeholder={`Filter...`}
+      // Set undefined to remove the filter entirely
+      onChange={(e) => setFilter(e.target.value || undefined)}
+      placeholder={`Filter ${render('Header')?.toString()}`}
     />
   )
 }

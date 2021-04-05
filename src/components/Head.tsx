@@ -4,6 +4,7 @@ import createClassName from '../utilities/createClassName'
 import type { DataType, TableContext } from '../types'
 import type { SortingComponent } from '../types/SortingOptions'
 import Cell from '../common/Cell'
+import { checkIfSystemColumn } from '../utilities/systemColumns'
 
 type HeadCellProps<Data extends DataType> = TableContext<Data> & {
   column: HeaderGroup<Data>
@@ -28,6 +29,7 @@ const createSortComponent = <Data extends DataType>({
   }) =>
     canSort ? (
       <div
+        className='Sort'
         style={{ marginLeft: '8px', cursor: 'pointer' }}
         onClick={onClick}
         title={title}
@@ -43,19 +45,40 @@ const createSortComponent = <Data extends DataType>({
   return Component || DefaultSortComponent
 }
 
-const HeadFilter = <Data extends DataType>(
+const HeadFilterCell = <Data extends DataType>(
   props: HeadCellProps<Data>
 ): JSX.Element | null => {
   const { column } = props
-  if (!column.canFilter) return null
-  return <div>{column.render('Filter')}</div>
+
+  const renderContent = column.render('Header')
+  const renderContentString =
+    typeof renderContent === 'string'
+      ? renderContent
+      : renderContent?.toString() || ''
+  const headCellProps = column.getHeaderProps(column.getSortByToggleProps())
+  const isSystemColumn = checkIfSystemColumn(column)
+
+  return (
+    <Cell
+      {...{
+        ...headCellProps,
+        onClick: undefined,
+        className: createClassName('th', isSystemColumn ? 'noSpacing' : ''),
+        title: renderContentString
+      }}
+      style={{ ...headCellProps.style, cursor: 'initial' }}
+    >
+      {!column.canFilter ? null : (
+        <div className='Filter'>{column.render('Filter')}</div>
+      )}
+    </Cell>
+  )
 }
 
 const HeadCell = <Data extends DataType>(
   props: HeadCellProps<Data>
 ): JSX.Element | null => {
   const { column, tableProps } = props
-
   const { disableResizing = false } = tableProps.columnOptions || {}
 
   const SortComponent = createSortComponent(props)
@@ -65,65 +88,108 @@ const HeadCell = <Data extends DataType>(
       ? renderContent
       : renderContent?.toString() || ''
   const headCellProps = column.getHeaderProps(column.getSortByToggleProps())
-  const className = createClassName('th')
+  const isSystemColumn = checkIfSystemColumn(column)
 
   return (
     <Cell
       {...{
         ...headCellProps,
         onClick: undefined,
-        className,
+        className: createClassName('th', isSystemColumn ? 'noSpacing' : ''),
         title: renderContentString
       }}
-      style={headCellProps.style}
+      style={{ ...headCellProps.style, cursor: 'initial' }}
     >
-      <div style={{ display: 'flex' }}>
-        {renderContent}
-        <SortComponent
-          {...column}
-          onClick={(column.getSortByToggleProps() as any).onClick}
-          column={column}
-          title={`Sort ${renderContentString}`}
+      {renderContent}
+      <SortComponent
+        {...column}
+        onClick={(column.getSortByToggleProps() as any).onClick}
+        column={column}
+        title={`Sort ${renderContentString}`}
+      />
+      {!disableResizing && !column.disableResizing && !isSystemColumn && (
+        <div
+          {...column?.getResizerProps?.()}
+          title={`Resize ${renderContentString}`}
+          className={createClassName(
+            'resizer',
+            column.isResizing ? 'isResizing' : ''
+          )}
         />
-        {!disableResizing && !column.disableResizing && (
-          <div
-            {...column?.getResizerProps?.()}
-            title={`Resize ${renderContentString}`}
-            className={createClassName(
-              'resizer',
-              column.isResizing ? 'isResizing' : ''
-            )}
-          />
-        )}
-      </div>
-      <HeadFilter {...props} />
+      )}
     </Cell>
   )
 }
 
-const Head = <Data extends DataType>(
-  props: TableContext<Data>
+const HeaderRow = <Data extends DataType>(
+  props: TableContext<Data> & {
+    headerGroup: HeaderGroup<Data>
+  }
 ): JSX.Element => {
-  const { tableInstance, tableProps } = props
-  const { headerGroups } = tableInstance
-  const { freezeOptions } = tableProps
-  const freezeHead = freezeOptions?.header !== false
+  const { headerGroup, ...context } = props
+  const { getHeaderGroupProps, headers } = headerGroup
+
+  return (
+    <div {...getHeaderGroupProps()} className={createClassName('tr', 'Row')}>
+      {headers.map((column) => (
+        <HeadCell
+          key={column.getHeaderProps().key || ''}
+          {...{ column, ...context }}
+        />
+      ))}
+    </div>
+  )
+}
+
+const FilterRow = <Data extends DataType>(
+  props: TableContext<Data> & {
+    headerGroup: HeaderGroup<Data>
+  }
+): JSX.Element => {
+  const { headerGroup, ...context } = props
+  const { getHeaderGroupProps, headers } = headerGroup
 
   return (
     <div
-      className={createClassName('Thead', 'header', freezeHead ? 'sticky' : '')}
+      {...getHeaderGroupProps()}
+      className={createClassName('tr', 'Row', 'FilterRow')}
+    >
+      {headers.map((column) => (
+        <HeadFilterCell
+          key={column.getHeaderProps().key || ''}
+          {...{ column, ...context }}
+        />
+      ))}
+    </div>
+  )
+}
+
+const Head = <Data extends DataType>(
+  context: TableContext<Data>
+): JSX.Element => {
+  const { tableInstance, tableProps } = context
+  const { headerGroups, state } = tableInstance
+  const { freezeOptions } = tableProps
+  const freezeHead = freezeOptions?.header !== false
+
+  const filtersHeaderGroup = headerGroups[headerGroups.length - 1]
+  const { filtersVisible } = state
+
+  return (
+    <div
+      className={createClassName('THead', 'header', freezeHead ? 'sticky' : '')}
       role='rowgroup'
     >
-      {headerGroups.map(({ getHeaderGroupProps, headers }) => (
-        <div {...getHeaderGroupProps()} className={createClassName('tr')}>
-          {headers.map((column) => (
-            <HeadCell
-              key={column.getHeaderProps().key || ''}
-              {...{ column, ...props }}
-            />
-          ))}
-        </div>
+      {headerGroups.map((headerGroup, index) => (
+        <HeaderRow key={index} headerGroup={headerGroup} {...context} />
       ))}
+      {filtersVisible && (
+        <FilterRow
+          key='filterRow'
+          headerGroup={filtersHeaderGroup}
+          {...context}
+        />
+      )}
     </div>
   )
 }

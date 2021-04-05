@@ -4,6 +4,7 @@ import type { DataType, TableContext } from '../types'
 import Head from '../components/Head'
 import Body from '../components/Body'
 import Foot from '../components/Foot'
+import useScrollPosition from '../logic/useScrollPosition'
 
 const Loader: React.FC = () => <div className='loader'>Loading...</div>
 
@@ -11,7 +12,6 @@ const Table = <Data extends DataType>(
   props: TableContext<Data> & React.HTMLAttributes<HTMLDivElement>
 ) => {
   const { tableInstance, tableProps, className = '', ...htmlAttributes } = props
-
   const { getTableProps, rows } = tableInstance
   const { loadingOptions = {}, data = [] } = tableProps
 
@@ -27,12 +27,21 @@ const Table = <Data extends DataType>(
     [data, isLoading, backgroundLoading]
   )
 
+  const [tableRef, { scrollPosX, scrollPosY }] = useScrollPosition()
+
   return (
     <div
       {...getTableProps()}
       {...htmlAttributes}
       aria-rowcount={rows.length}
-      className={createClassName('Table', 'sticky', className)}
+      className={createClassName(
+        'Table',
+        'sticky',
+        className,
+        scrollPosX > 0 ? 'scrollX' : '',
+        scrollPosY > 0 ? 'scrollY' : ''
+      )}
+      ref={tableRef}
     >
       {showLoading ? (
         LoadingComponent

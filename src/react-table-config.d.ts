@@ -85,7 +85,8 @@ declare module 'react-table' {
       UsePaginationInstanceProps<D>,
       UseRowSelectInstanceProps<D>,
       UseRowStateInstanceProps<D>,
-      UseSortByInstanceProps<D> {}
+      UseSortByInstanceProps<D>,
+      UseFiltersVisibleProps {}
 
   export interface TableState<
     D extends Record<string, unknown> = Record<string, unknown>
@@ -98,7 +99,8 @@ declare module 'react-table' {
       UseResizeColumnsState<D>,
       UseRowSelectState<D>,
       UseRowStateState<D>,
-      UseSortByState<D> {}
+      UseSortByState<D>,
+      UseFiltersVisibleState {}
 
   export interface ColumnInterface<
     D extends Record<string, unknown> = Record<string, unknown>
@@ -110,6 +112,7 @@ declare module 'react-table' {
     Footer?: ReactNode
     columns?: Column<D>[]
     sticky?: 'left' | 'right'
+    align?: 'left' | 'right' | 'center'
   }
 
   export interface ColumnInstance<
@@ -131,4 +134,14 @@ declare module 'react-table' {
       UseGroupByRowProps<D>,
       UseRowSelectRowProps<D>,
       UseRowStateRowProps<D> {}
+
+  export interface UseFiltersVisibleState {
+    filtersVisible?: boolean
+  }
+  export interface UseFiltersVisibleProps {
+    setFiltersVisible: (filtersVisible: boolean) => void
+    resetFiltersVisible: () => void
+    toggleFiltersVisible: () => void
+  }
+
 }

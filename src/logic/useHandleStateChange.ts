@@ -30,7 +30,8 @@ const useHandleStateChange = <Data extends DataType>({
     globalFilter,
     groupBy,
     columnResizing,
-    hiddenColumns = []
+    hiddenColumns = [],
+    filtersVisible,
   } = state
 
   /** @todo Remove */
@@ -58,8 +59,8 @@ const useHandleStateChange = <Data extends DataType>({
 
   // Filtering
   useEffect(() => {
-    filtersOptions?.onStateChange?.({ filters })
-  }, [filtersOptions?.onStateChange, filters])
+    filtersOptions?.onStateChange?.({ filters, filtersVisible })
+  }, [filtersOptions?.onStateChange, filters, filtersVisible])
 
   // Global filtering
   useEffect(() => {

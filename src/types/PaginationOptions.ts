@@ -1,4 +1,4 @@
-import type { FC } from 'react'
+import type { FC, ReactNode } from 'react'
 import type {
   UsePaginationOptions,
   UsePaginationState,
@@ -45,8 +45,25 @@ export interface PaginationOptions<Data extends DataType>
   // ----------
   // Components
 
-  /** Custom component to be rendered for pagination. */
+  /** Custom component to be rendered for pagination.
+   * Overrides all indicators. */
   Component?: PaginationComponent<Data>
+
+  /** Indicator/icon used in action/button to
+   * navigate to the next page. @default '▶️' */
+  nextPageIndicator?: ReactNode
+
+  /** Indicator/icon used in action/button to
+   * navigate to the previous page. @default '◀️' */
+  previousPageIndicator?: ReactNode
+
+  /** Indicator/icon used in action/button to
+   * navigate to the first page. @default '⏮️' */
+  firstPageIndicator?: ReactNode
+
+  /** Indicator/icon used in action/button to
+   * navigate to the last page. @default '⏭️' */
+  lastPageIndicator?: ReactNode
 }
 
 export type PaginationComponent<Data extends DataType> = FC<

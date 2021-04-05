@@ -1,5 +1,5 @@
 import React from 'react'
-import { HeaderProps, Column } from 'react-table'
+import { Column } from 'react-table'
 import ReactTableUI, { useTableSetterRef } from 'react-table-ui'
 import type { DataType } from 'react-table-ui'
 import makeData from './makeData'
@@ -18,30 +18,43 @@ const App = () => {
   const columns: Column<User>[] = React.useMemo(
     () => [
       {
-        Header: 'First Name',
-        accessor: 'firstName',
-sticky: 'left'
+        Header: 'Name',
+        sticky: 'left',
+        columns: [
+          {
+            Header: 'First Name',
+            accessor: 'firstName',
+            sticky: 'left'
+          },
+          {
+            Header: 'Last Name',
+            accessor: 'lastName'
+          }
+        ]
       },
       {
-        Header: 'Last Name',
-        accessor: 'lastName'
-      },
-      {
-        Header: 'Age',
-        accessor: 'age',
-        Filter: (_: HeaderProps<User>) => null
-      },
-      {
-        Header: 'Visits',
-        accessor: 'visits'
-      },
-      {
-        Header: 'Status',
-        accessor: 'status'
-      },
-      {
-        Header: 'Profile Progress',
-        accessor: 'progress'
+        Header: 'Info',
+        columns: [
+          {
+            Header: 'Age',
+            accessor: 'age',
+            disableFilters: true
+          },
+          {
+            Header: 'Visits',
+            accessor: 'visits'
+          },
+          {
+            Header: 'Status',
+            accessor: 'status'
+          },
+          {
+            Header: 'Profile Progress',
+            accessor: 'progress',
+            align: 'right',
+            width: 200
+          }
+        ]
       }
     ],
     []
@@ -56,19 +69,28 @@ sticky: 'left'
       <div
         style={{
           width: '100%',
-          height: 'calc(100vh - 100px)',          
+          height: 'calc(100vh - 100px)',
           overflow: 'hidden',
           padding: '20px'
         }}
       >
         <ReactTableUI
-        title="Test table"
+          title='Test table'
           data={data}
           columns={columns}
           loadingOptions={{ isLoading }}
           tableSetterRef={tableSetterRef}
+          filtersOptions={
+            {
+              // disableFilters: true,
+              // alwaysShowFilters:true,
+              // initialState: { filtersVisible: true },
+              // toggleFiltersVisibleActionIndicator: <div>L</div>
+            }
+          }
+          // columnOptions={{initialState:{columnOrder: ['name', 'age', 'age2']}}}
           // globalFilterOptions={{disableGlobalFilter: true}}
-          // paginationOptions={{paginateExpandedRows: false}}
+          
         />
       </div>
       <button onClick={() => setLoading((s) => !s)}>Load</button>

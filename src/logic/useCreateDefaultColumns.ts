@@ -2,6 +2,9 @@ import { useMemo } from 'react'
 import type { Column } from 'react-table'
 import type { DataType } from '../types'
 
+const toTitleCase = (str: string) =>
+  str.slice(0, 1).toUpperCase() + str.slice(1)
+
 const useCreateDefaultColumns = <Data extends DataType>(
   data: Data[]
 ): Column<Data>[] =>
@@ -11,8 +14,8 @@ const useCreateDefaultColumns = <Data extends DataType>(
       .filter((key) => !['subRows', 'subComponent'].includes(key))
       .map((key) => ({
         accessor: key,
-        Header: key
+        Header: toTitleCase(key)
       }))
   }, [data])
 
-export default useCreateDefaultColumns;
+export default useCreateDefaultColumns

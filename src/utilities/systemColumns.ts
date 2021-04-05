@@ -2,7 +2,7 @@
 // Left sticky // Table columns // Right sticky
 // -4 -3 -2 -1 // 0 0 0 0 0 0 0 // 1 2 3 4 5 6
 
-import { Column, IdType } from 'react-table'
+import { Column, HeaderGroup, IdType } from 'react-table'
 import { DataType } from '../types'
 
 interface SystemColumn {
@@ -35,6 +35,13 @@ const rightSystemColumnsId = Object.values(systemColumns)
   .map(({ id }) => id)
 
 const allSystemColumnsId = [...leftSystemColumnsId, ...rightSystemColumnsId]
+
+export const checkIfSystemColumn = <Data extends DataType>(
+  column: HeaderGroup<Data> | string
+) =>
+  allSystemColumnsId.includes(
+    typeof column === 'string' ? column : column.placeholderOf?.id || column.id
+  )
 
 export const fixColumnOrder = <Data extends DataType>(
   columnOrder: IdType<Data>[] = [],

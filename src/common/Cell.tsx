@@ -4,8 +4,9 @@ import createClassName from '../utilities/createClassName'
 import styled from '../utilities/styled'
 
 export const CellStyle = styled('td')`
-  &, .th {
-    padding: ${spacing.sm} ${spacing.md}; 
+  &,
+  .th {
+    padding: ${spacing.sm} ${spacing.md};
     background: ${color.background.primary};
     overflow: hidden;
   }
@@ -14,11 +15,11 @@ export const CellStyle = styled('td')`
 const Cell = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
->((props, ref) => {
+>(({ className, ...props }, ref) => {
   return (
     <div
-      className={createClassName('td')}
       {...props}
+      className={createClassName('td', 'Cell', className || '')}
       style={props.style}
       ref={ref}
     />
