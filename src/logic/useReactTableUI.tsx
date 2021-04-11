@@ -47,19 +47,16 @@ const useReactTableUI = <Data extends DataType>(
   const {
     initialState: initialFiltersState,
     DefaultComponent: DefaultFilterComponent,
-
     ...filtersTableOptions
   } = filtersOptions
 
   const {
     initialState: initialGlobalFilterState,
-
     ...globalFilterTableOptions
   } = globalFilterOptions
 
   const {
     initialState: initialSortByState,
-
     ...sortByTableOptions
   } = sortByOptions
 
@@ -70,25 +67,21 @@ const useReactTableUI = <Data extends DataType>(
 
   const {
     initialState: initialRowSelectState,
-
     ...rowSelectTableOptions
   } = rowSelectOptions
 
   const {
     initialState: initialPaginationState,
-
     ...paginationTableOptions
   } = paginationOptions
 
   const {
     initialState: initialColumnState,
-
     ...columnTableOptions
   } = columnOptions
 
   const {
     initialState: initialRowStateState,
-
     ...rowStateTableOptions
   } = rowStateOptions
 

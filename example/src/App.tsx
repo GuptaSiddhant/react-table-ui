@@ -1,6 +1,6 @@
 import React from 'react'
 import { Column } from 'react-table'
-import ReactTableUI, { useTableSetterRef } from 'react-table-ui'
+import { ReactTableUI, useTableInstanceRef } from 'react-table-ui'
 import type { DataType } from 'react-table-ui'
 import makeData from './makeData'
 
@@ -61,17 +61,17 @@ const App = () => {
   )
 
   const [isLoading, setLoading] = React.useState(false)
-
-  const tableSetterRef = useTableSetterRef<User>()
+  const tableInstanceRef = useTableInstanceRef<User>()
 
   return (
     <React.Fragment>
       <div
         style={{
-          width: '100%',
-          height: 'calc(100vh - 100px)',
+          width: '100vw',
+          height: '100vh',
           overflow: 'hidden',
-          padding: '20px'
+          padding: '20px',
+          background: 'lightGrey'
         }}
       >
         <ReactTableUI
@@ -79,7 +79,7 @@ const App = () => {
           data={data}
           columns={columns}
           loadingOptions={{ isLoading }}
-          tableSetterRef={tableSetterRef}
+          tableInstanceRef={tableInstanceRef}
           filtersOptions={
             {
               // disableFilters: true,
@@ -90,10 +90,9 @@ const App = () => {
           }
           // columnOptions={{initialState:{columnOrder: ['name', 'age', 'age2']}}}
           // globalFilterOptions={{disableGlobalFilter: true}}
-          
         />
+        <button onClick={() => setLoading((s) => !s)}>Load</button>
       </div>
-      <button onClick={() => setLoading((s) => !s)}>Load</button>
     </React.Fragment>
   )
 }

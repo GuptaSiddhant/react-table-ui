@@ -1,5 +1,5 @@
 import styled from '../utilities/styled'
-import { border, pxToEm, spacing } from './theme'
+import { border, color, pxToEm, spacing } from './theme'
 
 /* TitleBar */
 export default styled('TitleBar')`
@@ -13,6 +13,7 @@ export default styled('TitleBar')`
     align-items: center;
 
     border-bottom: ${border.default};
+    background-color: ${color.background.primary};
   }
 
   & .titleSearch {
@@ -20,7 +21,7 @@ export default styled('TitleBar')`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-inline-start: 1em;
+    padding-inline-start: 0.5em;
     gap: 0.5em;
   }
   & .end {
@@ -34,6 +35,7 @@ export default styled('TitleBar')`
     font-weight: 700;
     max-height: 3.5em;
     width: 100%;
+    padding-inline-start: 0.5em;
     text-align: left;
     text-align: start;
   }
@@ -43,11 +45,8 @@ export default styled('TitleBar')`
   }
 
   & .titleSearch input {
-    min-height: ${pxToEm(32)};
-    position: relative;
-    width: calc(100% + ${spacing.xl});
+    min-height: ${pxToEm(32)};    
     padding: ${spacing.sm} ${spacing.md};
-    left: -${spacing.md};
   }
 
   & .titleSearch input::placeholder {

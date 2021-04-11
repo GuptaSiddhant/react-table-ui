@@ -22,7 +22,9 @@ const VisibleFilterAction = <Data extends DataType>({
   if (disableFilters || alwaysShowFilters) return null
 
   return (
-    <IconButton onClick={toggleFiltersVisible}>
+    <IconButton onClick={toggleFiltersVisible} title={filtersVisible
+      ? 'Hide column filters'
+      : 'Show column filters'}>
       {filtersVisible
         ? hideFiltersActionIndicator || '👀'
         : showFiltersActionIndicator || '👁️'}

@@ -1,5 +1,5 @@
 import styled from '../utilities/styled'
-import { border, pxToEm, radius, spacing } from './theme'
+import { border, pxToEm, radius, spacing, color } from './theme'
 
 export default styled.div`
   &,
@@ -30,6 +30,7 @@ export default styled.div`
     min-height: ${pxToEm(56)};
     width: 100%;
     border-top: ${border.default};
+    background-color: ${color.background.primary};
   }
 
   & .Pagination .Status {
