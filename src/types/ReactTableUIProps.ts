@@ -11,6 +11,7 @@ import { LoadingOptions, FreezeOptions } from './OtherOptions'
 import ColumnOptions from './ColumnOptions'
 import RowStateOptions from './RowStateOptions'
 import TableOptions from './TableOptions'
+import ActionOptions from './ActionOptions'
 
 /** Props supported by React Table UI. */
 export interface ReactTableUIProps<Data extends DataType> {
@@ -23,12 +24,15 @@ export interface ReactTableUIProps<Data extends DataType> {
    * Optional - Columns can be auto-generated based on provided dataset. */
   columns?: Column<Data>[]
 
-  /** Title of the table. 
+  /** Title of the table.
    * @default 'Table' */
   title?: ReactNode
 
   /** Manage loading state of table. */
   loadingOptions?: LoadingOptions
+
+  /** Add and manage actions in that Table. */
+  actionOptions?: ActionOptions<Data>
 
   /** useTable Table options
    * @see [RT useTable API - Table options](https://react-table.tanstack.com/docs/api/useTable#table-options) */

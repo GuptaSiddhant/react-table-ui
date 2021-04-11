@@ -20,9 +20,11 @@ import { DefaultColumnFilter } from '../components/Filters'
 import { fixColumnOrder } from '../utilities/systemColumns'
 import { NOOP } from '../utilities'
 
+import generateUseExpandedColumn from './generateUseExpandedColumn'
+import generateUseRowSelectColumn from './generateUseRowSelectColumn'
+import generateUseRowActionColumn from './generateUseRowActionColumn'
+
 import useManualPagination from './useManualPagination'
-import getUseExpandedColumn from './useExpandedColumn'
-import getUseRowSelectColumn from './useRowSelectColumn'
 import useHandleStateChange from './useHandleStateChange'
 import useCreateDefaultColumns from './useCreateDefaultColumns'
 import useVisibleFilters from './useVisibleFilters'
@@ -41,7 +43,8 @@ const useReactTableUI = <Data extends DataType>(
     expandedOptions = {},
     rowSelectOptions = {},
     columnOptions = {},
-    rowStateOptions = {}
+    rowStateOptions = {},
+    freezeOptions: { columns: freezeColumns = true } = {}
   } = tableProps
 
   const {
@@ -92,8 +95,9 @@ const useReactTableUI = <Data extends DataType>(
     []
   )
 
-  const useRowSelectColumn = getUseRowSelectColumn(tableProps)
-  const { useExpandedColumn, disableExpander } = getUseExpandedColumn(
+  const useRowSelectColumn = generateUseRowSelectColumn(tableProps)
+  const useRowActionColumn = generateUseRowActionColumn(tableProps)
+  const { useExpandedColumn, disableExpander } = generateUseExpandedColumn(
     tableProps
   )
 
@@ -138,9 +142,10 @@ const useReactTableUI = <Data extends DataType>(
     rowStateOptions.disableRowState ? NOOP : useRowState,
     columnOptions.disableOrdering ? NOOP : useColumnOrder,
     columnOptions.disableResizing ? NOOP : useResizeColumns,
+    useRowActionColumn,
     useFlexLayout,
     useVisibleFilters,
-    useSticky
+    freezeColumns ? useSticky : NOOP
   )
 
   const tableContext = { tableInstance, tableProps }

@@ -10,7 +10,8 @@ const externalPackages = [
   'react-table',
   'react',
   '@types/react-table',
-  '@types/react'
+  '@types/react',
+  '@reach/menu-button'
 ]
 
 /** @type import('esbuild').WatchMode */

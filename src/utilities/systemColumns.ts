@@ -18,11 +18,18 @@ const expanderColumn: SystemColumn = {
   id: 'expander',
   order: -1
 }
+const actionColumn: SystemColumn = {
+  id: 'action',
+  order: 1
+}
 
 const systemColumns = {
   selection: selectionColumn,
-  expander: expanderColumn
+  expander: expanderColumn,
+  action: actionColumn
 } as const
+
+const allSystemColumnsId = Object.values(systemColumns).map((col) => col.id)
 
 const leftSystemColumnsId = Object.values(systemColumns)
   .filter(({ order }) => order < 0)
@@ -33,8 +40,6 @@ const rightSystemColumnsId = Object.values(systemColumns)
   .filter(({ order }) => order > 0)
   .sort((a, b) => a.order - b.order)
   .map(({ id }) => id)
-
-const allSystemColumnsId = [...leftSystemColumnsId, ...rightSystemColumnsId]
 
 export const checkIfSystemColumn = <Data extends DataType>(
   column: HeaderGroup<Data> | string

@@ -3,7 +3,7 @@ import type { Hooks, CellProps, HeaderProps, Column } from 'react-table'
 import systemColumns from '../utilities/systemColumns'
 import type { DataType, ReactTableUIProps } from '../types'
 
-const getUseExpandedColumn = <Data extends DataType>(
+const generateUseExpandedColumn = <Data extends DataType>(
   props: ReactTableUIProps<Data>
 ) => {
   const { collapsedIndicator = '→', expandedIndicator = '↓' } =
@@ -50,4 +50,4 @@ const getUseExpandedColumn = <Data extends DataType>(
     disableExpander
   }
 }
-export default getUseExpandedColumn
+export default generateUseExpandedColumn

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Column } from 'react-table'
 import { ReactTableUI, useTableInstanceRef } from 'react-table-ui'
-import type { DataType } from 'react-table-ui'
+import type { DataType, TableAction, SingleRowAction } from 'react-table-ui'
 import makeData from './makeData'
 
 interface User extends DataType {
@@ -63,37 +63,43 @@ const App = () => {
   const [isLoading, setLoading] = React.useState(false)
   const tableInstanceRef = useTableInstanceRef<User>()
 
+  const singleRowActions: SingleRowAction<User>[] = [
+    {
+      id: 'log',
+      label: 'Console log',
+      onClick: console.log,
+      icon: '🪵'
+    }
+  ]
+
+  const tableActions: TableAction<User>[] = [
+    {
+      id: 'load',
+      label: 'Load',
+      icon: '🔄',
+      onClick: () => setLoading((s) => !s)     
+    }
+  ]
+
   return (
-    <React.Fragment>
-      <div
-        style={{
-          width: '100vw',
-          height: '100vh',
-          overflow: 'hidden',
-          padding: '20px',
-          background: 'lightGrey'
-        }}
-      >
-        <ReactTableUI
-          title='Test table'
-          data={data}
-          columns={columns}
-          loadingOptions={{ isLoading }}
-          tableInstanceRef={tableInstanceRef}
-          filtersOptions={
-            {
-              // disableFilters: true,
-              // alwaysShowFilters:true,
-              // initialState: { filtersVisible: true },
-              // toggleFiltersVisibleActionIndicator: <div>L</div>
-            }
-          }
-          // columnOptions={{initialState:{columnOrder: ['name', 'age', 'age2']}}}
-          // globalFilterOptions={{disableGlobalFilter: true}}
-        />
-        <button onClick={() => setLoading((s) => !s)}>Load</button>
-      </div>
-    </React.Fragment>
+    <div
+      style={{
+        width: '100vw',
+        height: '100vh',
+        overflow: 'hidden',
+        padding: '20px',
+        background: 'lightGrey'
+      }}
+    >
+      <ReactTableUI
+        title='Test table'
+        data={data}
+        columns={columns}
+        tableInstanceRef={tableInstanceRef}
+        loadingOptions={{ isLoading }}
+        actionOptions={{ singleRowActions, tableActions }}
+      />
+    </div>
   )
 }
 

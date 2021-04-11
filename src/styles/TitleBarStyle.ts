@@ -1,5 +1,5 @@
 import styled from '../utilities/styled'
-import { border, color, pxToEm, spacing } from './theme'
+import { border, color, mediaQueries, pxToEm, spacing } from './theme'
 
 /* TitleBar */
 export default styled('TitleBar')`
@@ -9,11 +9,19 @@ export default styled('TitleBar')`
 
     display: grid;
     grid-template-columns: 1fr max-content;
-    grid-template-areas: 'titleSearch end';
+    grid-template-rows: 1fr max-content;
+    grid-template-areas: 'titleSearch actions systemActions';
     align-items: center;
 
     border-bottom: ${border.default};
     background-color: ${color.background.primary};
+  }
+  
+  ${mediaQueries.mobile} {
+    & {
+      height: 6em;
+      grid-template-areas: 'titleSearch systemActions' 'actions actions';
+    }
   }
 
   & .titleSearch {
@@ -24,8 +32,15 @@ export default styled('TitleBar')`
     padding-inline-start: 0.5em;
     gap: 0.5em;
   }
-  & .end {
-    grid-area: end;
+  & .systemActions {
+    grid-area: systemActions;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  & .TableActions {
+    grid-area: actions;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -45,7 +60,7 @@ export default styled('TitleBar')`
   }
 
   & .titleSearch input {
-    min-height: ${pxToEm(32)};    
+    min-height: ${pxToEm(32)};
     padding: ${spacing.sm} ${spacing.md};
   }
 

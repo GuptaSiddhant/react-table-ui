@@ -27,7 +27,7 @@ const IndeterminateCheckbox = React.forwardRef<
   )
 })
 
-const getUseRowSelectColumn = <Data extends DataType>(
+const generateUseRowSelectColumn = <Data extends DataType>(
   props: ReactTableUIProps<Data>
 ) => {
   const { Component = IndeterminateCheckbox, selectSubRows = false } =
@@ -61,4 +61,4 @@ const getUseRowSelectColumn = <Data extends DataType>(
     ])
   }
 }
-export default getUseRowSelectColumn
+export default generateUseRowSelectColumn

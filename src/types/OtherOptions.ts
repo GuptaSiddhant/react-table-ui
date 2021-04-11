@@ -1,9 +1,9 @@
 import type { ReactNode } from 'react'
 
-/** Type interface for loading options. 
+/** Type interface for loading options.
  * @category Options */
 export interface LoadingOptions {
-  /** Loading state. 
+  /** Loading state.
    * @default false */
   isLoading?: boolean
 
@@ -19,15 +19,18 @@ export interface LoadingOptions {
   // ----------
   // Components
 
-  /** Component rendered during loading. 
+  /** Component rendered during loading.
    * @default Spinner
    * @category Custom Component  */
   Component?: ReactNode
 }
 
-/** Type interface for setting header/footer freeze. 
+/** Type interface for setting header/footer freeze.
  * @category Options */
 export interface FreezeOptions {
+  /** @default true */
+  columns?: boolean
+
   /** @default true */
   header?: boolean
 

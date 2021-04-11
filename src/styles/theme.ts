@@ -54,3 +54,7 @@ display: flex;
 align-items: center;
 justify-content: center;
 `
+
+export const mediaQueries = {
+  mobile: '@media (max-width: 600px)'
+}

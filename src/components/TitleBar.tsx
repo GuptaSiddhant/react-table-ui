@@ -22,13 +22,36 @@ const VisibleFilterAction = <Data extends DataType>({
   if (disableFilters || alwaysShowFilters) return null
 
   return (
-    <IconButton onClick={toggleFiltersVisible} title={filtersVisible
-      ? 'Hide column filters'
-      : 'Show column filters'}>
+    <IconButton
+      onClick={toggleFiltersVisible}
+      title={filtersVisible ? 'Hide column filters' : 'Show column filters'}
+    >
       {filtersVisible
-        ? hideFiltersActionIndicator || '👀'
+        ? hideFiltersActionIndicator || '❌'
         : showFiltersActionIndicator || '👁️'}
     </IconButton>
+  )
+}
+
+const TableActions = <Data extends DataType>(
+  context: TableContext<Data>
+): JSX.Element | null => {
+  const { actionOptions: { tableActions = [] } = {} } = context.tableProps
+
+  if (tableActions.length === 0) return null
+
+  return (
+    <div className='TableActions'>
+      {tableActions.map((action) => (
+        <IconButton
+          key={action.id}
+          onClick={() => action.onClick(context)}
+          title={action.label}
+        >
+          {action.icon}
+        </IconButton>
+      ))}
+    </div>
   )
 }
 
@@ -42,7 +65,8 @@ const TitleBar = <Data extends DataType>(
   return (
     <div className={createClassName('TitleBar')}>
       <GlobalFilter {...context} />
-      <div className='end'>
+      <TableActions {...context} />
+      <div className='systemActions'>
         <VisibleFilterAction {...context} />
       </div>
     </div>
