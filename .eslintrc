@@ -8,6 +8,7 @@
     "prettier/react",
     "plugin:@typescript-eslint/eslint-recommended"
   ],
+  "plugins": ["@typescript-eslint/eslint-plugin", "eslint-plugin-tsdoc"],
   "env": {
     "node": true
   },

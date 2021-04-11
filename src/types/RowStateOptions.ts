@@ -8,11 +8,15 @@ import type {
 } from 'react-table'
 import type { DataType, StateChangeHandler } from './DataType'
 
-/** Type interface for RowState options. */
+/** Type interface for RowState options.
+ * @category Options */
 export interface RowStateOptions<Data extends DataType>
   extends UseRowStateOptions<Data> {
   /** Initial settings of row-select.
-   * @example { rowState: { [rowId]: { cellState: { [columnId]: {} } } } }
+   * @example 
+   * ```
+   * { rowState: { [rowId]: { cellState: { [columnId]: {} } } } }
+   * ```
    */
   initialState?: Partial<UseRowStateState<Data>>
 
@@ -28,10 +32,12 @@ export interface RowStateOptions<Data extends DataType>
    *  @default cell => ({}) */
   initialCellStateAccessor?: (cell: Cell<Data>) => UseRowStateLocalState<Data>
 
-  /** Disable row-state management table. @default false */
+  /** Disable row-state management table.
+   * @default false */
   disableRowState?: boolean
 
-  /** Reset row-state when data changes. @default true */
+  /** Reset row-state when data changes.
+   * @default true */
   autoResetRowState?: boolean
 
   // getResetRowStateDeps: (instance: TableInstance<Data>) => any[]

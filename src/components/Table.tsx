@@ -8,6 +8,11 @@ import useScrollPosition from '../logic/useScrollPosition'
 
 const Loader: React.FC = () => <div className='loader'>Loading...</div>
 
+/**
+ * Table
+ * 
+ * @category Component
+ */
 const Table = <Data extends DataType>(
   props: TableContext<Data> & React.HTMLAttributes<HTMLDivElement>
 ) => {

@@ -10,7 +10,8 @@ export interface DataType extends Record<string, any> {
   /** Sub rows visible when expanded. */
   subRows?: DataType[]
 
-  /** Custom component shown when row is expanded. */
+  /** Custom component shown when row is expanded.
+   * @category Custom Component  */
   subComponent?: ReactNode
 }
 

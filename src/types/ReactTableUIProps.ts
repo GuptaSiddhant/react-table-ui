@@ -15,7 +15,7 @@ import TableOptions from './TableOptions'
 /** Props supported by React Table UI. */
 export interface ReactTableUIProps<Data extends DataType> {
   /** Memoised data-array of the table.
-   * The data object should be structured as column:value pair. */
+   * The data object should always extends {@link DataType} interface. */
   data: Data[]
 
   /** Memoised column definitions of the table. (Optional, can be generated from keys in `data` object).
@@ -23,7 +23,8 @@ export interface ReactTableUIProps<Data extends DataType> {
    * Optional - Columns can be auto-generated based on provided dataset. */
   columns?: Column<Data>[]
 
-  /** Title of the table. @default 'Table' */
+  /** Title of the table. 
+   * @default 'Table' */
   title?: ReactNode
 
   /** Manage loading state of table. */

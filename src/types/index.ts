@@ -7,14 +7,15 @@ import ReactTableUIProps from './ReactTableUIProps'
  * made available to each component and helper.
  */
 interface TableContext<Data extends DataType> {
-  /** Initiated instance of react-table. */
+  /** Initiated instance of react-table. 
+   * @see [React Table Docs](https://react-table.tanstack.com/docs/api/useTable#instance-properties) */
   tableInstance: TableInstance<Data>
 
   /** Props passed by user to react-table. */
   tableProps: ReactTableUIProps<Data>
 }
 
-export default TableContext
+// export default TableContext
 
 export { Column, DataType, TableContext }
 export * from './ReactTableUIProps'

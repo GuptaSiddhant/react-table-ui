@@ -9,11 +9,7 @@
     "test": "node ../node_modules/react-scripts/bin/react-scripts.js test",
     "eject": "node ../node_modules/react-scripts/bin/react-scripts.js eject"
   },
-  "dependencies": {
-    "@testing-library/jest-dom": "link:../node_modules/@testing-library/jest-dom",
-    "@testing-library/react": "link:../node_modules/@testing-library/react",
-    "@testing-library/user-event": "link:../node_modules/@testing-library/user-event",
-    "@types/jest": "link:../node_modules/@types/jest",
+  "dependencies": {    
     "@types/node": "link:../node_modules/@types/node",
     "@types/styled-components": "link:../node_modules/@types/styled-components",
     "@types/react": "link:../node_modules/@types/react",

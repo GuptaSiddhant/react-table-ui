@@ -9,21 +9,27 @@ import type {
 } from 'react-table'
 import type { DataType, StateChangeHandler } from './DataType'
 
-/** Type interface for filtering options. */
+/** Type interface for filtering options. 
+ * @category Options */
 export interface GlobalFilterOptions<Data extends DataType>
   extends UseGlobalFiltersOptions<Data> {
   /** Initial settings of global filter.
-   *  @example { globalFilter: {} } */
+   *  @example 
+   * ```
+   * { globalFilter: {} }
+   * ``` */
   initialState?: UseGlobalFiltersState<Data>
 
   /** Callback executed when columns are sorted.
    *  The function must be wrapped in useCallback hook. */
   onStateChange?: StateChangeHandler<UseGlobalFiltersState<Data>>
 
-  /** Disable global filtering for table. @default false */
+  /** Disable global filtering for table. 
+   * @default false */
   disableGlobalFilter?: boolean
 
-  /** Reset filtering when data is changed. @default true */
+  /** Reset filtering when data is changed. 
+   * @default true */
   autoResetGlobalFilter?: boolean
 
   /** Manual filtering with custom logic, eg. server-side.
@@ -37,7 +43,7 @@ export interface GlobalFilterOptions<Data extends DataType>
    *  it will default to using the built-in filter types. Must be memoised. */
   filterTypes?: Record<string, FilterType<Data>>
 
-  /** @default 'text' */
+  /** @default "text" */
   globalFilter?:
     | string
     | ((
@@ -50,7 +56,8 @@ export interface GlobalFilterOptions<Data extends DataType>
   // Components
 
   /** Global filter component rendered for in table.
-   *  This overrides the fallback text-input-field. */
+   *  This overrides the fallback text-input-field.
+   * @category Custom Component  */
   Component?: GlobalFilterComponent<Data>
 }
 

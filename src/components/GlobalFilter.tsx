@@ -36,7 +36,7 @@ export const DefaultGlobalFilter = <Data extends DataType>({
 }
 
 const GlobalFilter = <Data extends DataType>(context: TableContext<Data>) => {
-  const { globalFilterOptions = {}, title } = context.tableProps
+  const { globalFilterOptions = {}, title = 'Table' } = context.tableProps
 
   const {
     rows,
@@ -70,7 +70,7 @@ const GlobalFilter = <Data extends DataType>(context: TableContext<Data>) => {
     setIsGlobalFilterComponent(false)
   }, [])
 
-  const searchText = `Search ${title || 'Table'}`
+  const searchText = `Search ${typeof title === 'string' ? title : ''}`
 
   const globalFilterProps: GlobalFilterProps<Data> = {
     globalFilterValue: globalFilter,

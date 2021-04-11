@@ -31,7 +31,7 @@ const pathRTConfig = path.join(
 const isRTConfigExist = fs.existsSync(pathRTConfig)
 if (!isRTConfigExist) {
   console.log('RTUI is not installed.')
-  process.exit(1)
+  process.exit(0)
 }
 
 const pathRTConfigDestination = path.join(rootPath, 'src', rtConfigFilename)

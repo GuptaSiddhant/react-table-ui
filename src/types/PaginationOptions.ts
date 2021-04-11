@@ -6,13 +6,15 @@ import type {
 } from 'react-table'
 import type { DataType, StateChangeHandler } from './DataType'
 
-/** Type interface for pagination options. */
+/** Type interface for pagination options.
+ * @category Options */
 export interface PaginationOptions<Data extends DataType>
   extends UsePaginationOptions<Data> {
   /** Initial settings of pagination */
   initialState?: Partial<UsePaginationState<Data>>
 
-  /** Disable pagination. @default false */
+  /** Disable pagination.
+   *  @default false */
   disablePagination?: boolean
 
   /** Reset pagination when data changes (sorting, filtering, etc.).
@@ -46,23 +48,32 @@ export interface PaginationOptions<Data extends DataType>
   // Components
 
   /** Custom component to be rendered for pagination.
-   * Overrides all indicators. */
+   * Overrides all indicators.
+   * @category Custom Component  */
   Component?: PaginationComponent<Data>
 
   /** Indicator/icon used in action/button to
-   * navigate to the next page. @default '▶️' */
+   * navigate to the next page. 
+   * @default ▶️
+   * @category Custom Component */
   nextPageIndicator?: ReactNode
 
   /** Indicator/icon used in action/button to
-   * navigate to the previous page. @default '◀️' */
+   * navigate to the previous page. 
+   * @default ◀️
+   * @category Custom Component */
   previousPageIndicator?: ReactNode
 
   /** Indicator/icon used in action/button to
-   * navigate to the first page. @default '⏮️' */
+   * navigate to the first page. 
+   * @default ⏮️
+   * @category Custom Component */
   firstPageIndicator?: ReactNode
 
   /** Indicator/icon used in action/button to
-   * navigate to the last page. @default '⏭️' */
+   * navigate to the last page. 
+   * @default ⏭️
+   * @category Custom Component */
   lastPageIndicator?: ReactNode
 }
 

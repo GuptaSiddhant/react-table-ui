@@ -6,13 +6,17 @@ import { DataType } from '../types'
 export const DefaultColumnFilter = <Data extends DataType>({
   column: { filterValue, setFilter, render }
 }: HeaderProps<Data>) => {
+  const renderHeader = render('Header')
+  const renderHeaderString =
+    typeof renderHeader === 'string' ? renderHeader : ''
+
   return (
     <input
       type='search'
       value={filterValue || ''}
       // Set undefined to remove the filter entirely
       onChange={(e) => setFilter(e.target.value || undefined)}
-      placeholder={`Filter ${render('Header')?.toString()}`}
+      placeholder={`Filter ${renderHeaderString}`}
     />
   )
 }

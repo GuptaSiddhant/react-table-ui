@@ -1,0 +1,13 @@
+{
+  "name": "React-Table UI",
+  "includeVersion": false,
+  "entryPoints": ["src/index.ts"],
+  "out": "docs",
+  "excludeExternals": true,
+  "excludeInternal": true,
+  "disableSources": true,
+  "highlightTheme": "github-dark",
+  "theme": "typedoc",
+  "readme": "typedoc/README.md",
+  "categoryOrder": ["Component", "Options", "State", "*"]
+}

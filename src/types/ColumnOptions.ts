@@ -6,19 +6,23 @@ import type {
 } from 'react-table'
 import type { DataType, StateChangeHandler } from './DataType'
 
-/** Type interface for Column options. */
+/** Type interface for Column options. 
+ * @category Options */
 export interface ColumnOptions<Data extends DataType>
   extends UseResizeColumnsOptions<Data> {
   /** Initial settings of row-select. */
   initialState?: Partial<ColumnState<Data>>
 
-  /** Disable columns ordering. @default false */
+  /** Disable columns ordering. 
+   * @default false */
   disableOrdering?: boolean
 
-  /** Disable columns resizing. @default false */
+  /** Disable columns resizing. 
+   * @default false */
   disableResizing?: boolean
 
-  /** Reset hidden columns when columns is changed. @default true */
+  /** Reset hidden columns when columns is changed. 
+   * @default true */
   autoResetHiddenColumns?: boolean
 
   /** Callback executed when column's state is changed .

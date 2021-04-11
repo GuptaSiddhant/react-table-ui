@@ -30,11 +30,6 @@
     "build": "microbundle-crl --compress --format modern,cjs",
     "start": "microbundle-crl watch --no-compress --format modern",
     "prepare": "run-s build",
-    "test": "run-s test:unit test:lint test:build",
-    "test:build": "run-s build",
-    "test:lint": "eslint .",
-    "test:unit": "cross-env CI=1 react-scripts test --env=jsdom",
-    "test:watch": "react-scripts test --env=jsdom",
     "example": "cd example && yarn start",
     "prebuild": "rm -rf dist",
     "postbuild": "cp src/react-table-config.d.ts dist/react-table-config.d.ts",
@@ -44,13 +39,10 @@
     "deploy": "gh-pages -d example/build"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
-    "@testing-library/user-event": "^7.2.1",
     "@types/jest": "^25.1.4",
     "@types/node": "^12.12.38",
-    "@types/react": "^16.9.27",
-    "@types/react-dom": "^16.9.7",
+    "@types/react": "^17.0.3",
+    "@types/react-dom": "^17.0.3",
     "@types/styled-components": "^5.1.7",
     "@typescript-eslint/eslint-plugin": "^2.26.0",
     "@typescript-eslint/parser": "^2.26.0",
@@ -66,6 +58,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-standard": "^4.0.1",
+    "eslint-plugin-tsdoc": "^0.2.11",
     "gh-pages": "^2.2.0",
     "microbundle-crl": "^0.13.10",
     "namor": "^2.0.2",
@@ -75,6 +68,11 @@
     "react-dom": "^17",
     "react-scripts": "^3.4.1",
     "styled-components": "^5.2.1",
+    "typedoc": "^0.20.35",
     "typescript": "^3.7.5"
+  },
+  "resolutions": {
+    "@types/react": "17.0.3",
+    "@types/react-dom": "17.0.3"
   }
 }

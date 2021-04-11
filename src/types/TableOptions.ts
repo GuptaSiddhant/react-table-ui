@@ -2,6 +2,8 @@ import type { UseTableOptions, TableState } from 'react-table'
 
 import { DataType, StateChangeHandler } from './DataType'
 
+/** Type interface of Table specific options. 
+ * @category Options */
 export interface TableOptions<Data extends DataType>
   extends Omit<UseTableOptions<Data>, 'columns' | 'data'> {
   /** Callback executed when table's state is updated.
@@ -9,7 +11,8 @@ export interface TableOptions<Data extends DataType>
   onStateChange?: StateChangeHandler<TableState<Data>>
 
   /** The table is rendered without border styling. 
-   *  Good for embedding in other containers. @default false */
+   *  Good for embedding in other containers. 
+   *  @default false */
   borderless?: boolean
 }
 

@@ -52,6 +52,11 @@ const getStatus = <Data extends DataType>({
   return showLoadingStatus && isLoading ? 'Loading...' : statuses.join(' • ')
 }
 
+/**
+ * Pagination
+ * 
+ * @category Component
+ */
 const Pagination = <Data extends DataType>(
   props: TableContext<Data>
 ): JSX.Element => {

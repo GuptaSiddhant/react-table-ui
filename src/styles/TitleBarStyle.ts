@@ -34,6 +34,8 @@ export default styled('TitleBar')`
     font-weight: 700;
     max-height: 3.5em;
     width: 100%;
+    text-align: left;
+    text-align: start;
   }
 
   & .Search {

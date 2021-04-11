@@ -9,26 +9,34 @@ import type {
 } from 'react-table'
 import type { DataType, StateChangeHandler } from './DataType'
 
-/** Type interface for sorting options. */
+/** Type interface for sorting options. 
+ * @category Options */
 export interface SortingOptions<Data extends DataType>
   extends UseSortByOptions<Data> {
   /** Initial settings of sorting.
    *  List of objects containing column id and order preference.
-   *  @example { sortBy: [{ id: 'columnsId', desc: false }] } */
+   *  @example 
+   * ```
+   * { sortBy: [{ id: 'columnsId', desc: false }] }
+   * ``` */
   initialState?: UseSortByState<Data>
 
-  /** Disable sorting for table. @default false */
+  /** Disable sorting for table. 
+   *  @default false */
   disableSortBy?: boolean
 
   /** Enable sorting for all columns,
-   * regardless if they have a valid accessor. @default false */
+   * regardless if they have a valid accessor. 
+   *  @default false */
   defaultCanSort?: boolean
 
   /** If true, the un-sorted state will not be available
-   *  to columns once they have been sorted. @default false */
+   *  to columns once they have been sorted. 
+   *  @default false */
   disableSortRemove?: boolean
 
-  /** Reset sorting when data is changed. @default true */
+  /** Reset sorting when data is changed. 
+   *  @default true */
   autoResetSortBy?: boolean
 
   /** Manual sorting with custom logic, eg. server-side.
@@ -43,14 +51,17 @@ export interface SortingOptions<Data extends DataType>
   // ----------
   // Multi-sort - Sorting with "shift" key pressed.
 
-  /** Disables multi-sorting for the entire table. @default false */
+  /** Disables multi-sorting for the entire table. 
+   *  @default false */
   disableMultiSort?: boolean
 
-  /** Limit on max number of columns for multi-sort. @default Infinite */
+  /** Limit on max number of columns for multi-sort. 
+   *  @default Infinite */
   maxMultiSortColCount?: number
 
   /** If true, the un-sorted state will not be available
-   *  to multi-sorted columns. @default false */
+   *  to multi-sorted columns. 
+   *  @default false */
   disabledMultiRemove?: boolean
 
   /** Allows to override default multi-sort detection behaviour.
@@ -72,19 +83,26 @@ export interface SortingOptions<Data extends DataType>
   // Components
 
   /** Custom component to manage all sorting buttons.
-   *  It overrides all sorting indicators. */
+   *  It overrides all sorting indicators.
+   * @category Custom Component */
   Component?: SortingComponent<Data>
 
   /** Indicator when column is not sorted.
-   *  Used in default sorting component. @default '⇅' */
+   *  Used in default sorting component. 
+   *  @default '⇅'
+   * @category Custom Component */
   defaultIndicator?: ReactNode
 
   /** Indicator when column is sorted in ascending order.
-   *  Used in default sorting component. @default '↓' */
+   *  Used in default sorting component. 
+   *  @default '↓'
+   * @category Custom Component */
   ascendingIndicator?: ReactNode
 
   /** Indicator when column is sorted in descending order.
-   *  Used in default sorting component. @default '↑' */
+   *  Used in default sorting component. 
+   *  @default '↑'
+   * @category Custom Component */
   descendingIndicator?: ReactNode
 }
 
