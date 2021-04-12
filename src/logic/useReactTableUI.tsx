@@ -124,7 +124,7 @@ const useReactTableUI = <Data extends DataType>(
         ...initialExpandedState,
         ...initialRowSelectState,
         ...initialRowStateState,
-        ...{ pageSize: 100, pageIndex: 0, ...initialPaginationState },
+        ...{ pageSize: 50, pageIndex: 0, ...initialPaginationState },
         ...{
           ...initialColumnState,
           columnOrder: fixColumnOrder(initialColumnState?.columnOrder, columns)

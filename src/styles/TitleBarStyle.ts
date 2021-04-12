@@ -10,28 +10,40 @@ export default styled('TitleBar')`
     display: grid;
     grid-template-columns: 1fr max-content;
     grid-template-rows: 1fr max-content;
-    grid-template-areas: 'titleSearch actions systemActions';
+    grid-template-areas: 'titleSearch rowActions actions systemActions';
     align-items: center;
 
     border-bottom: ${border.default};
     background-color: ${color.background.primary};
   }
-  
+
   ${mediaQueries.mobile} {
     & {
       height: 6em;
-      grid-template-areas: 'titleSearch systemActions' 'actions actions';
+      grid-template-areas: 'titleSearch systemActions' 'rowActions actions';
     }
   }
 
   & .titleSearch {
     grid-area: titleSearch;
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-inline-start: 0.5em;
     gap: 0.5em;
   }
+
+  & .separator {
+    position: absolute;
+    right: 0;
+    width: 1px;
+    background-color: ${color.border.default};
+    top: 50%;
+    height: ${pxToEm(24)};
+    transform: translateY(-50%);
+  }
+
   & .systemActions {
     grid-area: systemActions;
     display: flex;
@@ -40,10 +52,30 @@ export default styled('TitleBar')`
   }
 
   & .TableActions {
+    position: relative;
     grid-area: actions;
     display: flex;
     justify-content: flex-end;
     align-items: center;
+  }
+
+  & .MultiRowActions {
+    position: relative;
+    grid-area: rowActions;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  ${mediaQueries.mobile} {
+    & .TableActions {
+      position: initial;
+    }
+
+    & .MultiRowActions {
+      position: initial;
+      justify-content: flex-start;
+    }
   }
 
   & .title {

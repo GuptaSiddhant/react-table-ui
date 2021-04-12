@@ -1,4 +1,5 @@
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
+import type { Row } from 'react-table'
 
 import type { TableContext, DataType } from '.'
 
@@ -29,13 +30,13 @@ interface CommonTableAction {
 export interface SingleRowAction<Data extends DataType>
   extends CommonTableAction {
   /** Callback executed when action is clicked. */
-  onClick: (data: Data) => void
+  onClick: (data: Data, row: Row<Data>) => void
 }
 
 export interface MultiRowAction<Data extends DataType>
   extends CommonTableAction {
   /** Callback executed when action is clicked. */
-  onClick: (data: Data[]) => void
+  onClick: (data: Data[], rows: Row<Data>[]) => void
 }
 
 export interface TableAction<Data extends DataType> extends CommonTableAction {

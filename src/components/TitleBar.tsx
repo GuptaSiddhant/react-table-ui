@@ -51,6 +51,37 @@ const TableActions = <Data extends DataType>(
           {action.icon}
         </IconButton>
       ))}
+      <div className='separator' />
+    </div>
+  )
+}
+
+const MultiRowActions = <Data extends DataType>(
+  context: TableContext<Data>
+): JSX.Element | null => {
+  const { actionOptions: { multiRowActions = [] } = {} } = context.tableProps
+  const { selectedFlatRows } = context.tableInstance
+
+  if (multiRowActions.length === 0) return null
+
+  const data: Data[] = selectedFlatRows.map((row) => row.original)
+  const disabled = selectedFlatRows.length === 0
+
+  return (
+    <div
+      className={createClassName('MultiRowActions', disabled ? 'disabled' : '')}
+    >
+      {multiRowActions.map((action) => (
+        <IconButton
+          disabled={disabled}
+          key={action.id}
+          onClick={() => action.onClick(data, selectedFlatRows)}
+          title={action.label}
+        >
+          {action.icon}
+        </IconButton>
+      ))}
+      <div className='separator' />
     </div>
   )
 }
@@ -65,6 +96,7 @@ const TitleBar = <Data extends DataType>(
   return (
     <div className={createClassName('TitleBar')}>
       <GlobalFilter {...context} />
+      <MultiRowActions {...context} />
       <TableActions {...context} />
       <div className='systemActions'>
         <VisibleFilterAction {...context} />

@@ -12,10 +12,11 @@ const generateStatus = <Data extends DataType>({
     page,
     rows,
     pageCount,
-    state: { pageSize, pageIndex, selectedRowIds }
+    selectedFlatRows,
+    state: { pageSize, pageIndex }
   } = tableInstance
 
-  const selectedRowCount = Object.keys(selectedRowIds).length
+  const selectedRowCount = Object.keys(selectedFlatRows).length
 
   if (showLoadingStatus && isLoading) return 'Loading...'
 

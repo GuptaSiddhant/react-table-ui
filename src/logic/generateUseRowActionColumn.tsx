@@ -1,40 +1,16 @@
 import * as React from 'react'
-import { Hooks, CellProps } from 'react-table'
+import type { Hooks, CellProps, Row } from 'react-table'
 
 import systemColumns from '../utilities/systemColumns'
+import useReachUI from '../utilities/useReachUI'
 import type { DataType, ReactTableUIProps, SingleRowAction } from '../types'
-
-const useReachUI = (type: 'menu') => {
-  const [reach, setReach] = React.useState<object | null>(null)
-
-  React.useEffect(() => {
-    let isMounted = true
-    const handleSetReach = (mod: any) => isMounted && setReach(mod)
-    switch (type) {
-      case 'menu':
-        import('@reach/menu-button').then(handleSetReach).catch(console.error)
-        break
-    }
-
-    return () => {
-      isMounted = false
-    }
-  }, [type])
-
-  switch (type) {
-    case 'menu':
-      return reach as typeof import('@reach/menu-button/dist/declarations/src')
-    default:
-      return null
-  }
-}
 
 const ActionMenu = <Data extends DataType>({
   actions,
-  data
+  row
 }: {
   actions: SingleRowAction<Data>[]
-  data: Data
+  row: Row<Data>
 }) => {
   const ReachMenu = useReachUI('menu')
 
@@ -49,7 +25,10 @@ const ActionMenu = <Data extends DataType>({
       </MenuButton>
       <MenuList>
         {actions.map((action) => (
-          <MenuItem key={action.id} onSelect={() => action.onClick(data)}>
+          <MenuItem
+            key={action.id}
+            onSelect={() => action.onClick(row.original, row)}
+          >
             <div>{action.label}</div>
             {action.icon && <div>{action.icon}</div>}
           </MenuItem>
@@ -64,8 +43,8 @@ const generateUseRowActionColumn = <Data extends DataType>(
 ) => {
   const { singleRowActions = [] } = props.actionOptions || {}
 
-  const Cell = ({ row: { original } }: CellProps<Data>) => (
-    <ActionMenu actions={singleRowActions} data={original} />
+  const Cell = ({ row }: CellProps<Data>) => (
+    <ActionMenu actions={singleRowActions} row={row} />
   )
 
   return (hooks: Hooks<Data>): void => {

@@ -109,6 +109,7 @@ const GlobalFilter = <Data extends DataType>(context: TableContext<Data>) => {
           )}
         </React.Fragment>
       )}
+      <div className='separator' />
     </div>
   )
 }

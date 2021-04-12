@@ -1,7 +1,12 @@
 import React from 'react'
 import { Column } from 'react-table'
 import { ReactTableUI, useTableInstanceRef } from 'react-table-ui'
-import type { DataType, TableAction, SingleRowAction } from 'react-table-ui'
+import type {
+  DataType,
+  TableAction,
+  SingleRowAction,
+  MultiRowAction
+} from 'react-table-ui'
 import makeData from './makeData'
 
 interface User extends DataType {
@@ -72,12 +77,21 @@ const App = () => {
     }
   ]
 
+  const multiRowActions: MultiRowAction<User>[] = [
+    {
+      id: 'log',
+      label: 'Console log',
+      onClick: console.log,
+      icon: '🪵'
+    }
+  ]
+
   const tableActions: TableAction<User>[] = [
     {
       id: 'load',
       label: 'Load',
       icon: '🔄',
-      onClick: () => setLoading((s) => !s)     
+      onClick: () => setLoading((s) => !s)
     }
   ]
 
@@ -97,7 +111,7 @@ const App = () => {
         columns={columns}
         tableInstanceRef={tableInstanceRef}
         loadingOptions={{ isLoading }}
-        actionOptions={{ singleRowActions, tableActions }}
+        actionOptions={{ singleRowActions, multiRowActions, tableActions }}
       />
     </div>
   )

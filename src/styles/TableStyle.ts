@@ -100,6 +100,8 @@ const TBodyStyle = styled('TBody')`
 
   & .subComponent {
     box-shadow: inset 0 0 8px 0 #0002;
+    background-color:${color.background.secondary};
+
   }
   & .subComponent .content {
     position: sticky;
