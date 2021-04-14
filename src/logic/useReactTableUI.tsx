@@ -30,7 +30,8 @@ import useCreateDefaultColumns from './useCreateDefaultColumns'
 import useVisibleFilters from './useVisibleFilters'
 
 const useReactTableUI = <Data extends DataType>(
-  tableProps: ReactTableUIProps<Data>
+  tableProps: ReactTableUIProps<Data>,
+  tableRef?: React.RefObject<HTMLElement>
 ): TableContext<Data> => {
   const {
     data = [],
@@ -148,7 +149,11 @@ const useReactTableUI = <Data extends DataType>(
     freezeColumns ? useSticky : NOOP
   )
 
-  const tableContext = { tableInstance, tableProps }
+  const tableContext: TableContext<Data> = {
+    tableInstance,
+    tableProps,
+    tableRef
+  }
 
   useManualPagination(tableContext)
   useHandleStateChange(tableContext)

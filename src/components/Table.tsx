@@ -10,13 +10,19 @@ const Loader: React.FC = () => <div className='loader'>Loading...</div>
 
 /**
  * Table
- * 
+ *
  * @category Component
  */
 const Table = <Data extends DataType>(
   props: TableContext<Data> & React.HTMLAttributes<HTMLDivElement>
 ) => {
-  const { tableInstance, tableProps, className = '', ...htmlAttributes } = props
+  const {
+    tableInstance,
+    tableProps,
+    tableRef: _ref,
+    className = '',
+    ...htmlAttributes
+  } = props
   const { getTableProps, rows } = tableInstance
   const { loadingOptions = {}, data = [] } = tableProps
 

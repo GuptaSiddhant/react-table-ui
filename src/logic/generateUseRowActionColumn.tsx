@@ -28,9 +28,9 @@ const ActionMenu = <Data extends DataType>({
           <MenuItem
             key={action.id}
             onSelect={() => action.onClick(row.original, row)}
+            about={action.tooltip}
           >
-            <div>{action.label}</div>
-            {action.icon && <div>{action.icon}</div>}
+            {action.children}
           </MenuItem>
         ))}
       </MenuList>

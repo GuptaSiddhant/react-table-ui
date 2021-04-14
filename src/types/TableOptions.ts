@@ -1,6 +1,6 @@
 import type { UseTableOptions, TableState } from 'react-table'
 
-import { DataType, StateChangeHandler } from './DataType'
+import type { DataType, StateChangeHandler } from './DataType'
 
 /** Type interface of Table specific options. 
  * @category Options */

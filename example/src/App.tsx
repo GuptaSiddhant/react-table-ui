@@ -71,27 +71,27 @@ const App = () => {
   const singleRowActions: SingleRowAction<User>[] = [
     {
       id: 'log',
-      label: 'Console log',
+      tooltip: 'Console log',
       onClick: console.log,
-      icon: '🪵'
+      children: <div>🪵 Console log</div>
     }
   ]
 
   const multiRowActions: MultiRowAction<User>[] = [
     {
       id: 'log',
-      label: 'Console log',
+      tooltip: 'Console log',
       onClick: console.log,
-      icon: '🪵'
+      children: '🪵'
     }
   ]
 
   const tableActions: TableAction<User>[] = [
     {
       id: 'load',
-      label: 'Load',
-      icon: '🔄',
-      onClick: () => setLoading((s) => !s)
+      tooltip: 'Load',
+      onClick: () => setLoading((s) => !s),
+      children: '🔄'
     }
   ]
 

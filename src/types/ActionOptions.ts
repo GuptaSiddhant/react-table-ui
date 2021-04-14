@@ -14,15 +14,30 @@ export interface ActionOptions<Data extends DataType> {
 
   /** Actions available for the whole table. */
   tableActions?: TableAction<Data>[]
+
+  /** Action to take table in fullscreen mode.
+   * @default true */
+  fullscreenAction?:
+    | boolean
+    | {
+        /** Indicator when fullscreen can be requested for table.
+         * @category Component
+         * @default ↗️ */
+        enterFullscreenIndicator?: ReactNode
+        /** Indicator when table can exit the fullscreen mode.
+         * @category Component
+         * @default ↙️ */
+        exitFullscreenIndicator?: ReactNode
+      }
 }
 
 interface CommonTableAction {
   /** Unique ID of each action. */
   id: string
-  /** Content of the action */
-  label: string
-  /** Icon representing the action. */
-  icon?: ReactNode
+  /** Content of the action. Preferably an icon / icon+label / label. */
+  children: ReactNode
+  /** Tooltip of the action */
+  tooltip?: string
   /** Action is disabled.
    * @default false */
   disabled?: boolean
@@ -42,7 +57,6 @@ export interface MultiRowAction<Data extends DataType>
 export interface TableAction<Data extends DataType> extends CommonTableAction {
   /** Callback executed when action is clicked. */
   onClick: (instance: TableContext<Data>) => void
-  icon: ReactNode
 }
 
 export default ActionOptions

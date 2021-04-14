@@ -13,9 +13,9 @@ import Pagination from './Pagination'
 /**
  * React Table UI
  * ---
- * 
+ *
  * Styled table with all things configured.
- * 
+ *
  * @category Component
  */
 const ReactTableUI = <Data extends DataType>({
@@ -26,8 +26,11 @@ const ReactTableUI = <Data extends DataType>({
 }): JSX.Element => {
   // Add styles to DOM
   useStyleSheet()
+
+  const ref = React.useRef<HTMLDivElement>(null)
+
   // Create Table's context
-  const context = useReactTableUI(tableProps)
+  const context = useReactTableUI(tableProps, ref)
 
   // Set TableInstance to tableInstanceRef
   React.useImperativeHandle(tableInstanceRef, () => context.tableInstance)
@@ -36,6 +39,7 @@ const ReactTableUI = <Data extends DataType>({
 
   return (
     <div
+      ref={ref}
       className={createClassName(
         commonClassName,
         borderless ? '' : 'withBorder'

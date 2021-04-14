@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { useAsyncDebounce } from 'react-table'
 import type { UseGlobalFiltersInstanceProps } from 'react-table'
-import { TableContext, DataType } from '../types'
-import IconButton from '../common/IconButton'
+import { TableContext, DataType } from '../../types'
+import IconButton from '../../common/IconButton'
 
 interface GlobalFilterProps<Data extends DataType>
   extends UseGlobalFiltersInstanceProps<Data> {
