@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>FreezeOptions | React-Table UI</title>
+	<title>ActionOptions | React-Table UI</title>
 	<meta name="description" content="Documentation for React-Table UI">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,10 +54,10 @@
 					<a href="../modules.html">React-Table UI</a>
 				</li>
 				<li>
-					<a href="freezeoptions.html">FreezeOptions</a>
+					<a href="actionoptions.html">ActionOptions</a>
 				</li>
 			</ul>
-			<h1>Interface FreezeOptions</h1>
+			<h1>Interface ActionOptions&lt;Data&gt;</h1>
 		</div>
 	</div>
 </header>
@@ -67,15 +67,23 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Type interface for setting header/footer freeze.</p>
+						<p>Type interface of actions in table.</p>
 					</div>
 				</div>
+			</section>
+			<section class="tsd-panel tsd-type-parameters">
+				<h3>Type parameters</h3>
+				<ul class="tsd-type-parameters">
+					<li>
+						<h4>Data<span class="tsd-signature-symbol">: </span><a href="datatype.html" class="tsd-signature-type" data-tsd-kind="Interface">DataType</a></h4>
+					</li>
+				</ul>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">FreezeOptions</span>
+						<span class="target">ActionOptions</span>
 					</li>
 				</ul>
 			</section>
@@ -86,9 +94,10 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="freezeoptions.html#columns" class="tsd-kind-icon">columns</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="freezeoptions.html#footer" class="tsd-kind-icon">footer</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="freezeoptions.html#header" class="tsd-kind-icon">header</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="actionoptions.html#fullscreenaction" class="tsd-kind-icon">fullscreen<wbr>Action</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="actionoptions.html#multirowactions" class="tsd-kind-icon">multi<wbr>Row<wbr>Actions</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="actionoptions.html#singlerowactions" class="tsd-kind-icon">single<wbr>Row<wbr>Actions</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="actionoptions.html#tableactions" class="tsd-kind-icon">table<wbr>Actions</a></li>
 							</ul>
 						</section>
 					</div>
@@ -97,12 +106,15 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="columns" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> columns</h3>
-					<div class="tsd-signature tsd-kind-icon">columns<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<a name="fullscreenaction" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> fullscreen<wbr>Action</h3>
+					<div class="tsd-signature tsd-kind-icon">fullscreen<wbr>Action<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{ </span>enterFullscreenIndicator<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">ReactNode</span><span class="tsd-signature-symbol">; </span>exitFullscreenIndicator<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">ReactNode</span><span class="tsd-signature-symbol"> }</span></div>
 					<aside class="tsd-sources">
 					</aside>
 					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Action to take table in fullscreen mode.</p>
+						</div>
 						<dl class="tsd-comment-tags">
 							<dt>default</dt>
 							<dd><p>true</p>
@@ -111,31 +123,39 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="footer" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> footer</h3>
-					<div class="tsd-signature tsd-kind-icon">footer<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<a name="multirowactions" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> multi<wbr>Row<wbr>Actions</h3>
+					<div class="tsd-signature tsd-kind-icon">multi<wbr>Row<wbr>Actions<span class="tsd-signature-symbol">:</span> <a href="multirowaction.html" class="tsd-signature-type" data-tsd-kind="Interface">MultiRowAction</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Data</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 					</aside>
 					<div class="tsd-comment tsd-typography">
-						<dl class="tsd-comment-tags">
-							<dt>default</dt>
-							<dd><p>true</p>
-							</dd>
-						</dl>
+						<div class="lead">
+							<p>Actions available when multiple rows are selected.</p>
+						</div>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="header" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> header</h3>
-					<div class="tsd-signature tsd-kind-icon">header<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<a name="singlerowactions" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> single<wbr>Row<wbr>Actions</h3>
+					<div class="tsd-signature tsd-kind-icon">single<wbr>Row<wbr>Actions<span class="tsd-signature-symbol">:</span> <a href="singlerowaction.html" class="tsd-signature-type" data-tsd-kind="Interface">SingleRowAction</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Data</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 					</aside>
 					<div class="tsd-comment tsd-typography">
-						<dl class="tsd-comment-tags">
-							<dt>default</dt>
-							<dd><p>true</p>
-							</dd>
-						</dl>
+						<div class="lead">
+							<p>Actions available for each row.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="tableactions" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> table<wbr>Actions</h3>
+					<div class="tsd-signature tsd-kind-icon">table<wbr>Actions<span class="tsd-signature-symbol">:</span> <a href="tableaction.html" class="tsd-signature-type" data-tsd-kind="Interface">TableAction</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Data</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Actions available for the whole table.</p>
+						</div>
 					</div>
 				</section>
 			</section>
@@ -150,9 +170,27 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-interface tsd-has-type-parameter">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-interface tsd-has-type-parameter">
 						<a href="actionoptions.html" class="tsd-kind-icon">Action<wbr>Options</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="actionoptions.html#fullscreenaction" class="tsd-kind-icon">fullscreen<wbr>Action</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="actionoptions.html#multirowactions" class="tsd-kind-icon">multi<wbr>Row<wbr>Actions</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="actionoptions.html#singlerowactions" class="tsd-kind-icon">single<wbr>Row<wbr>Actions</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="actionoptions.html#tableactions" class="tsd-kind-icon">table<wbr>Actions</a>
+							</li>
+						</ul>
 					</li>
+				</ul>
+				<ul class="after-current">
 					<li class=" tsd-kind-interface">
 						<a href="datatype.html" class="tsd-kind-icon">Data<wbr>Type</a>
 					</li>
@@ -165,24 +203,9 @@
 					<li class=" tsd-kind-interface tsd-has-type-parameter">
 						<a href="filtersstate.html" class="tsd-kind-icon">Filters<wbr>State</a>
 					</li>
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-interface">
+					<li class=" tsd-kind-interface">
 						<a href="freezeoptions.html" class="tsd-kind-icon">Freeze<wbr>Options</a>
-						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="freezeoptions.html#columns" class="tsd-kind-icon">columns</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="freezeoptions.html#footer" class="tsd-kind-icon">footer</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="freezeoptions.html#header" class="tsd-kind-icon">header</a>
-							</li>
-						</ul>
 					</li>
-				</ul>
-				<ul class="after-current">
 					<li class=" tsd-kind-interface tsd-has-type-parameter">
 						<a href="globalfilteroptions.html" class="tsd-kind-icon">Global<wbr>Filter<wbr>Options</a>
 					</li>

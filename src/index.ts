@@ -4,8 +4,6 @@ import type { TableInstance } from 'react-table'
 
 // Import components
 import ReactTableUI from './components/ReactTableUI'
-import Table from './components/Table'
-import Pagination from './components/Pagination'
 
 // Import helpers
 import useReactTableUI from './logic/useReactTableUI'
@@ -25,7 +23,7 @@ const useTableInstanceRef = <Data extends DataType>() =>
 
 // Export components
 
-export { ReactTableUI, Table, Pagination }
+export default ReactTableUI 
 
 // Export helpers
 export { useReactTableUI, useTableInstanceRef }

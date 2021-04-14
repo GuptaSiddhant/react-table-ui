@@ -1,6 +1,6 @@
 import React from 'react'
 import { Column } from 'react-table'
-import { ReactTableUI, useTableInstanceRef } from 'react-table-ui'
+import ReactTableUI, { useTableInstanceRef } from 'react-table-ui'
 import type {
   DataType,
   TableAction,
