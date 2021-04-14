@@ -38,7 +38,7 @@ export default styled('TitleBar')`
     position: absolute;
     right: 0;
     width: 1px;
-    background-color: ${color.border.default};
+    background-color: ${color.border.primary};
     top: 50%;
     height: ${pxToEm(24)};
     transform: translateY(-50%);

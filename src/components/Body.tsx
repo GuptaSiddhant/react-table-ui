@@ -37,6 +37,7 @@ const BodyRow = <Data extends DataType>({
   return (
     <div
       {...rowProps}
+      tabIndex={-1}
       className={createClassName('tr', 'Row', isRowSelected ? 'selected' : '')}
     >
       {row.cells.map((cell) => {

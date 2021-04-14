@@ -11,6 +11,7 @@ import type ColumnOptions from './ColumnOptions'
 import type RowStateOptions from './RowStateOptions'
 import type TableOptions from './TableOptions'
 import type ActionOptions from './ActionOptions'
+import type ThemeOptions from './ThemeOptions'
 import type { LoadingOptions, FreezeOptions } from './OtherOptions'
 
 /** Props supported by React Table UI. */
@@ -73,6 +74,9 @@ export interface ReactTableUIProps<Data extends DataType> {
 
   /** Freeze headers to the top and footers to the bottom while scrolling. */
   freezeOptions?: FreezeOptions
+
+  /** Manage all theme related options like colors, spacing and common components. */
+  themeOptions?: ThemeOptions
 }
 
 export default ReactTableUIProps

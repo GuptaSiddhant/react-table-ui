@@ -1,5 +1,5 @@
 import styled from '../utilities/styled'
-import { border, radius } from './theme'
+import { border, color, radius } from './theme'
 
 export default styled.div`
   & input[type='search'] {
@@ -8,6 +8,7 @@ export default styled.div`
     border-radius: ${radius.xs};
     border: ${border.default};
     padding: ${radius.sm} ${radius.md};
+    color: ${color.text.primary};
   }
 
   & input[type='search'] {

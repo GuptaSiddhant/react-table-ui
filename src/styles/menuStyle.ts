@@ -21,7 +21,7 @@ export default styled.div`
   [data-reach-menu-items] {
     display: block;
     white-space: nowrap;
-    border: solid 1px ${color.border.default};
+    border: solid 1px ${color.border.primary};
     background: hsla(0, 100%, 100%, 0.99);
     outline: none;
     padding: ${spacing.sm} 0;

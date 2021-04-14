@@ -2,8 +2,8 @@ import * as React from 'react'
 import { TableInstance } from 'react-table'
 
 import useReactTableUI from '../logic/useReactTableUI'
+import useTheme from '../logic/useTheme'
 import createClassName, { commonClassName } from '../utilities/createClassName'
-import useStyleSheet from '../utilities/useStylesheet'
 import { DataType, ReactTableUIProps } from '../types'
 
 import TitleBar from './TitleBar'
@@ -24,13 +24,14 @@ const ReactTableUI = <Data extends DataType>({
 }: ReactTableUIProps<Data> & {
   tableInstanceRef?: React.RefObject<TableInstance<Data>>
 }): JSX.Element => {
-  // Add styles to DOM
-  useStyleSheet()
+  // Internal ref for table
+  const tableRef = React.useRef<HTMLDivElement>(null)
 
-  const ref = React.useRef<HTMLDivElement>(null)
+  // Add styles to DOM
+  useTheme(tableProps.themeOptions)
 
   // Create Table's context
-  const context = useReactTableUI(tableProps, ref)
+  const context = useReactTableUI(tableProps, tableRef)
 
   // Set TableInstance to tableInstanceRef
   React.useImperativeHandle(tableInstanceRef, () => context.tableInstance)
@@ -39,7 +40,7 @@ const ReactTableUI = <Data extends DataType>({
 
   return (
     <div
-      ref={ref}
+      ref={tableRef}
       className={createClassName(
         commonClassName,
         borderless ? '' : 'withBorder'

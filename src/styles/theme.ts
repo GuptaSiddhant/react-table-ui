@@ -1,51 +1,41 @@
-const accent = {
-  default: '#096ED1',
-  light: '#F2F9FF',
-  dark: ''
-}
+import type { ThemeColors, ThemeColor, ThemeSpacing } from '../types'
 
-export const typography = {} as const
+const getThemeColorObject = (category: Omit<keyof ThemeColors, 'accent'>) =>
+  ['primary', 'secondary', 'disabled', 'inverse', 'selected', 'none'].reduce(
+    (obj, name) => ({ ...obj, [name]: `var(--color-${category}-${name})` }),
+    {} as ThemeColor
+  )
 
-export const color = {
-  text: {
-    primary: '#1a1a1a',
-    secondary: '#404040',
-    disabled: '#808080',
-    inverse: '#ffffff',
-    selected: accent.default,
-    none: 'transparent'
-  },
-  background: {
-    primary: '#ffffff',
-    secondary: '#f7f7f7',
-    disabled: '#eeeeee',
-    selected: accent.light,
-    inverse: '#000000',
-    none: 'transparent'
-  },
-  border: {
-    default: '#bfbfbf',
-    selected: accent.default,
-    none: 'transparent'
-  }
-} as const
+const getThemeSpacingObject = (category: string) =>
+  ['none', 'xs', 'sm', 'md', 'lg', 'xl'].reduce(
+    (obj, name) => ({ ...obj, [name]: `var(--${category}-${name})` }),
+    {} as ThemeSpacing<string>
+  )
 
 export const pxToEm = (px: number) => px / 16 + 'em'
 
+export const color: ThemeColors = {
+  text: getThemeColorObject('text'),
+  background: getThemeColorObject('background'),
+  border: getThemeColorObject('border'),
+  accent: {
+    default: 'var(--color-accent-default)',
+    lighter: 'var(--color-accent-lighter)',
+    darker: 'var(--color-accent-darker)'
+  }
+} as const
+
+export const spacing = getThemeSpacingObject('spacing')
+
+export const radius = getThemeSpacingObject('radius')
+
+export const mediaQueries = {
+  mobile: `@media (max-width: 600px)`
+}
+
 export const border = {
-  default: `1px solid ${color.border.default}`
+  default: `1px solid ${color.border.primary}`
 } as const
-
-export const spacing = {
-  none: pxToEm(0),
-  xs: pxToEm(2),
-  sm: pxToEm(4),
-  md: pxToEm(8),
-  lg: pxToEm(12),
-  xl: pxToEm(16)
-} as const
-
-export const radius = spacing
 
 export const CenterStyle = `
 width: 100%;
@@ -54,7 +44,3 @@ display: flex;
 align-items: center;
 justify-content: center;
 `
-
-export const mediaQueries = {
-  mobile: '@media (max-width: 600px)'
-}

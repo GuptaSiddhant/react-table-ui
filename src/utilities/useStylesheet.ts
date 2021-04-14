@@ -3,7 +3,7 @@ import { createClassName } from './createClassName'
 import styles from '../styles'
 
 /**  Place Styles in DOM */
-const useStylesheet = (cssString: string = styles): void => {
+const useStylesheet = (cssString: string = ''): void => {
   useEffect(() => {
     const styleTagID = createClassName('styles')
     const existingStyleTag = document.getElementById(
@@ -14,7 +14,7 @@ const useStylesheet = (cssString: string = styles): void => {
     newStyleTag.id = styleTagID
 
     const styleTag: HTMLStyleElement = existingStyleTag || newStyleTag
-    styleTag.innerHTML = cssString
+    styleTag.innerHTML = cssString + ' ' + styles
 
     if (!existingStyleTag)
       document.head.insertAdjacentElement('afterbegin', styleTag)

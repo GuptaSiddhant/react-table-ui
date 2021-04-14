@@ -24,12 +24,12 @@ const THeadStyle = styled('THead')`
 
   & .Cell {
     cursor: inherit;
-    display: flex;    
+    display: flex;
     align-items: center;
     background-color: inherit;
     gap: ${spacing.md};
     border-bottom: ${border.default};
-    color: ${color.text.secondary}
+    color: ${color.text.secondary};
   }
 
   & .Sort {
@@ -59,7 +59,7 @@ const THeadStyle = styled('THead')`
 
   & .resizer {
     display: inline-block;
-    background: ${color.border.default};
+    background: ${color.border.primary};
     width: 2px;
     height: ${pxToEm(24)};
     position: absolute;
@@ -91,6 +91,13 @@ const TBodyStyle = styled('TBody')`
     background: ${color.background.selected};
   }
 
+  & .Row:focus,
+  & .Row:focus .Cell {    
+    border-top: 1px solid ${color.border.selected};
+    border-bottom: 1px solid ${color.border.selected};
+    outline: none;
+  }
+
   & .Cell {
     display: flex;
     align-items: center;
@@ -98,10 +105,18 @@ const TBodyStyle = styled('TBody')`
     border-bottom: ${border.default};
   }
 
+  & .RowAction {
+    opacity: 0;
+  }
+
+  & .Row:hover .RowAction,
+  & .Row:focus-within .RowAction {
+    opacity: 1;
+  }
+
   & .subComponent {
     box-shadow: inset 0 0 8px 0 #0002;
-    background-color:${color.background.secondary};
-
+    background-color: ${color.background.secondary};
   }
   & .subComponent .content {
     position: sticky;
@@ -130,11 +145,11 @@ export default styled.table`
   }
 
   &.scrollX [data-sticky-last-left-td] {
-    box-shadow: 1px 0px 2px ${color.border.default};
+    box-shadow: 1px 0px 2px ${color.border.primary};
   }
 
   &.scrollX [data-sticky-first-right-td] {
-    box-shadow: -1px 0px 2px ${color.border.default};
+    box-shadow: -1px 0px 2px ${color.border.primary};
   }
 
   & .Cell {

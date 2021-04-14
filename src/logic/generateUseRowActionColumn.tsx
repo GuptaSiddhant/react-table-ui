@@ -20,7 +20,7 @@ const ActionMenu = <Data extends DataType>({
 
   return (
     <Menu>
-      <MenuButton className='IconButton' title='Action'>
+      <MenuButton className='IconButton RowAction' title='Action'>
         <div className='button-content'>•••</div>
       </MenuButton>
       <MenuList>

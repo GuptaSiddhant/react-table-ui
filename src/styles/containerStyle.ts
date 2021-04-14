@@ -14,12 +14,17 @@ export default styled.div`
     grid-template-rows: max-content 1fr max-content;
     height: 100%;
     width: 100%;
+    color: ${color.text.primary};
   }
 
   &.withBorder {
     border: ${border.default};
     border-radius: ${radius.md};
     overflow: hidden;
+  }
+
+  &:fullscreen {
+    border-radius: 0;
   }
 
   & .Pagination {
