@@ -1,5 +1,3 @@
-// import type { UseTableOptions, TableState } from 'react-table'
-
 type DeepPartial<T> = {
   [P in keyof T]?: DeepPartial<T[P]>
 }
@@ -12,10 +10,6 @@ export interface ThemeOptions {
   /** Spacing used throughout the table
    * to determine padding, margins and radii. */
   spacing?: Partial<ThemeSpacing>
-  /** If enabled, table and its components will have
-   * rounded corners calculated from theme's spacing.
-   * @default true */
-  roundedCorners?: boolean
 }
 
 export default ThemeOptions

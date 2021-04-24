@@ -22,7 +22,7 @@ const IndeterminateCheckbox = React.forwardRef<
 
   return (
     <div className='RowSelectCheckbox'>
-      <input type='checkbox' ref={resolvedRef} {...rest} />
+      <input className='checkbox' type='checkbox' ref={resolvedRef} {...rest} />
     </div>
   )
 })

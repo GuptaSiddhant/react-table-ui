@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import type { DataType, TableContext } from '../../types'
 import createClassName from '../../utilities/createClassName'
-import IconButton from '../../common/IconButton'
+import Button from '../../common/Button'
 
 export const TableActions = <Data extends DataType>(
   context: TableContext<Data>
@@ -14,13 +14,13 @@ export const TableActions = <Data extends DataType>(
   return (
     <div className='TableActions'>
       {tableActions.map((action) => (
-        <IconButton
+        <Button
           key={action.id}
           onClick={() => action.onClick(context)}
           title={action.tooltip}
         >
           {action.children}
-        </IconButton>
+        </Button>
       ))}
       <div className='separator' />
     </div>
@@ -43,14 +43,14 @@ export const MultiRowActions = <Data extends DataType>(
       className={createClassName('MultiRowActions', disabled ? 'disabled' : '')}
     >
       {multiRowActions.map((action) => (
-        <IconButton
+        <Button
           disabled={disabled}
           key={action.id}
           onClick={() => action.onClick(data, selectedFlatRows)}
           title={action.tooltip}
         >
           {action.children}
-        </IconButton>
+        </Button>
       ))}
       <div className='separator' />
     </div>

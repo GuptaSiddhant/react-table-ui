@@ -58,13 +58,11 @@ export interface FiltersOptions<Data extends DataType>
    * @category Custom Component  */
   DefaultComponent?: FilterComponent<Data>
 
-  /** Indicator/icon used for action/button to show the Filters Row. 
-   * @default 👁️
+  /** Indicator/icon used for action/button to show the Filters Row.    
    * @category Custom Component */
   showFiltersActionIndicator?: ReactNode
 
-  /** Indicator/icon used for action/button to hide the Filters Row. 
-   * @default ❌
+  /** Indicator/icon used for action/button to hide the Filters Row.    
    * @category Custom Component */
   hideFiltersActionIndicator?: ReactNode
 }

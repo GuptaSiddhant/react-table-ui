@@ -45,7 +45,7 @@ const BodyRow = <Data extends DataType>({
         return (
           <Cell
             {...cell.getCellProps()}
-            className={isSystemColumn ? 'noSpacing' : ''}
+            className={isSystemColumn ? 'systemColumn noSpacing' : ''}
           >
             {cell.render('Cell')}
           </Cell>

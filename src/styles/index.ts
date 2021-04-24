@@ -1,6 +1,6 @@
 import styled from '../utilities/styled'
 
-import { IconButtonStyle } from '../common/IconButton'
+import { ButtonStyle } from '../common/Button'
 import { CellStyle } from '../common/Cell'
 
 import commonStyle from './commonStyle'
@@ -13,7 +13,7 @@ const styles = styled.rtui`
   ${containerStyle}
   ${commonStyle}
   ${menuStyle}
-  ${IconButtonStyle}
+  ${ButtonStyle}
   ${TitleBarStyle}
   ${TableStyle}
   ${CellStyle}

@@ -7,6 +7,7 @@ import GlobalFilter from './GlobalFilter'
 import VisibleFilterAction from './VisibleFilterAction'
 import FullscreenAction from './FullscreenAction'
 import { TableActions, MultiRowActions } from './userDefinedActions'
+import PreferencesAction from './PreferencesAction'
 
 const SystemActions = <Data extends DataType>(
   context: TableContext<Data>
@@ -15,6 +16,7 @@ const SystemActions = <Data extends DataType>(
     <div className='systemActions'>
       <VisibleFilterAction {...context} />
       <FullscreenAction {...context} />
+      <PreferencesAction {...context} />
     </div>
   )
 }
@@ -26,13 +28,17 @@ const SystemActions = <Data extends DataType>(
 const TitleBar = <Data extends DataType>(
   context: TableContext<Data>
 ): JSX.Element | null => {
-  return (
+  const { titleBar = true } = context.tableProps.styleOptions || {}
+
+  return titleBar ? (
     <div className={createClassName('TitleBar')}>
       <GlobalFilter {...context} />
       <MultiRowActions {...context} />
       <TableActions {...context} />
       <SystemActions {...context} />
     </div>
+  ) : (
+    <div />
   )
 }
 

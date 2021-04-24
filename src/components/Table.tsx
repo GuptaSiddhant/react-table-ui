@@ -27,15 +27,14 @@ const Table = <Data extends DataType>(
   const { loadingOptions = {}, data = [] } = tableProps
 
   const {
-    isLoading = false,
+    loading = false,
     Component: LoadingComponent = <Loader />,
     backgroundLoading = true
   } = loadingOptions
 
   const showLoading = React.useMemo(
-    () =>
-      backgroundLoading ? (data.length === 0 ? isLoading : false) : isLoading,
-    [data, isLoading, backgroundLoading]
+    () => (backgroundLoading ? (data.length === 0 ? loading : false) : loading),
+    [data, loading, backgroundLoading]
   )
 
   const [tableRef, { scrollPosX, scrollPosY }] = useScrollPosition()

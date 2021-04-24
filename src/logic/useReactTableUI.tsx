@@ -28,6 +28,7 @@ import useManualPagination from './useManualPagination'
 import useHandleStateChange from './useHandleStateChange'
 import useCreateDefaultColumns from './useCreateDefaultColumns'
 import useVisibleFilters from './useVisibleFilters'
+import useModal from './useModal'
 
 const useReactTableUI = <Data extends DataType>(
   tableProps: ReactTableUIProps<Data>,
@@ -112,7 +113,10 @@ const useReactTableUI = <Data extends DataType>(
       ...filtersTableOptions,
       ...globalFilterTableOptions,
       ...sortByTableOptions,
-      ...paginationTableOptions,
+      ...{
+        autoResetPage: !paginationTableOptions.manualPagination,
+        ...paginationTableOptions
+      },
       ...expandedTableOptions,
       ...rowSelectTableOptions,
       ...columnTableOptions,
@@ -146,6 +150,7 @@ const useReactTableUI = <Data extends DataType>(
     useRowActionColumn,
     useFlexLayout,
     useVisibleFilters,
+    useModal,
     freezeColumns ? useSticky : NOOP
   )
 

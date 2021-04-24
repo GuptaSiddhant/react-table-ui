@@ -1,12 +1,12 @@
 import React, { FC, ButtonHTMLAttributes } from 'react'
 import createClassName from '../utilities/createClassName'
 import styled from '../utilities/styled'
-import { color, radius, spacing, pxToEm } from '../styles/theme'
+import { color, radius, spacing, pxToEm } from '../utilities/theme'
 
 export interface IconButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement> {}
 
-export const IconButtonStyle = styled('IconButton')`
+export const ButtonStyle = styled('IconButton')`
   & {
     background: none;
     border: none;
@@ -20,8 +20,8 @@ export const IconButtonStyle = styled('IconButton')`
     background: none;
     margin: ${spacing.sm};
     padding: ${spacing.sm};
-    width: ${pxToEm(40)};
-    height: ${pxToEm(40)};
+    min-width: ${pxToEm(40)};
+    min-height: ${pxToEm(40)};
     border-radius: ${radius.xs};
 
     display: flex;
@@ -38,9 +38,18 @@ export const IconButtonStyle = styled('IconButton')`
     cursor: not-allowed;
     background: none;
   }
+
+
+  & .iconWithLabel {
+    display: grid;
+    align-items: center;
+    grid-template-columns: max-content max-content;
+    gap: ${spacing.md};
+    padding: 0 ${spacing.md};
+  }
 `
 
-const IconButton: FC<IconButtonProps> = ({
+const Button: FC<IconButtonProps> = ({
   children,
   className = '',
   ...props
@@ -50,4 +59,4 @@ const IconButton: FC<IconButtonProps> = ({
   </button>
 )
 
-export default IconButton
+export default Button

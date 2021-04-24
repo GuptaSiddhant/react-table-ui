@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { color, spacing } from '../styles/theme'
+import { color, spacing } from '../utilities/theme'
 import createClassName from '../utilities/createClassName'
 import styled from '../utilities/styled'
 

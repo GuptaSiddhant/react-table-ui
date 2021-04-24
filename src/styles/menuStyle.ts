@@ -1,5 +1,5 @@
 import styled from '../utilities/styled'
-import { color, radius, spacing } from './theme'
+import { color, radius, spacing } from '../utilities/theme'
 
 export default styled.div`
   :root {
@@ -24,9 +24,11 @@ export default styled.div`
     border: solid 1px ${color.border.primary};
     background: hsla(0, 100%, 100%, 0.99);
     outline: none;
+    overflow: hidden;
     padding: ${spacing.sm} 0;
     font-size: 85%;
     border-radius: ${radius.sm};
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.25);    
   }
 
   [data-reach-menu-item] {

@@ -1,5 +1,11 @@
 import styled from '../utilities/styled'
-import { border, color, mediaQueries, pxToEm, spacing } from './theme'
+import {
+  border,
+  color,
+  mediaQueries,
+  pxToEm,
+  spacing
+} from '../utilities/theme'
 
 /* TitleBar */
 export default styled('TitleBar')`
@@ -19,7 +25,7 @@ export default styled('TitleBar')`
 
   ${mediaQueries.mobile} {
     & {
-      height: 6em;
+      height: auto;
       grid-template-areas: 'titleSearch systemActions' 'rowActions actions';
     }
   }

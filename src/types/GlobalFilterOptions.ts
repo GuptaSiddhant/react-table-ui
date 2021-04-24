@@ -9,12 +9,12 @@ import type {
 } from 'react-table'
 import type { DataType, StateChangeHandler } from './DataType'
 
-/** Type interface for filtering options. 
+/** Type interface for filtering options.
  * @category Options */
 export interface GlobalFilterOptions<Data extends DataType>
   extends UseGlobalFiltersOptions<Data> {
   /** Initial settings of global filter.
-   *  @example 
+   *  @example
    * ```
    * { globalFilter: {} }
    * ``` */
@@ -24,11 +24,15 @@ export interface GlobalFilterOptions<Data extends DataType>
    *  The function must be wrapped in useCallback hook. */
   onStateChange?: StateChangeHandler<UseGlobalFiltersState<Data>>
 
-  /** Disable global filtering for table. 
+  /** Disable global filtering for table.
    * @default false */
   disableGlobalFilter?: boolean
 
-  /** Reset filtering when data is changed. 
+  /** Should the Global Filter be visible by default.
+   * @default false */
+  defaultVisibleGlobalFilter?: boolean
+
+  /** Reset filtering when data is changed.
    * @default true */
   autoResetGlobalFilter?: boolean
 

@@ -1,5 +1,35 @@
 import styled from '../utilities/styled'
-import { border, pxToEm, radius, spacing, color } from './theme'
+import { border, radius, color, spacing } from '../utilities/theme'
+import StatusBarStyle from './StatusBarStyle'
+
+const ModalStyles = styled('Modal')`
+  & {
+    min-width: 300px;
+    min-height: 200px;
+    background-color: ${color.background.secondary};
+    border-radius: ${radius.md};
+    overflow: hidden;
+  }
+
+  & .TitleBar {
+    width: 100%;
+    min-height: 3rem;
+    height: auto;
+    padding-left: ${spacing.xl};
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    font-weight: bold;
+    border-bottom: ${border.default};
+    background-color: ${color.background.primary};
+  }
+
+  & .Modal-Content {
+    padding: ${spacing.xl};
+  }
+`
 
 export default styled.div`
   &,
@@ -10,6 +40,7 @@ export default styled.div`
   }
 
   & {
+    position: relative;
     display: grid;
     grid-template-rows: max-content 1fr max-content;
     height: 100%;
@@ -27,45 +58,19 @@ export default styled.div`
     border-radius: 0;
   }
 
-  & .Pagination {
+  & .Modal-Wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.25);
+    z-index: 20;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
     align-items: center;
-    min-height: ${pxToEm(56)};
-    width: 100%;
-    border-top: ${border.default};
-    background-color: ${color.background.primary};
-  }
-
-  & .Pagination .Status {
-    flex-basis: 1;
-    flex-grow: 1;
-    min-height: ${pxToEm(40)};
-    padding: 0 ${spacing.xl};
-    display: flex;
     justify-content: center;
-    align-items: center;
-    min-width: max-content;
-    max-width: 100%;
   }
 
-  & .Pagination .spacer {
-    flex-basis: 1;
-    flex-grow: 999;
-  }
-
-  & .Pagination .Pager {
-    display: flex;
-    flex-basis: 1;
-    flex-grow: 1;
-    align-items: center;
-    justify-content: space-between;
-    min-width: max-content;
-    max-width: 100%;
-  }
-  & .Pagination .Pager input {
-    margin: 0 ${spacing.md};
-    text-align: center;
-  }
+  ${StatusBarStyle}
+  ${ModalStyles}
 `

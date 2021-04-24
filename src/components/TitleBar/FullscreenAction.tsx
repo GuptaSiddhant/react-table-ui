@@ -1,10 +1,11 @@
 import * as React from 'react'
 
 import type { DataType, TableContext } from '../../types'
-import IconButton, { IconButtonProps } from '../../common/IconButton'
+import Button, { IconButtonProps } from '../../common/Button'
+import Icon from '../../common/Icon'
 
-const defaultEnterFullscreenIndicator = '↗️'
-const defaultExitFullscreenIndicator = '↙️'
+const defaultEnterFullscreenIndicator = <Icon name="maximise" />
+const defaultExitFullscreenIndicator = <Icon name="minimise" />
 
 const FullscreenAction = <Data extends DataType>({
   tableRef,
@@ -41,7 +42,7 @@ const FullscreenAction = <Data extends DataType>({
       }
     : null
 
-  return iconButtonProps && <IconButton key='fullscreen' {...iconButtonProps} />
+  return iconButtonProps && <Button key='fullscreen' {...iconButtonProps} />
 }
 
 export default FullscreenAction

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Column } from 'react-table'
+import { Column, UsePaginationState } from 'react-table'
 import ReactTableUI, { useTableInstanceRef } from 'react-table-ui'
 import type {
   DataType,
@@ -7,77 +7,117 @@ import type {
   SingleRowAction,
   MultiRowAction
 } from 'react-table-ui'
-import makeData from './makeData'
+// import makeData from './makeData'
 
-interface User extends DataType {
-  firstName: string
-  lastName: string
-  age: number
-  visits: number
-  status: string
-  progress: number
+// interface User extends DataType {
+//   firstName: string
+//   lastName: string
+//   age: number
+//   visits: number
+//   status: string
+//   progress: number
+// }
+
+interface Passenger extends DataType {
+  _id: string
+  name: string
+  trips: number
+  airline: {
+    id: number
+    name: string
+    country: string
+    logo: string
+    slogan: string
+    head_quaters: string
+    website: string
+    established: string
+  }[]
+  __v: number
 }
 
-const App = () => {
-  const data: User[] = React.useMemo(() => makeData(100, 3), [])
-  const columns: Column<User>[] = React.useMemo(
+const usePassengersAPI = () => {
+  const [passengers, setPassengers] = React.useState<Passenger[]>([])
+  const [pageCount, setPageCount] = React.useState(0)
+  const [loading, setLoading] = React.useState(false)
+  const [totalPassengers, setTotalPassengers] = React.useState(0)
+
+  const fetchData = React.useCallback(
+    async ({ pageSize, pageIndex }: UsePaginationState<any>) => {
+      setLoading(true)
+      const jsonRes = await fetch(
+        `https://api.instantwebtools.net/v1/passenger?page=${pageIndex}&size=${pageSize}`
+      )
+        .then((res) => res.json())
+        .catch(console.error)
+        .finally(() => setLoading(false))
+
+      setPassengers(jsonRes?.data || [])
+      setPageCount(jsonRes?.totalPages || 0)
+      setTotalPassengers(jsonRes?.totalPassengers || 0)
+    },
+    []
+  )
+
+  const columns: Column<Passenger>[] = React.useMemo(
     () => [
       {
         Header: 'Name',
         sticky: 'left',
-        columns: [
-          {
-            Header: 'First Name',
-            accessor: 'firstName',
-            sticky: 'left'
-          },
-          {
-            Header: 'Last Name',
-            accessor: 'lastName'
-          }
-        ]
+        accessor: 'name'
       },
       {
-        Header: 'Info',
-        columns: [
-          {
-            Header: 'Age',
-            accessor: 'age',
-            disableFilters: true
-          },
-          {
-            Header: 'Visits',
-            accessor: 'visits'
-          },
-          {
-            Header: 'Status',
-            accessor: 'status'
-          },
-          {
-            Header: 'Profile Progress',
-            accessor: 'progress',
-            align: 'right',
-            width: 200
-          }
-        ]
+        Header: 'Trips',
+        accessor: 'trips'
+      },
+
+      {
+        Header: 'Name',
+        accessor: 'airline.name'
+      },
+      {
+        Header: 'Country',
+        accessor: 'airline.country'
+      },
+      {
+        Header: 'Established',
+        accessor: 'airline.established'
       }
     ],
     []
   )
 
-  const [isLoading, setLoading] = React.useState(false)
-  const tableInstanceRef = useTableInstanceRef<User>()
+  return {
+    fetchData,
+    pageCount,
+    columns,
+    data: passengers,
+    loading,
+    recordCount: totalPassengers
+  }
+}
 
-  const singleRowActions: SingleRowAction<User>[] = [
+const App = () => {
+  const {
+    fetchData,
+    data,
+    columns,
+    loading,
+    pageCount,
+    recordCount
+  } = usePassengersAPI()
+
+  const tableInstanceRef = useTableInstanceRef<Passenger>()
+
+  const singleRowActions: SingleRowAction<Passenger>[] = [
     {
       id: 'log',
       tooltip: 'Console log',
       onClick: console.log,
-      children: <div>🪵 Console log</div>
+      children: <div>🪵 Console log a long message</div>
     }
   ]
 
-  const multiRowActions: MultiRowAction<User>[] = [
+  const multiRowActions: MultiRowAction<Passenger>[] = [
     {
       id: 'log',
       tooltip: 'Console log',
@@ -86,11 +126,16 @@ const App = () => {
     }
   ]
 
-  const tableActions: TableAction<User>[] = [
+  const tableActions: TableAction<Passenger>[] = [
     {
       id: 'load',
-      tooltip: 'Load',
-      onClick: () => setLoading((s) => !s),
+      tooltip: 'Reload',
+      onClick: () => {
+        const state = tableInstanceRef.current?.state
+        if (state) {
+          fetchData({ pageIndex: state.pageIndex, pageSize: state.pageSize })
+        }
+      },
       children: '🔄'
     }
   ]
@@ -110,8 +155,15 @@ const App = () => {
         data={data}
         columns={columns}
         tableInstanceRef={tableInstanceRef}
-        loadingOptions={{ isLoading }}
+        loadingOptions={{ loading }}
         actionOptions={{ singleRowActions, multiRowActions, tableActions }}
+        paginationOptions={{
+          manualPagination: true,
+          pageCount,
+          fetchData,
+          recordCount
+        }}
+        styleOptions={{ }}
       />
     </div>
   )

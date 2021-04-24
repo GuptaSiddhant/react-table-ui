@@ -8,7 +8,8 @@ import { DataType, ReactTableUIProps } from '../types'
 
 import TitleBar from './TitleBar'
 import Table from './Table'
-import Pagination from './Pagination'
+import StatusBar from './StatusBar'
+import Modal from './Modal'
 
 /**
  * React Table UI
@@ -28,7 +29,7 @@ const ReactTableUI = <Data extends DataType>({
   const tableRef = React.useRef<HTMLDivElement>(null)
 
   // Add styles to DOM
-  useTheme(tableProps.themeOptions)
+  useTheme(tableProps)
 
   // Create Table's context
   const context = useReactTableUI(tableProps, tableRef)
@@ -36,7 +37,7 @@ const ReactTableUI = <Data extends DataType>({
   // Set TableInstance to tableInstanceRef
   React.useImperativeHandle(tableInstanceRef, () => context.tableInstance)
 
-  const { borderless = false } = context.tableProps.tableOptions || {}
+  const { borderless = false } = context.tableProps.styleOptions || {}
 
   return (
     <div
@@ -48,7 +49,8 @@ const ReactTableUI = <Data extends DataType>({
     >
       <TitleBar {...context} />
       <Table {...context} />
-      <Pagination {...context} />
+      <StatusBar {...context} />
+      <Modal {...context} />
     </div>
   )
 }

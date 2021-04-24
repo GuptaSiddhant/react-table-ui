@@ -5,7 +5,7 @@ import type { ReactNode } from 'react'
 export interface LoadingOptions {
   /** Loading state.
    * @default false */
-  isLoading?: boolean
+  loading?: boolean
 
   /** If true, loading is done in background.
    * Loading indicator is not shown if there is data on screen.

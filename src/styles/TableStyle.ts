@@ -1,5 +1,5 @@
 import styled from '../utilities/styled'
-import { border, CenterStyle, color, pxToEm, spacing } from './theme'
+import { border, CenterStyle, color, pxToEm, spacing } from '../utilities/theme'
 
 const THeadStyle = styled('THead')`
   & {
@@ -7,10 +7,6 @@ const THeadStyle = styled('THead')`
     z-index: 5;
     width: 100%;
     top: 0;
-  }
-
-  &.sticky {
-    position: sticky;
   }
 
   & .Row {
@@ -53,7 +49,7 @@ const THeadStyle = styled('THead')`
     position: relative;
     width: calc(100% + ${spacing.xl});
     padding: ${spacing.sm} ${spacing.md};
-    left: -${spacing.md};
+    left: calc(-1 * ${spacing.md});
     font-weight: normal;
   }
 
@@ -92,7 +88,7 @@ const TBodyStyle = styled('TBody')`
   }
 
   & .Row:focus,
-  & .Row:focus .Cell {    
+  & .Row:focus .Cell {
     border-top: 1px solid ${color.border.selected};
     border-bottom: 1px solid ${color.border.selected};
     outline: none;
@@ -131,6 +127,11 @@ export default styled.table`
     height: 100%;
     min-width: 100%;
     overflow: auto;
+    background-color: ${color.background.secondary};
+  }
+
+  & .sticky {
+    position: sticky;
   }
 
   ${THeadStyle}

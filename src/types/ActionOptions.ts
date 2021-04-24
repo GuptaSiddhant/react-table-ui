@@ -21,12 +21,10 @@ export interface ActionOptions<Data extends DataType> {
     | boolean
     | {
         /** Indicator when fullscreen can be requested for table.
-         * @category Component
-         * @default ↗️ */
+         * @category Component */
         enterFullscreenIndicator?: ReactNode
         /** Indicator when table can exit the fullscreen mode.
-         * @category Component
-         * @default ↙️ */
+         * @category Component */
         exitFullscreenIndicator?: ReactNode
       }
 }

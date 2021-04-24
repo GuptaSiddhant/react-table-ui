@@ -1,6 +1,6 @@
-import type { ThemeOptions } from '../types'
+import type { ReactTableUIProps, ThemeOptions, DataType } from '../types'
 import useStylesheet from '../utilities/useStylesheet'
-import { pxToEm } from '../styles/theme'
+import { pxToEm } from '../utilities/theme'
 import deepMerge from '../utilities/deepMerge'
 import { commonClassName } from '../utilities/createClassName'
 
@@ -36,7 +36,6 @@ const defaultThemeOptions: ThemeOptions = {
       none: 'transparent'
     }
   },
-  roundedCorners: true,
   spacing: {
     none: 0,
     xs: 2,
@@ -47,8 +46,10 @@ const defaultThemeOptions: ThemeOptions = {
   }
 }
 
-const useTheme = (options: ThemeOptions = {}) => {
-  const mergedThemeOptions = deepMerge(defaultThemeOptions, options)
+const useTheme = <Data extends DataType>({
+  styleOptions: { roundedCorners = true, theme: themeOptions = {} } = {}
+}: ReactTableUIProps<Data>) => {
+  const mergedThemeOptions = deepMerge(defaultThemeOptions, themeOptions)
 
   // Colors
   let colorsCSS = ''
@@ -56,7 +57,7 @@ const useTheme = (options: ThemeOptions = {}) => {
     ([category, colors]) => {
       Object.entries(colors || {}).forEach(([name, color]) => {
         if (color) {
-          colorsCSS += `--color-${category}-${name}: ${color};\n`
+          colorsCSS += `--${commonClassName}-color-${category}-${name}: ${color};\n`
         }
       })
     }
@@ -64,15 +65,17 @@ const useTheme = (options: ThemeOptions = {}) => {
 
   // Spacing
   let spacingCSS = ''
-  const disableRadius = !mergedThemeOptions.roundedCorners
+  const disableRadius = !roundedCorners
   Object.entries(mergedThemeOptions.spacing || {}).forEach(([type, val]) => {
     if (val) {
-      spacingCSS += `--spacing-${type}: ${pxToEm(val)};\n`
-      spacingCSS += `--radius-${type}: ${disableRadius ? 0 : pxToEm(val)};\n`
+      spacingCSS += `--${commonClassName}-spacing-${type}: ${pxToEm(val)};\n`
+      spacingCSS += `--${commonClassName}-radius-${type}: ${
+        disableRadius ? 0 : pxToEm(val)
+      };\n`
     }
   })
 
-  const themeCSS = `.${commonClassName} {
+  const themeCSS = `:root {
     ${colorsCSS}
     ${spacingCSS}
   }`

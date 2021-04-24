@@ -9,7 +9,10 @@ const useManualPagination = <Data extends DataType>({
   },
   tableProps: { paginationOptions = {} }
 }: TableContext<Data>) => {
-  const { disablePagination, fetchData, manualPagination } = paginationOptions
+  const { disablePagination, manualPagination, fetchData } = paginationOptions
+  if (paginationOptions.manualPagination) {
+    paginationOptions
+  }
   React.useEffect(() => {
     if (!disablePagination && manualPagination && fetchData)
       fetchData({ pageIndex, pageSize })

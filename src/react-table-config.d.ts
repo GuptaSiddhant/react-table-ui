@@ -83,7 +83,8 @@ declare module 'react-table' {
       UseRowSelectInstanceProps<D>,
       UseRowStateInstanceProps<D>,
       UseSortByInstanceProps<D>,
-      UseFiltersVisibleProps {}
+      UseFiltersVisibleProps,
+      UseModalProps {}
 
   export interface TableState<D extends object = {}>
     extends UseColumnOrderState<D>,
@@ -96,7 +97,7 @@ declare module 'react-table' {
       UseRowSelectState<D>,
       UseRowStateState<D>,
       UseSortByState<D>,
-      UseFiltersVisibleState {}
+      UseFiltersVisibleState,UseModalState {}
 
   export interface ColumnInterface<D extends object = {}>
     extends UseFiltersColumnOptions<D>,
@@ -133,5 +134,18 @@ declare module 'react-table' {
     setFiltersVisible: (filtersVisible: boolean) => void
     resetFiltersVisible: () => void
     toggleFiltersVisible: () => void
+  }
+
+  export interface UseModalState {
+    modal?: ModalProps
+  }
+  export interface UseModalProps {
+    setModal: (modalProps: ModalProps) => void
+    resetModal: () => void
+  }
+  export interface ModalProps {
+    title: string    
+    onSave?: () => void
+    children: React.ReactNode
   }
 }

@@ -1,8 +1,8 @@
 import * as React from 'react'
 
 import type { DataType, TableContext } from '../../types'
-
-import IconButton from '../../common/IconButton'
+import Button from '../../common/Button'
+import Icon from '../../common/Icon'
 
 const VisibleFilterAction = <Data extends DataType>({
   tableInstance,
@@ -22,14 +22,14 @@ const VisibleFilterAction = <Data extends DataType>({
   if (disableFilters || alwaysShowFilters) return null
 
   return (
-    <IconButton
+    <Button
       onClick={toggleFiltersVisible}
       title={filtersVisible ? 'Hide column filters' : 'Show column filters'}
     >
       {filtersVisible
-        ? hideFiltersActionIndicator || '❌'
-        : showFiltersActionIndicator || '👁️'}
-    </IconButton>
+        ? hideFiltersActionIndicator || <Icon name='x' />
+        : showFiltersActionIndicator || <Icon name="filter" />}
+    </Button>
   )
 }
 

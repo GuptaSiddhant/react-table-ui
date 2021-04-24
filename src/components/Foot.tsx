@@ -34,7 +34,7 @@ const Foot = <Data extends DataType>(
 
   return (
     <div
-      className={createClassName('Tfoot', 'footer', freezeFoot ? 'sticky' : '')}
+      className={createClassName('TFoot', 'footer', freezeFoot ? 'sticky' : '')}
       role='rowgroup'
     >
       {showFooter &&

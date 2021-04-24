@@ -1,14 +1,21 @@
 import type { ThemeColors, ThemeColor, ThemeSpacing } from '../types'
+import { commonClassName } from './createClassName'
 
 const getThemeColorObject = (category: Omit<keyof ThemeColors, 'accent'>) =>
   ['primary', 'secondary', 'disabled', 'inverse', 'selected', 'none'].reduce(
-    (obj, name) => ({ ...obj, [name]: `var(--color-${category}-${name})` }),
+    (obj, name) => ({
+      ...obj,
+      [name]: `var(--${commonClassName}-color-${category}-${name})`
+    }),
     {} as ThemeColor
   )
 
 const getThemeSpacingObject = (category: string) =>
   ['none', 'xs', 'sm', 'md', 'lg', 'xl'].reduce(
-    (obj, name) => ({ ...obj, [name]: `var(--${category}-${name})` }),
+    (obj, name) => ({
+      ...obj,
+      [name]: `var(--${commonClassName}-${category}-${name})`
+    }),
     {} as ThemeSpacing<string>
   )
 
@@ -19,9 +26,9 @@ export const color: ThemeColors = {
   background: getThemeColorObject('background'),
   border: getThemeColorObject('border'),
   accent: {
-    default: 'var(--color-accent-default)',
-    lighter: 'var(--color-accent-lighter)',
-    darker: 'var(--color-accent-darker)'
+    default: `var(--${commonClassName}-color-accent-default)`,
+    lighter: `var(--${commonClassName}-color-accent-lighter)`,
+    darker: `var(--${commonClassName}-color-accent-darker)`,
   }
 } as const
 

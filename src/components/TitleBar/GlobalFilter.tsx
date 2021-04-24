@@ -2,7 +2,8 @@ import * as React from 'react'
 import { useAsyncDebounce } from 'react-table'
 import type { UseGlobalFiltersInstanceProps } from 'react-table'
 import { TableContext, DataType } from '../../types'
-import IconButton from '../../common/IconButton'
+import Button from '../../common/Button'
+import Icon from '../../common/Icon'
 
 interface GlobalFilterProps<Data extends DataType>
   extends UseGlobalFiltersInstanceProps<Data> {
@@ -54,11 +55,12 @@ const GlobalFilter = <Data extends DataType>(context: TableContext<Data>) => {
 
   const {
     Component: CustomGlobalFilter = DefaultGlobalFilter,
-    disableGlobalFilter = false
+    disableGlobalFilter = false,
+    defaultVisibleGlobalFilter = false
   } = globalFilterOptions
 
   const [isGlobalFilterVisible, setIsGlobalFilterComponent] = React.useState(
-    false
+    defaultVisibleGlobalFilter
   )
 
   const showGlobalFilterComponent = React.useCallback(
@@ -92,20 +94,20 @@ const GlobalFilter = <Data extends DataType>(context: TableContext<Data>) => {
       {isGlobalFilterVisible ? (
         <React.Fragment>
           <CustomGlobalFilter {...globalFilterProps} />
-          <IconButton
+          <Button
             title={'Close search'}
             onClick={hideGlobalFilterComponent}
           >
-            ✕
-          </IconButton>
+            <Icon name='x' />
+          </Button>
         </React.Fragment>
       ) : (
         <React.Fragment>
           <div className='title'>{title}</div>
           {!disableGlobalFilter && (
-            <IconButton title={searchText} onClick={showGlobalFilterComponent}>
-              🔍
-            </IconButton>
+            <Button title={searchText} onClick={showGlobalFilterComponent}>
+              <Icon name='search' />
+            </Button>
           )}
         </React.Fragment>
       )}
