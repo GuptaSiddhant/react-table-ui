@@ -11,11 +11,13 @@ Out-of-the-box UI for [React-Table 7](https://github.com/tannerlinsley/react-tab
 
 > The project is dedicated to the awesome work done at React-Table by [Tanner Linsley](https://twitter.com/tannerlinsley) as it wouldn't have been possible without his great library. I have personally use the library and wanted to contribute back to it somehow.
 
-![RTUI](https://github.com/GuptaSiddhant/react-table-ui/blob/main/typedoc/RTUI.jpg)
+![RTUI](https://raw.githubusercontent.com/GuptaSiddhant/react-table-ui/main/typedoc/RTUI.jpg)
 
 ---
 
-## Install
+## Get started
+
+### Install
 
 ```bash
 npm install react-table-ui
@@ -25,7 +27,7 @@ npm install react-table-ui
 yarn add react-table-ui
 ```
 
-## Usage
+### Usage
 
 ```tsx
 import ReactTableUI from 'react-table-ui'
@@ -45,6 +47,14 @@ const App = () => {
   return <ReactTableUI data={data} />
 }
 ```
+
+### API Documentation
+
+All options and properties available for ReactTableUI component are listed [here](https://guptasiddhant.com/react-table-ui/interfaces/reacttableuiprops.html).
+
+### Examples
+
+Coming soon
 
 ## License
 
