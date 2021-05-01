@@ -3,9 +3,9 @@ import { Column, UsePaginationState } from 'react-table'
 import ReactTableUI, { useTableInstanceRef } from 'react-table-ui'
 import type {
   DataType,
-  TableAction,
   SingleRowAction,
-  MultiRowAction
+  // TableAction,
+  // MultiRowAction
 } from 'react-table-ui'
 // import makeData from './makeData'
 
@@ -117,28 +117,28 @@ const App = () => {
     }
   ]
 
-  const multiRowActions: MultiRowAction<Passenger>[] = [
-    {
-      id: 'log',
-      tooltip: 'Console log',
-      onClick: console.log,
-      children: '🪵'
-    }
-  ]
+  // const multiRowActions: MultiRowAction<Passenger>[] = [
+  //   {
+  //     id: 'log',
+  //     tooltip: 'Console log',
+  //     onClick: console.log,
+  //     children: '🪵'
+  //   }
+  // ]
 
-  const tableActions: TableAction<Passenger>[] = [
-    {
-      id: 'load',
-      tooltip: 'Reload',
-      onClick: () => {
-        const state = tableInstanceRef.current?.state
-        if (state) {
-          fetchData({ pageIndex: state.pageIndex, pageSize: state.pageSize })
-        }
-      },
-      children: '🔄'
-    }
-  ]
+  // const tableActions: TableAction<Passenger>[] = [
+  //   {
+  //     id: 'load',
+  //     tooltip: 'Reload',
+  //     onClick: () => {
+  //       const state = tableInstanceRef.current?.state
+  //       if (state) {
+  //         fetchData({ pageIndex: state.pageIndex, pageSize: state.pageSize })
+  //       }
+  //     },
+  //     children: '🔄'
+  //   }
+  // ]
 
   return (
     <div
@@ -156,14 +156,17 @@ const App = () => {
         columns={columns}
         tableInstanceRef={tableInstanceRef}
         loadingOptions={{ loading }}
-        actionOptions={{ singleRowActions, multiRowActions, tableActions }}
+        actionOptions={{
+          singleRowActions
+          //  multiRowActions, tableActions
+        }}
         paginationOptions={{
           manualPagination: true,
           pageCount,
           fetchData,
           recordCount
         }}
-        styleOptions={{ }}
+        styleOptions={{}}
       />
     </div>
   )

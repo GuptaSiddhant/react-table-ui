@@ -8,6 +8,6 @@
   "disableSources": true,
   "highlightTheme": "github-dark",
   "theme": "typedoc",
-  "readme": "typedoc/README.md",
+  "readme": "README.md",
   "categoryOrder": ["Component", "Options", "State", "*"]
 }

@@ -39,7 +39,7 @@
     "watch:js": "node scripts/esbuild watch",
     "watch:ts": "tsc --watch",
     "watch:docs": "typedoc --emit --watch",
-    "prepublish": "yarn build",
+    "prepublishOnly": "yarn build",
     "postinstall": "node scripts/postInstall.js",
     "predeploy": "cd example && yarn install && yarn run build",
     "deploy": "gh-pages -d example/build",
