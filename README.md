@@ -54,7 +54,7 @@ All options and properties available for ReactTableUI component are listed [here
 
 ### Examples
 
-Coming soon
+[CodeSandBox - Server pagination](https://codesandbox.io/s/react-table-ui-basic-8ukxd)
 
 ## License
 

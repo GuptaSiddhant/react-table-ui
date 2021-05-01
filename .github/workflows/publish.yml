@@ -16,6 +16,3 @@ jobs:
       - uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
-      - if: steps.publish.outputs.type != 'none'
-        run: |
-          echo "New version: ${{ steps.publish.outputs.version }} (${{ steps.publish.outputs.tag }})"
