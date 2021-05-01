@@ -20,10 +20,10 @@ const ActionMenu = <Data extends DataType>({
 
   return (
     <Menu>
-      <MenuButton className='IconButton RowAction' title='Action'>
+      <MenuButton className='Button RowAction' title='Action'>
         <div className='button-content'>•••</div>
       </MenuButton>
-      <MenuList>
+      <MenuList >
         {actions.map((action) => (
           <MenuItem
             key={action.id}

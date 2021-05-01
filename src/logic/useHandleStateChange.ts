@@ -1,10 +1,8 @@
+// eslint no-unused-expressions: ["error", { "allowShortCircuit": true }]
+
 import { useEffect } from 'react'
-import { TableContext, DataType } from '../types'
-import type {
-  UseRowStateState,
-  UseGlobalFiltersState,
-  UseGroupByState
-} from 'react-table'
+import type { TableContext, DataType } from '../types'
+import type { UseRowStateState, UseGroupByState } from 'react-table'
 
 const useHandleStateChange = <Data extends DataType>({
   tableInstance: { state },
@@ -15,7 +13,8 @@ const useHandleStateChange = <Data extends DataType>({
     expandedOptions,
     rowSelectOptions,
     paginationOptions,
-    columnOptions
+    columnOptions,
+    globalFilterOptions
   }
 }: TableContext<Data>) => {
   const {
@@ -39,10 +38,6 @@ const useHandleStateChange = <Data extends DataType>({
     onStateChange: (_: UseRowStateState<Data>) => {}
   }
   /** @todo Remove */
-  const globalFilterOptions = {
-    onStateChange: (_: UseGlobalFiltersState<Data>) => {}
-  }
-  /** @todo Remove */
   const groupingOptions = {
     onStateChange: (_: UseGroupByState<Data>) => {}
   }
@@ -54,7 +49,8 @@ const useHandleStateChange = <Data extends DataType>({
 
   // Sorting
   useEffect(() => {
-    sortByOptions?.onStateChange?.({ sortBy })
+    if(sortByOptions?.onStateChange )
+      sortByOptions?.onStateChange({ sortBy })
   }, [sortByOptions?.onStateChange, sortBy])
 
   // Filtering

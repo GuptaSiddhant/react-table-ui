@@ -5,7 +5,7 @@ import createClassName from '../../utilities/createClassName'
 
 import GlobalFilter from './GlobalFilter'
 import VisibleFilterAction from './VisibleFilterAction'
-import FullscreenAction from './FullscreenAction'
+
 import { TableActions, MultiRowActions } from './userDefinedActions'
 import PreferencesAction from './PreferencesAction'
 
@@ -15,7 +15,7 @@ const SystemActions = <Data extends DataType>(
   return (
     <div className='systemActions'>
       <VisibleFilterAction {...context} />
-      <FullscreenAction {...context} />
+      {/* <FullscreenAction {...context} /> */}
       <PreferencesAction {...context} />
     </div>
   )

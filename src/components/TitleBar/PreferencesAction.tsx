@@ -1,8 +1,9 @@
 import * as React from 'react'
 
 import type { DataType, TableContext } from '../../types'
-import Button from '../../common/Button'
+import useFullscreenAction from './FullscreenAction'
 import Icon from '../../common/Icon'
+import useReachUI from '../../utilities/useReachUI'
 
 const defaultPreferencesIndicator = <Icon name='sliders' />
 
@@ -36,6 +37,11 @@ const PreferencesAction = <Data extends DataType>(
   context: TableContext<Data>
 ): JSX.Element | null => {
   const { setModal } = context.tableInstance
+  const fullScreenAction = useFullscreenAction<Data>(context)
+
+  const ReachMenu = useReachUI('menu')
+  if (!ReachMenu) return null
+  const { Menu, MenuButton, MenuList, MenuItem } = ReachMenu
 
   const handleOpenPreferences = () =>
     setModal({
@@ -47,14 +53,25 @@ const PreferencesAction = <Data extends DataType>(
       )
     })
 
+
   return (
-    <Button
-      key='preferences'
-      onClick={handleOpenPreferences}
-      title='Table preferences'
-    >
-      {defaultPreferencesIndicator}
-    </Button>
+    <Menu>
+      <MenuButton className='Button RowAction' title='Table preferences'>
+        <div className='button-content'>•••</div>
+      </MenuButton>
+      <MenuList portal={true}>
+        {fullScreenAction && (
+          <MenuItem onSelect={() => fullScreenAction.onClick!()}>
+            {fullScreenAction.children}
+            {fullScreenAction.title}
+          </MenuItem>
+        )}
+        <MenuItem onSelect={handleOpenPreferences}>
+          {defaultPreferencesIndicator}
+          Table preferences
+        </MenuItem>
+      </MenuList>
+    </Menu>
   )
 }
 

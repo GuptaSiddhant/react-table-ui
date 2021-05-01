@@ -6,7 +6,7 @@ import { color, radius, spacing, pxToEm } from '../utilities/theme'
 export interface IconButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement> {}
 
-export const ButtonStyle = styled('IconButton')`
+export const ButtonStyle = styled('Button')`
   & {
     background: none;
     border: none;
@@ -54,7 +54,7 @@ const Button: FC<IconButtonProps> = ({
   className = '',
   ...props
 }) => (
-  <button {...props} className={createClassName('IconButton', className)}>
+  <button {...props} className={createClassName('Button', className)}>
     <div className='button-content'>{children}</div>
   </button>
 )

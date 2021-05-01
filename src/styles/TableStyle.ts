@@ -124,6 +124,8 @@ const TBodyStyle = styled('TBody')`
 
 export default styled.table`
   & {
+    position: relative;
+    z-index: 0;
     height: 100%;
     min-width: 100%;
     overflow: auto;
