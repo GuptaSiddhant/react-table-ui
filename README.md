@@ -21,9 +21,7 @@ Out-of-the-box UI for [React-Table 7](https://github.com/tannerlinsley/react-tab
 
 ```bash
 npm install react-table-ui
-```
-
-```bash
+---
 yarn add react-table-ui
 ```
 
@@ -31,10 +29,17 @@ yarn add react-table-ui
 
 ```tsx
 import ReactTableUI from 'react-table-ui'
-import { useMemo } from 'react'
+import { useMemo, useRef } from 'react'
+import type { TableInstance } from 'react-table'
+
+interface User {
+  name: string
+  age: number
+}
 
 const App = () => {
-  const data = useMemo(
+  // Provide data for the table
+  const data: User[] = useMemo(
     () => [
       { name: 'Abc Xyx', age: 20 },
       { name: 'Def Uvw', age: 25 },
@@ -44,17 +49,26 @@ const App = () => {
     []
   )
 
-  return <ReactTableUI data={data} />
+  // Create an instance ref that will hold the reference to React Table instance.
+  const tableInstanceRef = useRef<TableInstance<User>>()
+
+  return (
+    <ReactTableUI
+      title='My Table'
+      data={data}
+      tableInstanceRef={tableInstanceRef}
+    />
+  )
 }
 ```
 
 ### API Documentation
 
-All options and properties available for ReactTableUI component are listed [here](https://guptasiddhant.com/react-table-ui/interfaces/reacttableuiprops.html).
+All options and properties available for ReactTableUI component are listed [here](https://react-table-ui.js.org/interfaces/reacttableuiprops.html).
 
 ### Examples
 
-[CodeSandBox - Server pagination](https://codesandbox.io/s/react-table-ui-basic-8ukxd)
+- [Server pagination](https://codesandbox.io/s/react-table-ui-basic-8ukxd)
 
 ## License
 

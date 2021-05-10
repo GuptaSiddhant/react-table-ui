@@ -5,9 +5,10 @@
   "out": "docs",
   "excludeExternals": true,
   "excludeInternal": true,
-  "disableSources": true,
+  "disableSources": false,
   "highlightTheme": "github-dark",
   "theme": "typedoc",
   "readme": "README.md",
-  "categoryOrder": ["Component", "Options", "State", "*"]
+  "categoryOrder": ["Component", "Options", "State", "*"],
+  "sourcefile-url-prefix": "https://github.com/GuptaSiddhant/react-table-ui/tree/main/src/"
 }
