@@ -1,4 +1,4 @@
-// import type { UseTableOptions, TableState } from 'react-table'
+// import type { UseTableOptions, TableState } from './ReactTable'
 
 import type ThemeOptions from './ThemeOptions'
 

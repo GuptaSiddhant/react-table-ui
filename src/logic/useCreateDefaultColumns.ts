@@ -1,6 +1,5 @@
 import { useMemo } from 'react'
-import type { Column } from 'react-table'
-import type { DataType } from '../types'
+import type { DataType, Column } from '../types'
 
 const toTitleCase = (str: string) =>
   str.slice(0, 1).toUpperCase() + str.slice(1)

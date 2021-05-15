@@ -1,9 +1,15 @@
 import * as React from 'react'
-import type { Hooks, CellProps, Row } from 'react-table'
 
 import systemColumns from '../utilities/systemColumns'
 import useReachUI from '../utilities/useReachUI'
-import type { DataType, ReactTableUIProps, SingleRowAction } from '../types'
+import type {
+  DataType,
+  ReactTableUIProps,
+  SingleRowAction,
+  Hooks,
+  CellProps,
+  Row
+} from '../types'
 
 const ActionMenu = <Data extends DataType>({
   actions,
@@ -23,7 +29,7 @@ const ActionMenu = <Data extends DataType>({
       <MenuButton className='Button RowAction' title='Action'>
         <div className='button-content'>•••</div>
       </MenuButton>
-      <MenuList >
+      <MenuList>
         {actions.map((action) => (
           <MenuItem
             key={action.id}

@@ -1,10 +1,14 @@
 import * as React from 'react'
-import type { HeaderGroup } from 'react-table'
+
 import createClassName from '../utilities/createClassName'
-import type { DataType, TableContext } from '../types'
-import type { SortingComponent } from '../types/SortingOptions'
 import Cell from '../common/Cell'
 import { checkIfSystemColumn } from '../utilities/systemColumns'
+import type {
+  DataType,
+  TableContext,
+  HeaderGroup,
+  SortingComponent
+} from '../types'
 
 type HeadCellProps<Data extends DataType> = TableContext<Data> & {
   column: HeaderGroup<Data>

@@ -1,9 +1,8 @@
 import * as React from 'react'
+
 import Icon from '../common/Icon'
 import Button from '../common/Button'
 import FocusTrap from '../common/FocusTrap'
-
-// import type { ModalProps } from 'react-table'
 import type { DataType, TableContext } from '../types'
 
 const Modal = <Data extends DataType>(
@@ -21,7 +20,7 @@ const Modal = <Data extends DataType>(
 
   return modal ? (
     <div className='Modal-Wrapper' onClick={resetModal}>
-      <FocusTrap className='Modal' onClick={e => e.stopPropagation()}>
+      <FocusTrap className='Modal' onClick={(e) => e.stopPropagation()}>
         <div className='TitleBar'>
           {modal.title}
           <div>

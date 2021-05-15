@@ -1,6 +1,9 @@
 # React-Table UI
 
 [![NPM](https://img.shields.io/npm/v/react-table-ui.svg)](https://www.npmjs.com/package/react-table-ui)
+[![GitHub](https://img.shields.io/badge/GitHub-Repo-black)](https://github.com/GuptaSiddhant/react-table-ui)
+
+---
 
 Out-of-the-box UI for [React-Table 7](https://github.com/tannerlinsley/react-table).
 
@@ -19,11 +22,20 @@ Out-of-the-box UI for [React-Table 7](https://github.com/tannerlinsley/react-tab
 
 ### Install
 
-```bash
-npm install react-table-ui
----
-yarn add react-table-ui
-```
+1. Install the dependency
+
+   ```bash
+   npm install react-table-ui
+   ---
+   yarn add react-table-ui
+   ```
+
+1. For Typescript support, add `react-table-config.d.ts` file to your source (src) folder, if not added automatically.
+
+   - [Preferred] Copy the file from your project's node_modules -
+     `./node_modules/react-table-ui/dist/react-table-config.d.ts`
+     to your source folder.
+   - [Fallback] Get the file from [GitHub](https://github.com/GuptaSiddhant/react-table-ui/blob/main/src/react-table-config.d.ts). It may not match the exact version of library that you are using.
 
 ### Usage
 

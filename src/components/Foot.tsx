@@ -1,8 +1,8 @@
 import * as React from 'react'
-import { HeaderGroup } from 'react-table'
+
 import createClassName from '../utilities/createClassName'
-import type { DataType, TableContext } from '../types'
 import Cell from '../common/Cell'
+import type { DataType, TableContext, HeaderGroup } from '../types'
 
 const renderFooterCellContent = <Data extends DataType>(
   column: HeaderGroup<Data>

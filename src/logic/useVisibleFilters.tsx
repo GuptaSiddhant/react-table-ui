@@ -1,13 +1,14 @@
 import * as React from 'react'
 import { ensurePluginOrder } from 'react-table'
+
 import type {
+  DataType,
   Hooks,
   ReducerTableState,
   TableState,
   ActionType,
   TableInstance
-} from 'react-table'
-import type { DataType } from '../types'
+} from '../types'
 
 const pluginName = 'useFiltersVisible'
 

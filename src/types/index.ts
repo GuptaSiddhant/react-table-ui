@@ -1,5 +1,5 @@
 import type { RefObject } from 'react'
-import type { Column, TableInstance } from 'react-table'
+import type { TableInstance } from './ReactTable'
 import type DataType from './DataType'
 import type ReactTableUIProps from './ReactTableUIProps'
 
@@ -21,7 +21,7 @@ interface TableContext<Data extends DataType> {
 
 // export default TableContext
 
-export type { Column, DataType, TableContext }
+export type { DataType, TableContext }
 export * from './ReactTableUIProps'
 export * from './SortingOptions'
 export * from './FiltersOptions'
@@ -35,3 +35,4 @@ export * from './TableOptions'
 export * from './ActionOptions'
 export * from './StyleOptions'
 export * from './ThemeOptions'
+export * from './ReactTable'

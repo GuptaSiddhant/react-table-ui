@@ -4,7 +4,7 @@ import type {
   UseRowSelectState,
   TableToggleCommonProps,
   IdType
-} from 'react-table'
+} from './ReactTable'
 import type { DataType, StateChangeHandler } from './DataType'
 
 /** Type interface for RowSelect options. 

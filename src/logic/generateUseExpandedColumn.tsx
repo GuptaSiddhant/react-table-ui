@@ -1,7 +1,14 @@
 import * as React from 'react'
-import type { Hooks, CellProps, HeaderProps, Column } from 'react-table'
+
 import systemColumns from '../utilities/systemColumns'
-import type { DataType, ReactTableUIProps } from '../types'
+import type {
+  DataType,
+  ReactTableUIProps,
+  Hooks,
+  CellProps,
+  HeaderProps,
+  Column
+} from '../types'
 
 const generateUseExpandedColumn = <Data extends DataType>(
   props: ReactTableUIProps<Data>

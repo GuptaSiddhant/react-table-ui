@@ -1,10 +1,9 @@
 import * as React from 'react'
-import { TableInstance } from 'react-table'
 
 import useReactTableUI from '../logic/useReactTableUI'
 import useTheme from '../logic/useTheme'
 import createClassName, { commonClassName } from '../utilities/createClassName'
-import { DataType, ReactTableUIProps } from '../types'
+import type { DataType, ReactTableUIProps, TableInstance } from '../types'
 
 import TitleBar from './TitleBar'
 import Table from './Table'

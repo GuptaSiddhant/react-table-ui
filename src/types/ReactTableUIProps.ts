@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import type { Column } from 'react-table'
+import type { Column } from './ReactTable'
 import type DataType from './DataType'
 import type SortingOptions from './SortingOptions'
 import type FiltersOptions from './FiltersOptions'

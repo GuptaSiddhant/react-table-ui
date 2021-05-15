@@ -12,13 +12,17 @@ import {
   useRowState,
   useFlexLayout
 } from 'react-table'
-import type { Column } from 'react-table'
 import { useSticky } from 'react-table-sticky'
 
-import type { TableContext, DataType, ReactTableUIProps } from '../types'
 import { DefaultColumnFilter } from '../components/Filters'
 import { fixColumnOrder } from '../utilities/systemColumns'
 import { NOOP } from '../utilities'
+import type {
+  TableContext,
+  DataType,
+  ReactTableUIProps,
+  Column
+} from '../types'
 
 import generateUseExpandedColumn from './generateUseExpandedColumn'
 import generateUseRowSelectColumn from './generateUseRowSelectColumn'

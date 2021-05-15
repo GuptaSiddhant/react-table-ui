@@ -4,7 +4,7 @@ import type {
   UseFiltersState,
   FilterType,
   HeaderProps
-} from 'react-table'
+} from './ReactTable'
 import type { DataType, StateChangeHandler } from './DataType'
 
 /** Type interface for filtering options. 

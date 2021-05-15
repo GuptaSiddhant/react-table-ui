@@ -1,9 +1,8 @@
 import * as React from 'react'
-import type { Row } from 'react-table'
-import type { DataType, TableContext } from '../types'
 import createClassName from '../utilities/createClassName'
 import Cell from '../common/Cell'
 import { checkIfSystemColumn } from '../utilities/systemColumns'
+import type { DataType, TableContext, Row } from '../types'
 
 const SubComponent = <Data extends DataType>({
   row,

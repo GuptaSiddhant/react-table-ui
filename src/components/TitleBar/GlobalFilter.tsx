@@ -1,9 +1,13 @@
 import * as React from 'react'
 import { useAsyncDebounce } from 'react-table'
-import type { UseGlobalFiltersInstanceProps } from 'react-table'
-import { TableContext, DataType } from '../../types'
+
 import Button from '../../common/Button'
 import Icon from '../../common/Icon'
+import {
+  TableContext,
+  DataType,
+  UseGlobalFiltersInstanceProps
+} from '../../types'
 
 interface GlobalFilterProps<Data extends DataType>
   extends UseGlobalFiltersInstanceProps<Data> {
@@ -94,10 +98,7 @@ const GlobalFilter = <Data extends DataType>(context: TableContext<Data>) => {
       {isGlobalFilterVisible ? (
         <React.Fragment>
           <CustomGlobalFilter {...globalFilterProps} />
-          <Button
-            title={'Close search'}
-            onClick={hideGlobalFilterComponent}
-          >
+          <Button title={'Close search'} onClick={hideGlobalFilterComponent}>
             <Icon name='x' />
           </Button>
         </React.Fragment>

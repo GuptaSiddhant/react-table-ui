@@ -1,7 +1,6 @@
 import type { ReactNode } from 'react'
-import type { Row } from 'react-table'
 
-import type { TableContext, DataType } from '.'
+import type { TableContext, DataType, Row } from '.'
 
 /** Type interface of actions in table.
  * @category Options */

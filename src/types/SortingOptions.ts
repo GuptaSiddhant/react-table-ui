@@ -6,7 +6,7 @@ import type {
   SortByFn,
   UseSortByColumnProps,
   HeaderGroup
-} from 'react-table'
+} from './ReactTable'
 import type { DataType, StateChangeHandler } from './DataType'
 
 /** Type interface for sorting options. 

@@ -1,7 +1,6 @@
 import * as React from 'react'
 
-import type { HeaderProps } from 'react-table'
-import { DataType } from '../types'
+import type { DataType, HeaderProps } from '../types'
 
 export const DefaultColumnFilter = <Data extends DataType>({
   column: { filterValue, setFilter, render }

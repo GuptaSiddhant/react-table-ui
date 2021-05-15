@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
-import type { UseExpandedOptions, UseExpandedState, IdType } from 'react-table'
+
+import type { UseExpandedOptions, UseExpandedState, IdType } from './ReactTable'
 import type { DataType, StateChangeHandler } from './DataType'
 
 /** Type interface for expanded rows options.

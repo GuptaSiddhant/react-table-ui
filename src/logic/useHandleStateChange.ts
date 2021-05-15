@@ -1,8 +1,12 @@
 // eslint no-unused-expressions: ["error", { "allowShortCircuit": true }]
 
 import { useEffect } from 'react'
-import type { TableContext, DataType } from '../types'
-import type { UseRowStateState, UseGroupByState } from 'react-table'
+import type {
+  TableContext,
+  DataType,
+  UseRowStateState,
+  UseGroupByState
+} from '../types'
 
 const useHandleStateChange = <Data extends DataType>({
   tableInstance: { state },
@@ -30,7 +34,7 @@ const useHandleStateChange = <Data extends DataType>({
     groupBy,
     columnResizing,
     hiddenColumns = [],
-    filtersVisible,
+    filtersVisible
   } = state
 
   /** @todo Remove */
@@ -49,8 +53,7 @@ const useHandleStateChange = <Data extends DataType>({
 
   // Sorting
   useEffect(() => {
-    if(sortByOptions?.onStateChange )
-      sortByOptions?.onStateChange({ sortBy })
+    if (sortByOptions?.onStateChange) sortByOptions?.onStateChange({ sortBy })
   }, [sortByOptions?.onStateChange, sortBy])
 
   // Filtering

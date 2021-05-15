@@ -1,12 +1,14 @@
 import * as React from 'react'
+
+import systemColumns from '../utilities/systemColumns'
 import type {
+  DataType,
+  ReactTableUIProps,
   Hooks,
   CellProps,
   HeaderProps,
   TableToggleCommonProps
-} from 'react-table'
-import systemColumns from '../utilities/systemColumns'
-import type { DataType, ReactTableUIProps } from '../types'
+} from '../types'
 
 const IndeterminateCheckbox = React.forwardRef<
   HTMLInputElement,

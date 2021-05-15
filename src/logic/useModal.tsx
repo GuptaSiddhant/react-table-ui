@@ -1,15 +1,15 @@
 import * as React from 'react'
 import { ensurePluginOrder } from 'react-table'
+import type { ModalProps } from 'react-table'
+
 import type {
+  DataType,
   Hooks,
   ReducerTableState,
   TableState,
   ActionType,
-  TableInstance,
-  ModalProps
-} from 'react-table'
-
-import type { DataType } from '../types'
+  TableInstance
+} from '../types'
 
 const pluginName = 'useModal'
 
@@ -34,7 +34,7 @@ const reducer = <Data extends DataType>(
     case actions.resetModal:
       return {
         ...state,
-        modal: undefined,
+        modal: undefined
       }
 
     case actions.setModal:

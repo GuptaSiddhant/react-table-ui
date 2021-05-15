@@ -3,7 +3,7 @@ import type {
   UsePaginationOptions,
   UsePaginationState,
   UsePaginationInstanceProps
-} from 'react-table'
+} from './ReactTable'
 import type { DataType, StateChangeHandler } from './DataType'
 
 export type PaginationOptions<Data extends DataType> =
