@@ -18,11 +18,11 @@
   ],
   "dependencies": {
     "react-table": "^7.6.3",
-    "react-table-sticky": "^1.1.3"
+    "react-table-sticky": "^1.1.3",
+    "@types/react-table": "^7.0.29"
   },
   "peerDependencies": {
-    "react": "^16.8.0 || ^17",
-    "@types/react-table": "^7.0.29"
+    "react": "^16.8.0 || ^17"
   },
   "optionalDependencies": {
     "@reach/menu-button": "^0.15.0"
