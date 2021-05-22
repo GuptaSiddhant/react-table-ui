@@ -1,11 +1,17 @@
 {
   "name": "react-table-ui",
-  "version": "0.1.1",
-  "description": "UI for React-Table-7",
-  "author": "GuptaSiddhant <me@guptasiddhant.com>",
+  "version": "0.1.2",
+  "description": "Out-of-the-box UI for React-Table 7",
+  "author": {
+    "name": "Siddhant Gupta",
+    "email": "me@guptasiddhant.com",
+    "url": "https://guptsiddhant.com"
+  },
   "license": "MIT",
   "repository": "GuptaSiddhant/react-table-ui",
   "homepage": "https://react-table-ui.js.org",
+  "bugs": "https://github.com/GuptaSiddhant/react-table-ui/issues",
+  "browser": "dist/index.js",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -42,8 +48,6 @@
     "watch:docs": "typedoc --emit --watch",
     "prepublishOnly": "yarn build",
     "postinstall": "node scripts/postInstall.js",
-    "predeploy": "cd example && yarn install && yarn run build",
-    "deploy": "gh-pages -d example/build",
     "example": "cd example; yarn start"
   },
   "devDependencies": {
@@ -83,5 +87,18 @@
   "resolutions": {
     "@types/react": "17.0.3",
     "@types/react-dom": "17.0.3"
-  }
+  },
+  "keywords": [
+    "react",
+    "table",
+    "grid",
+    "ui",
+    "interface",
+    "accessible",
+    "ready-made",
+    "react-table",
+    "typescript",
+    "customise",
+    "style"
+  ]
 }

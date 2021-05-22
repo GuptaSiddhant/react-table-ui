@@ -2,8 +2,6 @@
 
 ## Tasks
 
-- [] Hello
-
 ## Testing
 
 // "@testing-library/jest-dom": "^4.2.4",

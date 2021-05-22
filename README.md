@@ -30,6 +30,8 @@ Out-of-the-box UI for [React-Table 7](https://github.com/tannerlinsley/react-tab
    yarn add react-table-ui
    ```
 
+   The package size for production usage (with styles and without types) is ~36 KB (unzipped). The ~200 KB size of the complete package contains helpful TypeScript typings that makes using React-Table-UI a bliss.
+
 1. For Typescript support, add `react-table-config.d.ts` file to your source (src) folder, if not added automatically.
 
    - [Preferred] Copy the file from your project's node_modules -
@@ -39,12 +41,17 @@ Out-of-the-box UI for [React-Table 7](https://github.com/tannerlinsley/react-tab
 
 ### Usage
 
+<!-- markdownlint-disable MD033 -->
+
 ```tsx
+/** React Table UI - Basic example (TypeScript) */
+
 import ReactTableUI from 'react-table-ui'
 import { useMemo, useRef } from 'react'
-import type { TableInstance } from 'react-table'
+import type { TableInstance, DataType } from 'react-table-ui'
 
-interface User {
+/** Structure of data provided foe each row. */
+interface User extends DataType {
   name: string
   age: number
 }
@@ -73,6 +80,42 @@ const App = () => {
   )
 }
 ```
+
+<details>
+  <summary>JavaScript (Basic example)</summary>
+
+```jsx
+/** React Table UI - Basic example (JavaScript) */
+
+import ReactTableUI from 'react-table-ui'
+import { useMemo, useRef } from 'react'
+
+const App = () => {
+  // Provide data for the table
+  const data = useMemo(
+    () => [
+      { name: 'Abc Xyx', age: 20 },
+      { name: 'Def Uvw', age: 25 },
+      { name: 'Ghi Rst', age: 23 },
+      { name: 'Jklm Nopq', age: 30 }
+    ],
+    []
+  )
+
+  // Create an instance ref that will hold the reference to React Table instance.
+  const tableInstanceRef = useRef()
+
+  return (
+    <ReactTableUI
+      title='My Table'
+      data={data}
+      tableInstanceRef={tableInstanceRef}
+    />
+  )
+}
+```
+
+</details>
 
 ### API Documentation
 
