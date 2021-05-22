@@ -5,6 +5,7 @@
   "author": "GuptaSiddhant <me@guptasiddhant.com>",
   "license": "MIT",
   "repository": "GuptaSiddhant/react-table-ui",
+  "homepage": "https://react-table-ui.js.org",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
