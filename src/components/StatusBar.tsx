@@ -12,14 +12,17 @@ import Icon from '../common/Icon'
 const StatusBar = <Data extends DataType>(
   context: TableContext<Data>
 ): JSX.Element | null => {
-  const { statusBar = true } = context.tableProps.styleOptions || {}
+  const { styleOptions, paginationOptions, localeOptions } = context.tableProps
+  const { statusBar = true } = styleOptions || {}
   const {
     Component,
     firstPageIndicator = <Icon name='chevrons-left' />,
     previousPageIndicator = <Icon name='chevron-left' />,
     nextPageIndicator = <Icon name='chevron-right' />,
     lastPageIndicator = <Icon name='chevrons-right' />
-  } = context.tableProps.paginationOptions || {}
+  } = paginationOptions || {}
+  const { locale, text = {} } = localeOptions || {}
+
   const status = generateStatus(context)
   const {
     page,
@@ -35,7 +38,6 @@ const StatusBar = <Data extends DataType>(
   } = context.tableInstance
 
   const loading: boolean = !!context.tableProps.loadingOptions?.loading
-
   const showPagination = pageOptions.length > 1
 
   if (!statusBar) return null
@@ -66,22 +68,22 @@ const StatusBar = <Data extends DataType>(
             <Button
               onClick={() => gotoPage(0)}
               disabled={!canPreviousPage}
-              title='First page'
+              title={text.firstPage || 'First page'}
             >
               {firstPageIndicator}
             </Button>
             <Button
-              onClick={() => previousPage()}
+              onClick={previousPage}
               disabled={!canPreviousPage}
-              title='Previous page'
+              title={text.previousPage || 'Previous page'}
             >
               {previousPageIndicator}
             </Button>
             <div>
-              <span>Page</span>
+              <span>{text.page || 'Page'}</span>
               <input
                 type='number'
-                value={pageIndex + 1}
+                value={(pageIndex + 1).toLocaleString(locale)}
                 onChange={(e) => {
                   const page = e.target.value ? Number(e.target.value) - 1 : 0
                   gotoPage(page)
@@ -89,19 +91,21 @@ const StatusBar = <Data extends DataType>(
                 style={{ width: '60px' }}
                 disabled={pageOptions.length <= 1}
               />
-              <span>of {pageOptions.length}</span>{' '}
+              <span>
+                {text.of || 'of'} {pageOptions.length.toLocaleString(locale)}
+              </span>
             </div>
             <Button
-              onClick={() => nextPage()}
+              onClick={nextPage}
               disabled={!canNextPage}
-              title='Next page'
+              title={text.nextPage || 'Next page'}
             >
               {nextPageIndicator}
             </Button>
             <Button
               onClick={() => gotoPage(pageCount - 1)}
               disabled={!canNextPage}
-              title='Last page'
+              title={text.lastPage || 'Last page'}
             >
               {lastPageIndicator}
             </Button>

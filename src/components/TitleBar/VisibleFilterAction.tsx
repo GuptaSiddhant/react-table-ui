@@ -18,17 +18,23 @@ const VisibleFilterAction = <Data extends DataType>({
     showFiltersActionIndicator,
     hideFiltersActionIndicator
   } = tableProps.filtersOptions || {}
+  const text = tableProps.localeOptions?.text
 
   if (disableFilters || alwaysShowFilters) return null
 
   return (
     <Button
       onClick={toggleFiltersVisible}
-      title={filtersVisible ? 'Hide column filters' : 'Show column filters'}
+      title={
+        text?.toggleColumnFilters ||
+        (filtersVisible
+          ? text?.hideColumnFilters || 'Hide column filters'
+          : text?.showColumnFilters || 'Show column filters')
+      }
     >
       {filtersVisible
         ? hideFiltersActionIndicator || <Icon name='x' />
-        : showFiltersActionIndicator || <Icon name="filter" />}
+        : showFiltersActionIndicator || <Icon name='filter' />}
     </Button>
   )
 }

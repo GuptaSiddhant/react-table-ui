@@ -12,6 +12,7 @@ const Modal = <Data extends DataType>(
     state: { modal },
     resetModal
   } = context.tableInstance
+  const text = context.tableProps.localeOptions?.text
 
   const handleSave = () => {
     modal?.onSave?.()
@@ -28,7 +29,7 @@ const Modal = <Data extends DataType>(
               <Button onClick={handleSave}>
                 <div className='iconWithLabel'>
                   <Icon name='save' />
-                  <div>Save</div>
+                  <div>{text?.save || 'Save'}</div>
                 </div>
               </Button>
             )}

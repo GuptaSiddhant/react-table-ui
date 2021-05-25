@@ -8,16 +8,18 @@ import useReachUI from '../../utilities/useReachUI'
 const defaultPreferencesIndicator = <Icon name='sliders' />
 
 const PageSizePreference = <Data extends DataType>({
-  tableInstance
+  tableInstance,
+  tableProps
 }: TableContext<Data>): JSX.Element | null => {
   const {
     state: { pageSize },
     setPageSize
   } = tableInstance
+  const { locale, text } = tableProps.localeOptions || {}
 
   return (
     <div>
-      Page size
+      {text?.pageSize || 'Page size'}
       <select
         name='pageSize'
         defaultValue={pageSize}
@@ -25,7 +27,7 @@ const PageSizePreference = <Data extends DataType>({
       >
         {[10, 20, 50, 75, 100, 150].map((size) => (
           <option key={size} value={size}>
-            {size}
+            {size.toLocaleString(locale)}
           </option>
         ))}
       </select>
@@ -37,6 +39,7 @@ const PreferencesAction = <Data extends DataType>(
   context: TableContext<Data>
 ): JSX.Element | null => {
   const { setModal } = context.tableInstance
+  const text = context.tableProps.localeOptions?.text
   const fullScreenAction = useFullscreenAction<Data>(context)
 
   const ReachMenu = useReachUI('menu')
@@ -45,14 +48,13 @@ const PreferencesAction = <Data extends DataType>(
 
   const handleOpenPreferences = () =>
     setModal({
-      title: 'Table preferences',
+      title: text?.tablePreferences || 'Table preferences',
       children: (
         <div>
           <PageSizePreference {...context} />
         </div>
       )
     })
-
 
   return (
     <Menu>
@@ -68,7 +70,7 @@ const PreferencesAction = <Data extends DataType>(
         )}
         <MenuItem onSelect={handleOpenPreferences}>
           {defaultPreferencesIndicator}
-          Table preferences
+          {text?.tablePreferences || 'Table preferences'}
         </MenuItem>
       </MenuList>
     </Menu>

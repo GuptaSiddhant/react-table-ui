@@ -1,8 +1,4 @@
-// import type { UseTableOptions, TableState } from './ReactTable'
-
-import type ThemeOptions from './ThemeOptions'
-
-/** Type interface of Table specific options.
+/** Type interface of Table-style specific options.
  * @category Options */
 export interface StyleOptions {
   /** All theme related options like colors and spacing */
@@ -30,3 +26,52 @@ export interface StyleOptions {
 }
 
 export default StyleOptions
+
+type DeepPartial<T> = {
+  [P in keyof T]?: DeepPartial<T[P]>
+}
+
+/** Type interface of Theme specific options. This overrides the internal CSS.
+ * @category Options */
+export interface ThemeOptions {
+  /** Colors for the Table */
+  colors?: DeepPartial<ThemeColors>
+  /** Spacing used throughout the table
+   * to determine padding, margins and radii. */
+  spacing?: Partial<ThemeSpacing>
+}
+
+export interface ThemeColors {
+  text: ThemeColor
+  background: ThemeColor
+  border: ThemeColor
+  accent: {
+    default: string
+    lighter: string
+    darker: string
+  }
+}
+
+export interface ThemeColor {
+  primary: string
+  secondary: string
+  disabled: string
+  inverse: string
+  selected: string
+  none: string
+}
+
+export interface ThemeSpacing<T = number> {
+  /** @default 0 */
+  none: T
+  /** @default 2 */
+  xs: T
+  /** @default 4 */
+  sm: T
+  /** @default 8 */
+  md: T
+  /** @default 12 */
+  lg: T
+  /** @default 16 */
+  xl: T
+}

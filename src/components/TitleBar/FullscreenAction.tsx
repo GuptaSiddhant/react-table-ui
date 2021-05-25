@@ -1,7 +1,6 @@
 import * as React from 'react'
 
 import type { DataType, TableContext } from '../../types'
-// import { IconButtonProps } from '../../common/Button'
 import Icon from '../../common/Icon'
 
 const defaultEnterFullscreenIndicator = <Icon name='maximise' />
@@ -11,7 +10,10 @@ const useFullscreenAction = <Data extends DataType>({
   tableRef,
   tableProps
 }: TableContext<Data>) => {
-  const { actionOptions: { fullscreenAction = true } = {} } = tableProps
+  const {
+    actionOptions: { fullscreenAction = true } = {},
+    localeOptions: { text } = {}
+  } = tableProps
   const [isFullscreen, setIsFullscreen] = React.useState(false)
 
   const handleEnterFullscreen = React.useCallback(() => {
@@ -36,7 +38,7 @@ const useFullscreenAction = <Data extends DataType>({
 
   const iconButtonProps = fullscreenAction
     ? {
-        title: 'Toggle fullscreen',
+        title: text?.toggleFullscreen || 'Toggle fullscreen',
         onClick: isFullscreen ? handleExitFullscreen : handleEnterFullscreen,
         children: isFullscreen ? exitIndicator : enterIndicator
       }

@@ -6,8 +6,6 @@ import Body from '../components/Body'
 import Foot from '../components/Foot'
 import useScrollPosition from '../logic/useScrollPosition'
 
-const Loader: React.FC = () => <div className='loader'>Loading...</div>
-
 /**
  * Table
  *
@@ -24,11 +22,19 @@ const Table = <Data extends DataType>(
     ...htmlAttributes
   } = props
   const { getTableProps, rows } = tableInstance
-  const { loadingOptions = {}, data = [] } = tableProps
+  const {
+    loadingOptions = {},
+    data = [],
+    localeOptions: { text } = {}
+  } = tableProps
+
+  const Loader: React.FC = () => (
+    <div className='loader'>{text?.loading || 'Loading'}...</div>
+  )
 
   const {
     loading = false,
-    Component: LoadingComponent = <Loader />,
+    Component: LoadingComponent = Loader,
     backgroundLoading = true
   } = loadingOptions
 

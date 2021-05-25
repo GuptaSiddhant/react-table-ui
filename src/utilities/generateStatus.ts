@@ -15,29 +15,42 @@ const generateStatus = <Data extends DataType>({
     selectedFlatRows,
     state: { pageSize, pageIndex }
   } = tableInstance
+  const locale = tableProps.localeOptions?.locale
+  const {
+    loading: loadingText = 'Loading',
+    noRecords: noRecordsText = 'No records',
+    total: totalText = 'Total',
+    records: recordsText = 'records',
+    showing: showingText = 'Showing',
+    of: ofText = 'of'
+  } = tableProps.localeOptions?.text || {}
 
   const selectedRowCount = Object.keys(selectedFlatRows).length
 
-  if (showLoadingStatus && loading) return 'Loading...'
+  if (showLoadingStatus && loading) return loadingText + '...'
 
   const statuses: string[] = []
 
   // row count
   let rowCountStatus = ''
   if (rows.length === 0) {
-    rowCountStatus = 'No records.'
+    rowCountStatus = noRecordsText
   } else if (disablePagination) {
-    rowCountStatus = `Total ${rows.length} rows`
-  } else if (manualPagination) {
-    const totalResults = recordCount || `~${pageCount * pageSize}`
-    const startRow = pageIndex * pageSize + 1
-    const endRow = (pageIndex + 1) * pageSize
-    rowCountStatus = `Showing ${startRow}-${endRow} of ${totalResults} records`
+    rowCountStatus = `${totalText} ${rows.length.toLocaleString(
+      locale
+    )} ${recordsText}`
   } else {
-    const totalResults = rows.length.toLocaleString()
-    const startRow = pageIndex * pageSize + 1
-    const endRow = pageIndex * pageSize + page.length
-    rowCountStatus = `Showing ${startRow}-${endRow} of ${totalResults} records`
+    const totalResults = manualPagination
+      ? recordCount?.toLocaleString(locale) ||
+        `~${(pageCount * pageSize).toLocaleString(locale)}`
+      : rows.length.toLocaleString(locale)
+    const startRow = (pageIndex * pageSize + 1).toLocaleString(locale)
+    const endRow = (manualPagination
+      ? (pageIndex + 1) * pageSize
+      : pageIndex * pageSize + page.length
+    ).toLocaleString(locale)
+
+    rowCountStatus = `${showingText} ${startRow}-${endRow} ${ofText} ${totalResults} ${recordsText}`
   }
   statuses.push(rowCountStatus)
 
@@ -45,7 +58,7 @@ const generateStatus = <Data extends DataType>({
     statuses.push(`${selectedRowCount} selected`)
   }
 
-  return showLoadingStatus && loading ? 'Loading...' : statuses.join(' • ')
+  return statuses.join(' • ')
 }
 
 export default generateStatus

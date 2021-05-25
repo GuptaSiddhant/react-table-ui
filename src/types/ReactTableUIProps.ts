@@ -12,6 +12,7 @@ import type RowStateOptions from './RowStateOptions'
 import type TableOptions from './TableOptions'
 import type ActionOptions from './ActionOptions'
 import type StyleOptions from './StyleOptions'
+import type LocaleOptions from './LocaleOptions'
 import type { LoadingOptions, FreezeOptions } from './OtherOptions'
 
 /** Props supported by React Table UI. */
@@ -77,6 +78,9 @@ export interface ReactTableUIProps<Data extends DataType> {
 
   /** Manage all style preferences related options. */
   styleOptions?: StyleOptions
+
+  /** Manage all locale preferences and translations. */
+  localeOptions?: LocaleOptions
 }
 
 export default ReactTableUIProps

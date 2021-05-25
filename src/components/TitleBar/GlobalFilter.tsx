@@ -41,7 +41,11 @@ export const DefaultGlobalFilter = <Data extends DataType>({
 }
 
 const GlobalFilter = <Data extends DataType>(context: TableContext<Data>) => {
-  const { globalFilterOptions = {}, title = 'Table' } = context.tableProps
+  const {
+    globalFilterOptions = {},
+    title = 'Table',
+    localeOptions: { text } = {}
+  } = context.tableProps
 
   const {
     rows,
@@ -76,7 +80,9 @@ const GlobalFilter = <Data extends DataType>(context: TableContext<Data>) => {
     setIsGlobalFilterComponent(false)
   }, [])
 
-  const searchText = `Search ${typeof title === 'string' ? title : ''}`
+  const searchText = `${text?.search || 'Search'} ${
+    typeof title === 'string' ? title : ''
+  }`
 
   const globalFilterProps: GlobalFilterProps<Data> = {
     globalFilterValue: globalFilter,
@@ -98,7 +104,10 @@ const GlobalFilter = <Data extends DataType>(context: TableContext<Data>) => {
       {isGlobalFilterVisible ? (
         <React.Fragment>
           <CustomGlobalFilter {...globalFilterProps} />
-          <Button title={'Close search'} onClick={hideGlobalFilterComponent}>
+          <Button
+            title={text?.closeSearch || 'Close search'}
+            onClick={hideGlobalFilterComponent}
+          >
             <Icon name='x' />
           </Button>
         </React.Fragment>
