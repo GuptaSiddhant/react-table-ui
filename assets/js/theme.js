@@ -8,7 +8,7 @@ const DARK_CLASS_NAME = 'dark'
 const docClassList = document.documentElement.classList
 
 // Check if darkTheme in local storage
-let isDarkTheme = !!localStorage.getItem(LS_KEY)
+let isDarkTheme = !!window.localStorage.getItem(LS_KEY)
 setTheme()
 
 // Create a Button
@@ -34,10 +34,10 @@ document.body.appendChild(themeFAB)
 /** function to set theme settings */
 function setTheme() {
   if (isDarkTheme) {
-    localStorage.setItem(LS_KEY, 'true')
+    window.localStorage.setItem(LS_KEY, 'true')
     docClassList.add(DARK_CLASS_NAME)
   } else {
-    localStorage.removeItem(LS_KEY)
+    window.localStorage.removeItem(LS_KEY)
     docClassList.remove(DARK_CLASS_NAME)
   }
 }
