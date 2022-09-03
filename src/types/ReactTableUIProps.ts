@@ -37,40 +37,40 @@ export interface ReactTableUIProps<Data extends DataType> {
   actionOptions?: ActionOptions<Data>
 
   /** useTable Table options
-   * @see [RT useTable API - Table options](https://react-table.tanstack.com/docs/api/useTable#table-options) */
+   * @see [RT useTable API - Table options](https://react-table-v7.tanstack.com/docs/api/useTable#table-options) */
   tableOptions?: TableOptions<Data>
 
   /** Manages sorting of the table columns.
-   * @see [RT useSortBy API - Table options](https://react-table.tanstack.com/docs/api/useSortBy#table-options) */
+   * @see [RT useSortBy API - Table options](https://react-table-v7.tanstack.com/docs/api/useSortBy#table-options) */
   sortByOptions?: SortingOptions<Data>
 
   /** Manages filtering of the table columns.
-   * @see [RT useFilters API - Table options](https://react-table.tanstack.com/docs/api/useFilters#table-options) */
+   * @see [RT useFilters API - Table options](https://react-table-v7.tanstack.com/docs/api/useFilters#table-options) */
   filtersOptions?: FiltersOptions<Data>
 
   /** Manages global filtering of the table.
-   * @see [RT useGlobalFilter API - Table options](https://react-table.tanstack.com/docs/api/useGlobalFilter#table-options) */
+   * @see [RT useGlobalFilter API - Table options](https://react-table-v7.tanstack.com/docs/api/useGlobalFilter#table-options) */
   globalFilterOptions?: GlobalFilterOptions<Data>
 
   /** Manages pagination of the table.
-   * @see [RT usePagination API - Table options](https://react-table.tanstack.com/docs/api/usePagination#table-options) */
+   * @see [RT usePagination API - Table options](https://react-table-v7.tanstack.com/docs/api/usePagination#table-options) */
   paginationOptions?: PaginationOptions<Data>
 
   /** Manages pagination of the table.
-   * @see [RT usePagination API - Table options](https://react-table.tanstack.com/docs/api/usePagination#table-options) */
+   * @see [RT usePagination API - Table options](https://react-table-v7.tanstack.com/docs/api/usePagination#table-options) */
   expandedOptions?: ExpandedOptions<Data>
 
   /** Manages row-selection of the table.
-   * @see [RT useRowSelect API - Table options](https://react-table.tanstack.com/docs/api/useRowSelect#table-options) */
+   * @see [RT useRowSelect API - Table options](https://react-table-v7.tanstack.com/docs/api/useRowSelect#table-options) */
   rowSelectOptions?: RowSelectOptions<Data>
 
   /** Manage options for column order, resize and visibility.
-   * @see [RT useColumnOrder API - Table options](https://react-table.tanstack.com/docs/api/useColumnOrder#table-options)
-   * @see [RT useResizeColumns API - Table options](https://react-table.tanstack.com/docs/api/useResizeColumns#table-options) */
+   * @see [RT useColumnOrder API - Table options](https://react-table-v7.tanstack.com/docs/api/useColumnOrder#table-options)
+   * @see [RT useResizeColumns API - Table options](https://react-table-v7.tanstack.com/docs/api/useResizeColumns#table-options) */
   columnOptions?: ColumnOptions<Data>
 
   /** Manage options for row state.
-   * @see [RT useRowState API - Table options](https://react-table.tanstack.com/docs/api/useRowState#table-options) */
+   * @see [RT useRowState API - Table options](https://react-table-v7.tanstack.com/docs/api/useRowState#table-options) */
   rowStateOptions?: RowStateOptions<Data>
 
   /** Freeze headers to the top and footers to the bottom while scrolling. */

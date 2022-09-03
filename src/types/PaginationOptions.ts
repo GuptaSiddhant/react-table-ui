@@ -10,7 +10,7 @@ export type PaginationOptions<Data extends DataType> =
   | ManualPaginationOptions<Data>
   | AutoPaginationOptions<Data>
 
-interface ManualPaginationOptions<Data extends DataType>
+export interface ManualPaginationOptions<Data extends DataType>
   extends CommonPaginationOptions<Data> {
   /** Manually paginate data using external methods. */
   manualPagination?: true
@@ -30,7 +30,7 @@ interface ManualPaginationOptions<Data extends DataType>
   fetchData: (paginationState: UsePaginationState<Data>) => void
 }
 
-interface AutoPaginationOptions<Data extends DataType>
+export interface AutoPaginationOptions<Data extends DataType>
   extends CommonPaginationOptions<Data> {
   manualPagination?: undefined
   pageCount?: undefined
@@ -62,6 +62,10 @@ interface CommonPaginationOptions<Data extends DataType>
    *  The function must be wrapped in useCallback hook. */
   onStateChange?: StateChangeHandler<UsePaginationState<Data>>
 
+  /** Show a list of page-size options in Preference panel.
+   *  @default "[10, 20, 50, 75, 100, 150]" */
+  pageSizes?: Array<number>
+
   // ----------
   // Components
 
@@ -71,22 +75,22 @@ interface CommonPaginationOptions<Data extends DataType>
   Component?: PaginationComponent<Data>
 
   /** Indicator/icon used in action/button to
-   * navigate to the next page.   
+   * navigate to the next page.
    * @category Custom Component */
   nextPageIndicator?: ReactNode
 
   /** Indicator/icon used in action/button to
-   * navigate to the previous page.   
+   * navigate to the previous page.
    * @category Custom Component */
   previousPageIndicator?: ReactNode
 
   /** Indicator/icon used in action/button to
-   * navigate to the first page.   
+   * navigate to the first page.
    * @category Custom Component */
   firstPageIndicator?: ReactNode
 
   /** Indicator/icon used in action/button to
-   * navigate to the last page.   
+   * navigate to the last page.
    * @category Custom Component */
   lastPageIndicator?: ReactNode
 }

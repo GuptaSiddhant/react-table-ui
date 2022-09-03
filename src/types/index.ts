@@ -9,7 +9,7 @@ import type ReactTableUIProps from './ReactTableUIProps'
  */
 interface TableContext<Data extends DataType> {
   /** Initiated instance of react-table.
-   * @see [React Table Docs](https://react-table.tanstack.com/docs/api/useTable#instance-properties) */
+   * @see [React Table Docs](https://react-table-v7.tanstack.com/docs/api/useTable#instance-properties) */
   tableInstance: TableInstance<Data>
 
   /** Props passed by user to react-table. */

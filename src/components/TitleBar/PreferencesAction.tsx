@@ -16,6 +16,8 @@ const PageSizePreference = <Data extends DataType>({
     setPageSize
   } = tableInstance
   const { locale, text } = tableProps.localeOptions || {}
+  const { pageSizes = [10, 20, 50, 75, 100, 150] } =
+    tableProps.paginationOptions || {}
 
   return (
     <div>
@@ -25,7 +27,7 @@ const PageSizePreference = <Data extends DataType>({
         defaultValue={pageSize}
         onChange={(e) => setPageSize(parseInt(e.target.value, 10))}
       >
-        {[10, 20, 50, 75, 100, 150].map((size) => (
+        {pageSizes.map((size) => (
           <option key={size} value={size}>
             {size.toLocaleString(locale)}
           </option>
@@ -61,7 +63,7 @@ const PreferencesAction = <Data extends DataType>(
       <MenuButton className='Button RowAction' title='Table preferences'>
         <div className='button-content'>•••</div>
       </MenuButton>
-      <MenuList portal={true}>
+      <MenuList portal>
         {fullScreenAction && (
           <MenuItem onSelect={() => fullScreenAction.onClick!()}>
             {fullScreenAction.children}

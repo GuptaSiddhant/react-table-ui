@@ -97,7 +97,8 @@ declare module 'react-table' {
       UseRowSelectState<D>,
       UseRowStateState<D>,
       UseSortByState<D>,
-      UseFiltersVisibleState,UseModalState {}
+      UseFiltersVisibleState,
+      UseModalState {}
 
   export interface ColumnInterface<D extends object = {}>
     extends UseFiltersColumnOptions<D>,
@@ -144,7 +145,7 @@ declare module 'react-table' {
     resetModal: () => void
   }
   export interface ModalProps {
-    title: string    
+    title: string
     onSave?: () => void
     children: React.ReactNode
   }

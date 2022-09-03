@@ -22,7 +22,7 @@ const useFullscreenAction = <Data extends DataType>({
   }, [tableRef])
 
   const handleExitFullscreen = React.useCallback(() => {
-    if (!!window.document.fullscreenElement) window.document.exitFullscreen()
+    if (window.document.fullscreenElement) window.document.exitFullscreen()
     setIsFullscreen(false)
   }, [])
 

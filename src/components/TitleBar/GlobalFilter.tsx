@@ -3,7 +3,7 @@ import { useAsyncDebounce } from 'react-table'
 
 import Button from '../../common/Button'
 import Icon from '../../common/Icon'
-import {
+import type {
   TableContext,
   DataType,
   UseGlobalFiltersInstanceProps
