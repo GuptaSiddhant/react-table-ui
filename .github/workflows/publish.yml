@@ -5,20 +5,47 @@ on:
       - main
     paths:
       - lib/**
+      - typedoc.json
+      - package.json
       - .github/workflows/publish.yaml
+
+env:
+  INPUT_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+
 jobs:
-  publish:
+  publish-lib:
+    name: Publish library
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: './lib'
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - run: yarn install --focus
-      - run: yarn build
-      - uses: JS-DevTools/npm-publish@v1
+          cache: 'yarn'
+
+      - name: Setup NPM TOKEN
+        run: echo "//registry.npmjs.org/:_authToken=$INPUT_TOKEN" > ~/.npmrc
+
+      - run: yarn
+      - run: node scripts/publish.js
+
+  docs:
+    name: Publish Docs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          token: ${{ secrets.NPM_TOKEN }}
+          node-version: 16
+          cache: 'yarn'
+      - run: yarn
+      - run: yarn build:docs
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.3
+        with:
+          branch: docs
+          folder: docs

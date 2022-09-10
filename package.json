@@ -19,8 +19,8 @@
   "scripts": {
     "build:lib": "yarn workspaces run build --scope=react-table-ui",
     "watch:lib": "yarn workspaces run watch --scope=react-table-ui",
-    "build:docs": "typedoc --emit=docs",
-    "watch:docs": "typedoc --emit=docs --watch"
+    "build:docs": "typedoc --emit docs",
+    "watch:docs": "typedoc --emit docs --watch"
   },
   "devDependencies": {
     "@types/node": "^12.12.38",
