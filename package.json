@@ -17,8 +17,8 @@
     "examples/*"
   ],
   "scripts": {
-    "build:lib": "yarn workspaces run build --scope=react-table-ui",
-    "watch:lib": "yarn workspaces run watch --scope=react-table-ui",
+    "build:lib": "yarn workspace react-table-ui build ",
+    "watch:lib": "yarn workspace react-table-ui watch ",
     "build:docs": "typedoc --emit docs",
     "watch:docs": "typedoc --emit docs --watch"
   },

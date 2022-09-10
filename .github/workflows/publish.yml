@@ -10,7 +10,7 @@ on:
       - .github/workflows/publish.yaml
 
 env:
-  INPUT_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+  INPUT_TOKEN: ${{ secrets.NPM_TOKEN }}
 
 jobs:
   publish-lib:
