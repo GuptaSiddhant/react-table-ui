@@ -140,10 +140,13 @@ declare module 'react-table' {
   export interface UseModalState {
     modal?: ModalProps
   }
+
   export interface UseModalProps {
     setModal: (modalProps: ModalProps) => void
     resetModal: () => void
   }
+
+  /** Model props */
   export interface ModalProps {
     title: string
     onSave?: () => void

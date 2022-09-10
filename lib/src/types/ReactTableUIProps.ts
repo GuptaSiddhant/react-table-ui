@@ -15,7 +15,10 @@ import type StyleOptions from './StyleOptions'
 import type LocaleOptions from './LocaleOptions'
 import type { LoadingOptions, FreezeOptions } from './OtherOptions'
 
-/** Props supported by React Table UI. */
+/**
+ * Props supported by React Table UI.
+ * @category Important
+ */
 export interface ReactTableUIProps<Data extends DataType> {
   /** Memoised data-array of the table.
    * The data object should always extends {@link DataType} interface. */

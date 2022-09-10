@@ -27,6 +27,7 @@ export interface StyleOptions {
 
 export default StyleOptions
 
+/** @internal */
 type DeepPartial<T> = {
   [P in keyof T]?: DeepPartial<T[P]>
 }

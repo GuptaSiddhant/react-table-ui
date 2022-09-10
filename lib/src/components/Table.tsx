@@ -14,13 +14,7 @@ import useScrollPosition from '../logic/useScrollPosition'
 const Table = <Data extends DataType>(
   props: TableContext<Data> & React.HTMLAttributes<HTMLDivElement>
 ) => {
-  const {
-    tableInstance,
-    tableProps,
-    tableRef: _ref,
-    className = '',
-    ...htmlAttributes
-  } = props
+  const { tableInstance, tableProps, className = '', ...htmlAttributes } = props
   const { getTableProps, rows } = tableInstance
   const {
     loadingOptions = {},
@@ -60,13 +54,13 @@ const Table = <Data extends DataType>(
       ref={tableRef}
     >
       {showLoading ? (
-        LoadingComponent
+        <>{LoadingComponent}</>
       ) : (
-        <React.Fragment>
+        <>
           <Head {...{ tableProps, tableInstance }} />
           <Body {...{ tableProps, tableInstance }} />
           <Foot {...{ tableProps, tableInstance }} />
-        </React.Fragment>
+        </>
       )}
     </div>
   )

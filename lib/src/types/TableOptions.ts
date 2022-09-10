@@ -2,7 +2,7 @@ import type { UseTableOptions, TableState } from './ReactTable'
 
 import type { DataType, StateChangeHandler } from './DataType'
 
-/** Type interface of Table specific options. 
+/** Type interface of Table specific options.
  * @category Options */
 export interface TableOptions<Data extends DataType>
   extends Omit<UseTableOptions<Data>, 'columns' | 'data'> {

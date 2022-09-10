@@ -3,15 +3,21 @@ on:
   push:
     branches:
       - main
+    paths:
+      - lib/**
+      - .github/workflows/publish.yaml
 jobs:
   publish:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: './lib'
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
-          node-version: 12
-      - run: yarn
+          node-version: 16
+      - run: yarn install --focus
       - run: yarn build
       - uses: JS-DevTools/npm-publish@v1
         with:

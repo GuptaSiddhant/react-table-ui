@@ -13,7 +13,7 @@ import type { DataType, StateChangeHandler } from './DataType'
 export interface RowStateOptions<Data extends DataType>
   extends UseRowStateOptions<Data> {
   /** Initial settings of row-select.
-   * @example 
+   * @example
    * ```
    * { rowState: { [rowId]: { cellState: { [columnId]: {} } } } }
    * ```
@@ -24,12 +24,10 @@ export interface RowStateOptions<Data extends DataType>
    *  The function must be wrapped in useCallback hook. */
   onStateChange?: StateChangeHandler<UseRowStateState<Data>>
 
-  /** This function should return the initial state for a row.
-   *  @default row => ({}) */
+  /** This function should return the initial state for a row. */
   initialRowStateAccessor?: (row: Row<Data>) => UseRowStateLocalState<Data>
 
-  /** This function should return the initial state for a cell.
-   *  @default cell => ({}) */
+  /** This function should return the initial state for a cell. */
   initialCellStateAccessor?: (cell: Cell<Data>) => UseRowStateLocalState<Data>
 
   /** Disable row-state management table.

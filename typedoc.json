@@ -1,14 +1,13 @@
 {
-  "name": "React-Table UI",
+  "$schema": "https://typedoc.org/schema.json",
+  "name": "React-Table UI Docs",
   "includeVersion": false,
-  "entryPoints": ["src/index.ts"],
-  "out": "docs",
-  "excludeExternals": true,
+  "excludeExternals": false,
   "excludeInternal": true,
-  "disableSources": false,
-  "highlightTheme": "github-dark",
-  "theme": "typedoc",
-  "readme": "README.md",
-  "categoryOrder": ["Component", "Options", "State", "*"],
-  "sourcefile-url-prefix": "https://github.com/GuptaSiddhant/react-table-ui/tree/main/src/"
+  "categoryOrder": ["Important", "Component", "Options", "State", "*"],
+  "includes": "./lib",
+
+  "entryPoints": ["./lib/src/index.ts"],
+  "readme": "./lib/README.md",
+  "skipErrorChecking": true
 }
