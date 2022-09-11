@@ -1,0 +1,25 @@
+{
+  "name": "react-table-ui-example",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "namor": "^2.0.4",
+    "react": "*",
+    "react-dom": "*",
+    "react-router-dom": "^6.3.0",
+    "react-table-ui": "*"
+  },
+  "devDependencies": {
+    "@types/react": "*",
+    "@types/react-dom": "*",
+    "@vitejs/plugin-react": "^2.1.0",
+    "typescript": "*",
+    "vite": "^3.1.0"
+  }
+}

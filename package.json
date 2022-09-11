@@ -14,7 +14,7 @@
   "workspaces": [
     "lib",
     "docs",
-    "examples/*"
+    "example"
   ],
   "scripts": {
     "build:lib": "yarn workspace react-table-ui build ",

@@ -63,13 +63,13 @@ const App = () => {
       { name: 'Abc Xyx', age: 20 },
       { name: 'Def Uvw', age: 25 },
       { name: 'Ghi Rst', age: 23 },
-      { name: 'Jklm Nopq', age: 30 },
+      { name: 'Jklm Nopq', age: 30 }
     ],
-    [],
+    []
   )
 
   // Create an instance ref that will hold the reference to React Table instance.
-  const tableInstanceRef = useRef<TableInstance<User>>()
+  const tableInstanceRef = useRef<TableInstance<User>>(null)
 
   return (
     <ReactTableUI
@@ -97,13 +97,13 @@ const App = () => {
       { name: 'Abc Xyx', age: 20 },
       { name: 'Def Uvw', age: 25 },
       { name: 'Ghi Rst', age: 23 },
-      { name: 'Jklm Nopq', age: 30 },
+      { name: 'Jklm Nopq', age: 30 }
     ],
-    [],
+    []
   )
 
   // Create an instance ref that will hold the reference to React Table instance.
-  const tableInstanceRef = useRef()
+  const tableInstanceRef = useRef(null)
 
   return (
     <ReactTableUI

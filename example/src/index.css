@@ -1,0 +1,63 @@
+body {
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  font-family: sans-serif;
+  overflow: hidden;
+}
+
+#root {
+  height: calc(100% - 1rem);
+  margin: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background: #eee;
+  border-radius: 0.25rem;
+}
+
+h1,
+h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+h1 a,
+h2 a {
+  text-decoration: none;
+  color: black;
+}
+
+nav {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  list-style: none;
+  flex-wrap: wrap;
+}
+
+a.active {
+  font-weight: bold;
+}
+
+main {
+  flex: 1;
+  overflow: hidden;
+}
+
+#homepage {
+  padding: 1rem;
+}
+#homepage ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
