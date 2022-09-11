@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import type { DataType, TableContext } from '../../types'
+import type { DataType } from '../../types'
 import clsx from '../../utilities/clsx'
 
 import GlobalFilter from './GlobalFilter'
@@ -8,36 +8,34 @@ import VisibleFilterAction from './VisibleFilterAction'
 
 import { TableActions, MultiRowActions } from './userDefinedActions'
 import PreferencesAction from './PreferencesAction'
+import useTableContext from '../../context'
 
 /**
  * Title component of RTUI.
  * It contains table title and actions.
  */
-export default function TitleBar<Data extends DataType>(
-  context: TableContext<Data>
-): JSX.Element | null {
+export default function TitleBar<Data extends DataType>(): JSX.Element | null {
+  const context = useTableContext<Data>()
   const { titleBar = true } = context.tableProps.styleOptions || {}
 
   return titleBar ? (
     <div className={clsx('TitleBar')}>
-      <GlobalFilter {...context} />
-      <MultiRowActions {...context} />
-      <TableActions {...context} />
-      <SystemActions {...context} />
+      <GlobalFilter />
+      <MultiRowActions />
+      <TableActions />
+      <SystemActions />
     </div>
   ) : (
     <div />
   )
 }
 
-function SystemActions<Data extends DataType>(
-  context: TableContext<Data>
-): JSX.Element | null {
+function SystemActions(): JSX.Element | null {
   return (
     <div className='systemActions'>
-      <VisibleFilterAction {...context} />
+      <VisibleFilterAction />
       {/* <FullscreenAction {...context} /> */}
-      <PreferencesAction {...context} />
+      <PreferencesAction />
     </div>
   )
 }

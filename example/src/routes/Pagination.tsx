@@ -78,7 +78,9 @@ export default function App() {
         manualPagination: true,
         pageCount,
         fetchData,
-        recordCount
+        recordCount,
+        pageSizes: [25, 50, 100],
+        initialState: { pageSize: 100 }
       }}
       styleOptions={{}}
     />

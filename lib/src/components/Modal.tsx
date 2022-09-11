@@ -3,11 +3,11 @@ import * as React from 'react'
 import Icon from '../common/Icon'
 import Button from '../common/Button'
 import FocusTrap from '../common/FocusTrap'
-import type { DataType, TableContext } from '../types'
+import type { DataType } from '../types'
+import useTableContext from '../context'
 
-export default function Modal<Data extends DataType>(
-  context: TableContext<Data>
-): JSX.Element | null {
+export default function Modal<Data extends DataType>(): JSX.Element | null {
+  const context = useTableContext<Data>()
   const {
     state: { modal },
     resetModal

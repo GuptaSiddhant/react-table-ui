@@ -1,12 +1,12 @@
 import * as React from 'react'
 
-import type { DataType, TableContext } from '../../types'
+import type { DataType } from '../../types'
 import clsx from '../../utilities/clsx'
 import Button from '../../common/Button'
+import useTableContext from '../../context'
 
-export function TableActions<Data extends DataType>(
-  context: TableContext<Data>
-): JSX.Element | null {
+export function TableActions<Data extends DataType>(): JSX.Element | null {
+  const context = useTableContext<Data>()
   const { actionOptions: { tableActions = [] } = {} } = context.tableProps
 
   if (tableActions.length === 0) return null
@@ -27,9 +27,8 @@ export function TableActions<Data extends DataType>(
   )
 }
 
-export function MultiRowActions<Data extends DataType>(
-  context: TableContext<Data>
-): JSX.Element | null {
+export function MultiRowActions<Data extends DataType>(): JSX.Element | null {
+  const context = useTableContext<Data>()
   const { actionOptions: { multiRowActions = [] } = {} } = context.tableProps
   const { selectedFlatRows } = context.tableInstance
 

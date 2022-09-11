@@ -1,7 +1,8 @@
 import * as React from 'react'
+import { Menu, MenuButton, MenuList, MenuItem } from '@reach/menu-button'
 
 import systemColumns from '../utilities/systemColumns'
-import useReachUI from '../utilities/useReachUI'
+
 import type {
   DataType,
   ReactTableUIProps,
@@ -11,42 +12,9 @@ import type {
   Row
 } from '../types'
 
-const ActionMenu = <Data extends DataType>({
-  actions,
-  row
-}: {
-  actions: SingleRowAction<Data>[]
-  row: Row<Data>
-}) => {
-  const ReachMenu = useReachUI('menu')
-
-  if (!ReachMenu) return null
-
-  const { Menu, MenuButton, MenuList, MenuItem } = ReachMenu
-
-  return (
-    <Menu>
-      <MenuButton className='Button RowAction' title='Action'>
-        <div className='button-content'>•••</div>
-      </MenuButton>
-      <MenuList>
-        {actions.map((action) => (
-          <MenuItem
-            key={action.id}
-            onSelect={() => action.onClick(row.original, row)}
-            about={action.tooltip}
-          >
-            {action.children}
-          </MenuItem>
-        ))}
-      </MenuList>
-    </Menu>
-  )
-}
-
-const generateUseRowActionColumn = <Data extends DataType>(
+export default function generateUseRowActionColumn<Data extends DataType>(
   props: ReactTableUIProps<Data>
-) => {
+) {
   const { singleRowActions = [] } = props.actionOptions || {}
 
   const Cell = ({ row }: CellProps<Data>) => (
@@ -73,4 +41,30 @@ const generateUseRowActionColumn = <Data extends DataType>(
       ])
   }
 }
-export default generateUseRowActionColumn
+
+function ActionMenu<Data extends DataType>({
+  actions,
+  row
+}: {
+  actions: SingleRowAction<Data>[]
+  row: Row<Data>
+}) {
+  return (
+    <Menu>
+      <MenuButton className='Button RowAction' title='Action'>
+        <div className='button-content'>•••</div>
+      </MenuButton>
+      <MenuList>
+        {actions.map((action) => (
+          <MenuItem
+            key={action.id}
+            onSelect={() => action.onClick(row.original, row)}
+            about={action.tooltip}
+          >
+            {action.children}
+          </MenuItem>
+        ))}
+      </MenuList>
+    </Menu>
+  )
+}

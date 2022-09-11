@@ -27,8 +27,18 @@ export default function useFullscreenAction<Data extends DataType>({
 
   const handleExitFullscreen = React.useCallback(() => {
     if (window.document.fullscreenElement) window.document.exitFullscreen()
-    setIsFullscreen(false)
   }, [])
+
+  React.useEffect(() => {
+    const callback = () => {
+      if (!window.document.fullscreenElement) setIsFullscreen(false)
+    }
+
+    window.document.addEventListener('fullscreenchange', callback)
+    return () => {
+      window.document.removeEventListener('fullscreenchange', callback)
+    }
+  })
 
   const enterIndicator: React.ReactNode =
     (typeof fullscreenAction !== 'boolean' &&

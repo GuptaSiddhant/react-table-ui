@@ -5,18 +5,14 @@ import Cell from '../common/Cell'
 import { checkIfSystemColumn } from '../utilities/systemColumns'
 import type {
   DataType,
-  TableContext,
   HeaderGroup,
+  ReactTableUIProps,
   SortingComponent
 } from '../types'
+import useTableContext from '../context'
 
-type HeadCellProps<Data extends DataType> = TableContext<Data> & {
-  column: HeaderGroup<Data>
-}
-
-export default function Head<Data extends DataType>(
-  context: TableContext<Data>
-): JSX.Element {
+export default function Head<Data extends DataType>(): JSX.Element {
+  const context = useTableContext<Data>()
   const { tableInstance, tableProps } = context
   const { headerGroups, state } = tableInstance
   const { freezeOptions } = tableProps
@@ -44,46 +40,13 @@ export default function Head<Data extends DataType>(
   )
 }
 
-function createSortComponent<Data extends DataType>({
-  tableProps
-}: HeadCellProps<Data>): SortingComponent<Data> {
-  const {
-    Component,
-    descendingIndicator = '↑',
-    ascendingIndicator = '↓',
-    defaultIndicator = '⇅'
-  } = tableProps.sortByOptions || {}
-
-  const DefaultSortComponent: SortingComponent<Data> = ({
-    canSort,
-    isSorted,
-    isSortedDesc,
-    onClick,
-    title
-  }) =>
-    canSort ? (
-      <div
-        className='Sort'
-        style={{ marginLeft: '8px', cursor: 'pointer' }}
-        onClick={onClick}
-        title={title}
-      >
-        {isSorted
-          ? isSortedDesc
-            ? descendingIndicator
-            : ascendingIndicator
-          : defaultIndicator}
-      </div>
-    ) : null
-
-  return Component || DefaultSortComponent
+interface HeadCellProps<Data extends DataType> {
+  column: HeaderGroup<Data>
 }
 
-function HeadFilterCell<Data extends DataType>(
-  props: HeadCellProps<Data>
-): JSX.Element | null {
-  const { column } = props
-
+function HeadFilterCell<Data extends DataType>({
+  column
+}: HeadCellProps<Data>): JSX.Element | null {
   const renderContent = column.render('Header')
   const renderContentString =
     typeof renderContent === 'string'
@@ -108,13 +71,13 @@ function HeadFilterCell<Data extends DataType>(
   )
 }
 
-function HeadCell<Data extends DataType>(
-  props: HeadCellProps<Data>
-): JSX.Element | null {
-  const { column, tableProps } = props
+function HeadCell<Data extends DataType>({
+  column
+}: HeadCellProps<Data>): JSX.Element | null {
+  const { tableProps } = useTableContext<Data>()
   const { disableResizing = false } = tableProps.columnOptions || {}
 
-  const SortComponent = createSortComponent(props)
+  const SortComponent = createSortComponent(tableProps)
   const renderContent = column.render('Header')
   const renderContentString =
     typeof renderContent === 'string'
@@ -153,42 +116,68 @@ function HeadCell<Data extends DataType>(
   )
 }
 
-function HeaderRow<Data extends DataType>(
-  props: TableContext<Data> & {
-    headerGroup: HeaderGroup<Data>
-  }
-): JSX.Element {
-  const { headerGroup, ...context } = props
-  const { getHeaderGroupProps, headers } = headerGroup
+function HeaderRow<Data extends DataType>(props: {
+  headerGroup: HeaderGroup<Data>
+}): JSX.Element {
+  const { getHeaderGroupProps, headers } = props.headerGroup
 
   return (
     <div {...getHeaderGroupProps()} className={clsx('tr', 'Row')}>
       {headers.map((column) => (
-        <HeadCell
-          key={column.getHeaderProps().key || ''}
-          {...{ column, ...context }}
-        />
+        <HeadCell key={column.getHeaderProps().key || ''} column={column} />
       ))}
     </div>
   )
 }
 
-function FilterRow<Data extends DataType>(
-  props: TableContext<Data> & {
-    headerGroup: HeaderGroup<Data>
-  }
-): JSX.Element {
-  const { headerGroup, ...context } = props
-  const { getHeaderGroupProps, headers } = headerGroup
+function FilterRow<Data extends DataType>(props: {
+  headerGroup: HeaderGroup<Data>
+}): JSX.Element {
+  const { getHeaderGroupProps, headers } = props.headerGroup
 
   return (
     <div {...getHeaderGroupProps()} className={clsx('tr', 'Row', 'FilterRow')}>
       {headers.map((column) => (
         <HeadFilterCell
           key={column.getHeaderProps().key || ''}
-          {...{ column, ...context }}
+          column={column}
         />
       ))}
     </div>
   )
+}
+
+function createSortComponent<Data extends DataType>(
+  tableProps: ReactTableUIProps<Data>
+): SortingComponent<Data> {
+  const {
+    Component,
+    descendingIndicator = '↑',
+    ascendingIndicator = '↓',
+    defaultIndicator = '⇅'
+  } = tableProps.sortByOptions || {}
+
+  const DefaultSortComponent: SortingComponent<Data> = ({
+    canSort,
+    isSorted,
+    isSortedDesc,
+    onClick,
+    title
+  }) =>
+    canSort ? (
+      <div
+        className='Sort'
+        style={{ marginLeft: '8px', cursor: 'pointer' }}
+        onClick={onClick}
+        title={title}
+      >
+        {isSorted
+          ? isSortedDesc
+            ? descendingIndicator
+            : ascendingIndicator
+          : defaultIndicator}
+      </div>
+    ) : null
+
+  return Component || DefaultSortComponent
 }

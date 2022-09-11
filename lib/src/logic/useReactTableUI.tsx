@@ -36,7 +36,7 @@ import useModal from './useModal'
 
 const useReactTableUI = <Data extends DataType>(
   tableProps: ReactTableUIProps<Data>,
-  tableRef?: React.RefObject<HTMLElement>
+  tableRef: React.RefObject<HTMLElement>
 ): TableContext<Data> => {
   const {
     data = [],
@@ -133,7 +133,13 @@ const useReactTableUI = <Data extends DataType>(
         ...initialExpandedState,
         ...initialRowSelectState,
         ...initialRowStateState,
-        ...{ pageSize: 50, pageIndex: 0, ...initialPaginationState },
+        ...{
+          pageSize: paginationTableOptions.pageSizes
+            ? paginationTableOptions.pageSizes[0]
+            : 50,
+          pageIndex: 0,
+          ...initialPaginationState
+        },
         ...{
           ...initialColumnState,
           columnOrder: fixColumnOrder(initialColumnState?.columnOrder, columns)

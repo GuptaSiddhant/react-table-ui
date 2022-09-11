@@ -2,11 +2,11 @@ import * as React from 'react'
 import clsx from '../utilities/clsx'
 import Cell from '../common/Cell'
 import { checkIfSystemColumn } from '../utilities/systemColumns'
-import type { DataType, TableContext, Row } from '../types'
+import type { DataType, Row } from '../types'
+import useTableContext from '../context'
 
-export default function Body<Data extends DataType>(
-  context: TableContext<Data>
-): JSX.Element {
+export default function Body<Data extends DataType>(): JSX.Element {
+  const context = useTableContext<Data>()
   const {
     rows,
     page,

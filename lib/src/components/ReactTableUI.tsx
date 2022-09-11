@@ -1,5 +1,6 @@
 import * as React from 'react'
 
+import { tableContext } from '../context'
 import useReactTableUI from '../logic/useReactTableUI'
 import useTheme from '../logic/useTheme'
 import clsx, { commonClassName } from '../utilities/clsx'
@@ -39,14 +40,16 @@ export default function ReactTableUI<Data extends DataType>({
   const { borderless = false } = context.tableProps.styleOptions || {}
 
   return (
-    <div
-      ref={tableRef}
-      className={clsx(commonClassName, borderless ? '' : 'withBorder')}
-    >
-      <TitleBar {...context} />
-      <Table {...context} />
-      <StatusBar {...context} />
-      <Modal {...context} />
-    </div>
+    <tableContext.Provider value={context}>
+      <div
+        ref={tableRef}
+        className={clsx(commonClassName, borderless ? '' : 'withBorder')}
+      >
+        <TitleBar />
+        <Table />
+        <StatusBar />
+        <Modal />
+      </div>
+    </tableContext.Provider>
   )
 }

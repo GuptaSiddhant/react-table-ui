@@ -1,13 +1,14 @@
 import * as React from 'react'
 
-import type { DataType, TableContext } from '../../types'
+import type { DataType } from '../../types'
 import Button from '../../common/Button'
 import Icon from '../../common/Icon'
+import useTableContext from '../../context'
 
-export default function VisibleFilterAction<Data extends DataType>({
-  tableInstance,
-  tableProps
-}: TableContext<Data>): JSX.Element | null {
+export default function VisibleFilterAction<
+  Data extends DataType
+>(): JSX.Element | null {
+  const { tableProps, tableInstance } = useTableContext<Data>()
   const {
     state: { filtersVisible },
     toggleFiltersVisible

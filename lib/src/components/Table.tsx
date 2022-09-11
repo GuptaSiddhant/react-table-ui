@@ -1,10 +1,11 @@
 import * as React from 'react'
 import clsx from '../utilities/clsx'
-import type { DataType, TableContext } from '../types'
+import type { DataType } from '../types'
 import Head from '../components/Head'
 import Body from '../components/Body'
 import Foot from '../components/Foot'
 import useScrollPosition from '../logic/useScrollPosition'
+import useTableContext from '../context'
 
 /**
  * Table
@@ -12,9 +13,10 @@ import useScrollPosition from '../logic/useScrollPosition'
  * @category Component
  */
 export default function Table<Data extends DataType>(
-  props: TableContext<Data> & React.HTMLAttributes<HTMLDivElement>
+  props: React.HTMLAttributes<HTMLDivElement>
 ) {
-  const { tableInstance, tableProps, className = '' } = props
+  const { tableInstance, tableProps } = useTableContext<Data>()
+  const { className = '' } = props
   const { getTableProps, rows } = tableInstance
   const {
     loadingOptions = {},
@@ -52,9 +54,9 @@ export default function Table<Data extends DataType>(
         <>{LoadingComponent}</>
       ) : (
         <>
-          <Head {...{ tableProps, tableInstance }} />
-          <Body {...{ tableProps, tableInstance }} />
-          <Foot {...{ tableProps, tableInstance }} />
+          <Head />
+          <Body />
+          <Foot />
         </>
       )}
     </div>

@@ -4,15 +4,11 @@ import { useAsyncDebounce } from 'react-table'
 
 import Button from '../../common/Button'
 import Icon from '../../common/Icon'
-import type {
-  TableContext,
-  DataType,
-  UseGlobalFiltersInstanceProps
-} from '../../types'
+import type { DataType, UseGlobalFiltersInstanceProps } from '../../types'
+import useTableContext from '../../context'
 
-export default function GlobalFilter<Data extends DataType>(
-  context: TableContext<Data>
-): JSX.Element {
+export default function GlobalFilter<Data extends DataType>(): JSX.Element {
+  const context = useTableContext<Data>()
   const {
     globalFilterOptions = {},
     title = 'Table',

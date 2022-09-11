@@ -1,29 +1,27 @@
 import * as React from 'react'
+import { Menu, MenuButton, MenuList, MenuItem } from '@reach/menu-button'
 
-import type { DataType, TableContext } from '../../types'
+import type { DataType } from '../../types'
 import useFullscreenAction from '../../logic/useFullscreenAction'
 import Icon from '../../common/Icon'
-import useReachUI from '../../utilities/useReachUI'
+import useTableContext from '../../context'
 
 const defaultPreferencesIndicator = <Icon name='sliders' />
 
-export default function PreferencesAction<Data extends DataType>(
-  context: TableContext<Data>
-): JSX.Element | null {
+export default function PreferencesAction<
+  Data extends DataType
+>(): JSX.Element | null {
+  const context = useTableContext<Data>()
   const { setModal } = context.tableInstance
   const text = context.tableProps.localeOptions?.text
   const fullScreenAction = useFullscreenAction<Data>(context)
-
-  const ReachMenu = useReachUI('menu')
-  if (!ReachMenu) return null
-  const { Menu, MenuButton, MenuList, MenuItem } = ReachMenu
 
   const handleOpenPreferences = () =>
     setModal({
       title: text?.tablePreferences || 'Table preferences',
       children: (
         <div>
-          <PageSizePreference {...context} />
+          <PageSizePreference />
         </div>
       )
     })
@@ -33,7 +31,7 @@ export default function PreferencesAction<Data extends DataType>(
       <MenuButton className='Button RowAction' title='Table preferences'>
         <div className='button-content'>•••</div>
       </MenuButton>
-      <MenuList portal>
+      <MenuList>
         {fullScreenAction && (
           <MenuItem onSelect={() => fullScreenAction.onClick!()}>
             {fullScreenAction.children}
@@ -49,10 +47,8 @@ export default function PreferencesAction<Data extends DataType>(
   )
 }
 
-function PageSizePreference<Data extends DataType>({
-  tableInstance,
-  tableProps
-}: TableContext<Data>): JSX.Element | null {
+function PageSizePreference<Data extends DataType>(): JSX.Element | null {
+  const { tableInstance, tableProps } = useTableContext<Data>()
   const {
     state: { pageSize },
     setPageSize

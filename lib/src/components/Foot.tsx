@@ -2,15 +2,14 @@ import * as React from 'react'
 
 import clsx from '../utilities/clsx'
 import Cell from '../common/Cell'
-import type { DataType, TableContext, HeaderGroup } from '../types'
+import type { DataType, HeaderGroup } from '../types'
+import useTableContext from '../context'
 
-export default function Foot<Data extends DataType>(
-  props: TableContext<Data>
-): JSX.Element | null {
+export default function Foot<Data extends DataType>(): JSX.Element | null {
   const {
     tableInstance,
     tableProps: { freezeOptions, columns }
-  } = props
+  } = useTableContext<Data>()
 
   const showFooter = columns?.some(function hasFooter(column): boolean {
     return !!column.Footer || !!column.columns?.some((c) => hasFooter(c))
