@@ -32,6 +32,9 @@ jobs:
       - run: yarn
       - run: node scripts/publish.js
 
+      - name: Push changes to repo
+        run: git push "https://${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" --follow-tags
+
   docs:
     name: Publish Docs
     runs-on: ubuntu-latest
