@@ -12,69 +12,6 @@ const focusableElementSelectors = [
 
 type FocusTrapElement = HTMLElement
 
-type UseFocusTrapParam = React.RefObject<FocusTrapElement>
-
-/**
- * Hook to trap focus between two elements.
- * @param firstElementRef Reference for first focusable element.
- * @param lastElementRef Reference for last focusable element.
- * @param autoFocusFirstElement Focus the first element when it is visible (default: true)
- *
- * @author Siddhant Gupta <siddhant.gupta.ext@hmdglobal.com>
- */
-const useFocusTrap = (
-  firstElementRef: UseFocusTrapParam,
-  lastElementRef: UseFocusTrapParam,
-  autoFocusFirstElement: boolean = true
-) => {
-  const firstElement = firstElementRef.current
-  const lastElement = lastElementRef.current
-
-  const isFirstElementVisible = useOnScreen(firstElementRef, {})
-
-  const handleKeyDown = React.useCallback(
-    (e: KeyboardEvent) => {
-      const isTabPressed = e.key === 'Tab'
-      const isShiftPressed = e.shiftKey
-      if (!firstElement) {
-        console.warn('No element found with firstElementRef.')
-        return
-      }
-      if (!lastElement) {
-        console.warn('No element found with lastElementRef')
-        return
-      }
-      // Cycle focus from first to last element
-      if (
-        isTabPressed &&
-        isShiftPressed &&
-        document.activeElement === firstElement
-      ) {
-        e.preventDefault()
-        lastElement?.focus()
-      }
-      // Cycle focus from last to first element
-      if (
-        isTabPressed &&
-        !isShiftPressed &&
-        document.activeElement === lastElement
-      ) {
-        e.preventDefault()
-        firstElement?.focus()
-      }
-    },
-    [firstElement, lastElement]
-  )
-  React.useEffect(() => {
-    document.addEventListener('keydown', handleKeyDown)
-    return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [handleKeyDown])
-
-  React.useEffect(() => {
-    autoFocusFirstElement && isFirstElementVisible && firstElement?.focus()
-  }, [autoFocusFirstElement, isFirstElementVisible])
-}
-
 /** Type definition for props supported by FocusTrap component. */
 export interface FocusTrapProps<T = FocusTrapElement>
   extends React.HTMLAttributes<T> {
@@ -94,13 +31,13 @@ export interface FocusTrapProps<T = FocusTrapElement>
  *
  * @author Siddhant Gupta <siddhant.gupta.ext@hmdglobal.com>
  */
-const FocusTrap: React.FC<FocusTrapProps> = ({
+export default function FocusTrap({
   element = 'div',
   selectors = [],
   autoFocusFirstElement,
   children,
   ...props
-}) => {
+}: FocusTrapProps): JSX.Element {
   const containerRef = React.useRef<FocusTrapElement>(null)
   const firstElementRef = React.useRef<FocusTrapElement>()
   const lastElementRef = React.useRef<FocusTrapElement>()
@@ -129,7 +66,71 @@ const FocusTrap: React.FC<FocusTrapProps> = ({
   )
 }
 
-export default FocusTrap
+type UseFocusTrapParam = React.RefObject<FocusTrapElement>
+
+/**
+ * Hook to trap focus between two elements.
+ * @param firstElementRef Reference for first focusable element.
+ * @param lastElementRef Reference for last focusable element.
+ * @param autoFocusFirstElement Focus the first element when it is visible (default: true)
+ *
+ * @author Siddhant Gupta <siddhant.gupta.ext@hmdglobal.com>
+ */
+function useFocusTrap(
+  firstElementRef: UseFocusTrapParam,
+  lastElementRef: UseFocusTrapParam,
+  autoFocusFirstElement: boolean = true
+) {
+  const firstElement = firstElementRef.current
+  const lastElement = lastElementRef.current
+
+  const isFirstElementVisible = useOnScreen(firstElementRef, {})
+
+  const handleKeyDown = React.useCallback(
+    (e: KeyboardEvent) => {
+      const isTabPressed = e.key === 'Tab'
+      const isShiftPressed = e.shiftKey
+      if (!firstElement) {
+        console.warn('No element found with firstElementRef.')
+        return
+      }
+      if (!lastElement) {
+        console.warn('No element found with lastElementRef')
+        return
+      }
+      // Cycle focus from first to last element
+      if (
+        isTabPressed &&
+        isShiftPressed &&
+        document.activeElement === firstElement
+      ) {
+        e.preventDefault()
+        lastElement.focus()
+      }
+      // Cycle focus from last to first element
+      if (
+        isTabPressed &&
+        !isShiftPressed &&
+        document.activeElement === lastElement
+      ) {
+        e.preventDefault()
+        firstElement.focus()
+      }
+    },
+    [firstElement, lastElement]
+  )
+  React.useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [handleKeyDown])
+
+  React.useEffect(() => {
+    autoFocusFirstElement &&
+      isFirstElementVisible &&
+      firstElement &&
+      firstElement.focus()
+  }, [autoFocusFirstElement, isFirstElementVisible])
+}
 
 function useOnScreen(
   ref: React.RefObject<HTMLElement>,
@@ -154,7 +155,6 @@ function useOnScreen(
         }
       }
     }
-    return
   }, [ref, options])
 
   return visible

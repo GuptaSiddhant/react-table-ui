@@ -1,5 +1,5 @@
-import React, { FC, ButtonHTMLAttributes } from 'react'
-import createClassName from '../utilities/createClassName'
+import React, { ButtonHTMLAttributes, forwardRef } from 'react'
+import clsx from '../utilities/clsx'
 import styled from '../utilities/styled'
 import { color, radius, spacing, pxToEm } from '../utilities/theme'
 
@@ -39,7 +39,6 @@ export const ButtonStyle = styled('Button')`
     background: none;
   }
 
-
   & .iconWithLabel {
     display: grid;
     align-items: center;
@@ -49,14 +48,15 @@ export const ButtonStyle = styled('Button')`
   }
 `
 
-const Button: FC<IconButtonProps> = ({
-  children,
-  className = '',
-  ...props
-}) => (
-  <button {...props} className={createClassName('Button', className)}>
-    <div className='button-content'>{children}</div>
-  </button>
-)
+function Button(
+  { children, className = '', ...props }: IconButtonProps,
+  ref: React.ForwardedRef<HTMLButtonElement>
+) {
+  return (
+    <button {...props} className={clsx('Button', className)} ref={ref}>
+      <div className='button-content'>{children}</div>
+    </button>
+  )
+}
 
-export default Button
+export default forwardRef(Button)

@@ -5,9 +5,9 @@ import Button from '../common/Button'
 import FocusTrap from '../common/FocusTrap'
 import type { DataType, TableContext } from '../types'
 
-const Modal = <Data extends DataType>(
+export default function Modal<Data extends DataType>(
   context: TableContext<Data>
-): JSX.Element | null => {
+): JSX.Element | null {
   const {
     state: { modal },
     resetModal
@@ -15,7 +15,7 @@ const Modal = <Data extends DataType>(
   const text = context.tableProps.localeOptions?.text
 
   const handleSave = () => {
-    modal?.onSave?.()
+    modal?.onSave && modal.onSave()
     resetModal()
   }
 
@@ -43,5 +43,3 @@ const Modal = <Data extends DataType>(
     </div>
   ) : null
 }
-
-export default Modal

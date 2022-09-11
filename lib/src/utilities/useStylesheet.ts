@@ -1,11 +1,11 @@
-import { useEffect } from 'react'
-import { createClassName } from './createClassName'
+import { useInsertionEffect } from 'react'
+import clsx from './clsx'
 import styles from '../styles'
 
 /**  Place Styles in DOM */
 const useStylesheet = (cssString: string = ''): void => {
-  useEffect(() => {
-    const styleTagID = createClassName('styles')
+  useInsertionEffect(() => {
+    const styleTagID = clsx('styles')
     const existingStyleTag = document.getElementById(
       styleTagID
     ) as HTMLStyleElement | null
@@ -22,7 +22,7 @@ const useStylesheet = (cssString: string = ''): void => {
     return () => {
       if (styleTag) document.head.removeChild(styleTag)
     }
-  }, [])
+  }, [cssString])
 }
 
 export default useStylesheet

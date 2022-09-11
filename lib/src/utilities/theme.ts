@@ -1,5 +1,5 @@
 import type { ThemeColors, ThemeColor, ThemeSpacing } from '../types'
-import { commonClassName } from './createClassName'
+import { commonClassName } from './clsx'
 
 const getThemeColorObject = (category: Omit<keyof ThemeColors, 'accent'>) =>
   ['primary', 'secondary', 'disabled', 'inverse', 'selected', 'none'].reduce(
@@ -28,7 +28,7 @@ export const color: ThemeColors = {
   accent: {
     default: `var(--${commonClassName}-color-accent-default)`,
     lighter: `var(--${commonClassName}-color-accent-lighter)`,
-    darker: `var(--${commonClassName}-color-accent-darker)`,
+    darker: `var(--${commonClassName}-color-accent-darker)`
   }
 } as const
 

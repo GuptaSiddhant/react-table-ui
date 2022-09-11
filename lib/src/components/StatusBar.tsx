@@ -1,5 +1,5 @@
 import * as React from 'react'
-import createClassName from '../utilities/createClassName'
+import clsx from '../utilities/clsx'
 import type { DataType, TableContext } from '../types'
 import Button from '../common/Button'
 import generateStatus from '../utilities/generateStatus'
@@ -9,9 +9,9 @@ import Icon from '../common/Icon'
  * StatusBar
  * @category Component
  */
-const StatusBar = <Data extends DataType>(
+export default function StatusBar<Data extends DataType>(
   context: TableContext<Data>
-): JSX.Element | null => {
+): JSX.Element | null {
   const { styleOptions, paginationOptions, localeOptions } = context.tableProps
   const { statusBar = true } = styleOptions || {}
   const {
@@ -42,7 +42,7 @@ const StatusBar = <Data extends DataType>(
 
   if (!statusBar) return null
   return (
-    <div className={createClassName('StatusBar', loading ? 'loading' : '')}>
+    <div className={clsx('StatusBar', loading ? 'loading' : '')}>
       {status && <div className='Status'>{status}</div>}
       <div className='spacer' />
       {showPagination ? (
@@ -115,5 +115,3 @@ const StatusBar = <Data extends DataType>(
     </div>
   )
 }
-
-export default StatusBar

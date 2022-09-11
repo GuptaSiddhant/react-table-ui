@@ -42,7 +42,7 @@
     "prebuild": "rm -rf dist",
     "build": "node scripts/build.js",
     "postbuild": "cp src/react-table-config.d.ts dist/react-table-config.d.ts",
-    "watch": "node scripts/build watch",
+    "dev": "node scripts/build watch",
     "prepublishOnly": "yarn build",
     "postinstall": "node scripts/postInstall.js"
   },

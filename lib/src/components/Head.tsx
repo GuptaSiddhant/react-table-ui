@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import createClassName from '../utilities/createClassName'
+import clsx from '../utilities/clsx'
 import Cell from '../common/Cell'
 import { checkIfSystemColumn } from '../utilities/systemColumns'
 import type {
@@ -14,9 +14,39 @@ type HeadCellProps<Data extends DataType> = TableContext<Data> & {
   column: HeaderGroup<Data>
 }
 
-const createSortComponent = <Data extends DataType>({
+export default function Head<Data extends DataType>(
+  context: TableContext<Data>
+): JSX.Element {
+  const { tableInstance, tableProps } = context
+  const { headerGroups, state } = tableInstance
+  const { freezeOptions } = tableProps
+  const freezeHead = freezeOptions?.header !== false
+
+  const filtersHeaderGroup = headerGroups[headerGroups.length - 1]
+  const { filtersVisible } = state
+
+  return (
+    <div
+      className={clsx('THead', 'header', freezeHead ? 'sticky' : '')}
+      role='rowgroup'
+    >
+      {headerGroups.map((headerGroup, index) => (
+        <HeaderRow key={index} headerGroup={headerGroup} {...context} />
+      ))}
+      {filtersVisible && (
+        <FilterRow
+          key='filterRow'
+          headerGroup={filtersHeaderGroup}
+          {...context}
+        />
+      )}
+    </div>
+  )
+}
+
+function createSortComponent<Data extends DataType>({
   tableProps
-}: HeadCellProps<Data>): SortingComponent<Data> => {
+}: HeadCellProps<Data>): SortingComponent<Data> {
   const {
     Component,
     descendingIndicator = '↑',
@@ -49,9 +79,9 @@ const createSortComponent = <Data extends DataType>({
   return Component || DefaultSortComponent
 }
 
-const HeadFilterCell = <Data extends DataType>(
+function HeadFilterCell<Data extends DataType>(
   props: HeadCellProps<Data>
-): JSX.Element | null => {
+): JSX.Element | null {
   const { column } = props
 
   const renderContent = column.render('Header')
@@ -61,27 +91,26 @@ const HeadFilterCell = <Data extends DataType>(
       : renderContent?.toString() || ''
   const headCellProps = column.getHeaderProps(column.getSortByToggleProps())
   const isSystemColumn = checkIfSystemColumn(column)
+  const columnFilter = column.render('Filter') as React.ReactNode
 
   return (
     <Cell
       {...{
         ...headCellProps,
         onClick: undefined,
-        className: createClassName('th', isSystemColumn ? 'noSpacing' : ''),
+        className: clsx('th', isSystemColumn ? 'noSpacing' : ''),
         title: renderContentString
       }}
       style={{ ...headCellProps.style, cursor: 'initial' }}
     >
-      {!column.canFilter ? null : (
-        <div className='Filter'>{column.render('Filter')}</div>
-      )}
+      {!column.canFilter ? null : <div className='Filter'>{columnFilter}</div>}
     </Cell>
   )
 }
 
-const HeadCell = <Data extends DataType>(
+function HeadCell<Data extends DataType>(
   props: HeadCellProps<Data>
-): JSX.Element | null => {
+): JSX.Element | null {
   const { column, tableProps } = props
   const { disableResizing = false } = tableProps.columnOptions || {}
 
@@ -99,42 +128,41 @@ const HeadCell = <Data extends DataType>(
       {...{
         ...headCellProps,
         onClick: undefined,
-        className: createClassName('th', isSystemColumn ? 'noSpacing' : ''),
+        className: clsx('th', isSystemColumn ? 'noSpacing' : ''),
         title: renderContentString
       }}
       style={{ ...headCellProps.style, cursor: 'initial' }}
     >
-      {renderContent}
-      <SortComponent
-        {...column}
-        onClick={(column.getSortByToggleProps() as any).onClick}
-        column={column}
-        title={`Sort ${renderContentString}`}
-      />
-      {!disableResizing && !column.disableResizing && !isSystemColumn && (
-        <div
-          {...column?.getResizerProps?.()}
-          title={`Resize ${renderContentString}`}
-          className={createClassName(
-            'resizer',
-            column.isResizing ? 'isResizing' : ''
-          )}
+      <>
+        {renderContent}
+        <SortComponent
+          {...column}
+          onClick={(column.getSortByToggleProps() as any).onClick}
+          column={column}
+          title={`Sort ${renderContentString}`}
         />
-      )}
+        {!disableResizing && !column.disableResizing && !isSystemColumn && (
+          <div
+            {...column?.getResizerProps?.()}
+            title={`Resize ${renderContentString}`}
+            className={clsx('resizer', column.isResizing ? 'isResizing' : '')}
+          />
+        )}
+      </>
     </Cell>
   )
 }
 
-const HeaderRow = <Data extends DataType>(
+function HeaderRow<Data extends DataType>(
   props: TableContext<Data> & {
     headerGroup: HeaderGroup<Data>
   }
-): JSX.Element => {
+): JSX.Element {
   const { headerGroup, ...context } = props
   const { getHeaderGroupProps, headers } = headerGroup
 
   return (
-    <div {...getHeaderGroupProps()} className={createClassName('tr', 'Row')}>
+    <div {...getHeaderGroupProps()} className={clsx('tr', 'Row')}>
       {headers.map((column) => (
         <HeadCell
           key={column.getHeaderProps().key || ''}
@@ -145,19 +173,16 @@ const HeaderRow = <Data extends DataType>(
   )
 }
 
-const FilterRow = <Data extends DataType>(
+function FilterRow<Data extends DataType>(
   props: TableContext<Data> & {
     headerGroup: HeaderGroup<Data>
   }
-): JSX.Element => {
+): JSX.Element {
   const { headerGroup, ...context } = props
   const { getHeaderGroupProps, headers } = headerGroup
 
   return (
-    <div
-      {...getHeaderGroupProps()}
-      className={createClassName('tr', 'Row', 'FilterRow')}
-    >
+    <div {...getHeaderGroupProps()} className={clsx('tr', 'Row', 'FilterRow')}>
       {headers.map((column) => (
         <HeadFilterCell
           key={column.getHeaderProps().key || ''}
@@ -167,35 +192,3 @@ const FilterRow = <Data extends DataType>(
     </div>
   )
 }
-
-const Head = <Data extends DataType>(
-  context: TableContext<Data>
-): JSX.Element => {
-  const { tableInstance, tableProps } = context
-  const { headerGroups, state } = tableInstance
-  const { freezeOptions } = tableProps
-  const freezeHead = freezeOptions?.header !== false
-
-  const filtersHeaderGroup = headerGroups[headerGroups.length - 1]
-  const { filtersVisible } = state
-
-  return (
-    <div
-      className={createClassName('THead', 'header', freezeHead ? 'sticky' : '')}
-      role='rowgroup'
-    >
-      {headerGroups.map((headerGroup, index) => (
-        <HeaderRow key={index} headerGroup={headerGroup} {...context} />
-      ))}
-      {filtersVisible && (
-        <FilterRow
-          key='filterRow'
-          headerGroup={filtersHeaderGroup}
-          {...context}
-        />
-      )}
-    </div>
-  )
-}
-
-export default Head

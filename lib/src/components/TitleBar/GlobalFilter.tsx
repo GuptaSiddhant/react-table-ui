@@ -1,3 +1,4 @@
+import 'regenerator-runtime/runtime'
 import * as React from 'react'
 import { useAsyncDebounce } from 'react-table'
 
@@ -9,38 +10,9 @@ import type {
   UseGlobalFiltersInstanceProps
 } from '../../types'
 
-interface GlobalFilterProps<Data extends DataType>
-  extends UseGlobalFiltersInstanceProps<Data> {
-  globalFilterValue: string
-  placeholder: string
-}
-
-// Define a default UI for filtering
-export const DefaultGlobalFilter = <Data extends DataType>({
-  globalFilterValue,
-  setGlobalFilter,
-  placeholder
-}: GlobalFilterProps<Data>) => {
-  const [value, setValue] = React.useState(globalFilterValue)
-  const onChange = useAsyncDebounce((value) => {
-    setGlobalFilter(value || undefined)
-  }, 200)
-
-  return (
-    <input
-      type='search'
-      value={value || ''}
-      autoFocus
-      onChange={(e) => {
-        setValue(e.target.value)
-        onChange(e.target.value)
-      }}
-      placeholder={placeholder}
-    />
-  )
-}
-
-const GlobalFilter = <Data extends DataType>(context: TableContext<Data>) => {
+export default function GlobalFilter<Data extends DataType>(
+  context: TableContext<Data>
+): JSX.Element {
   const {
     globalFilterOptions = {},
     title = 'Table',
@@ -126,4 +98,29 @@ const GlobalFilter = <Data extends DataType>(context: TableContext<Data>) => {
   )
 }
 
-export default GlobalFilter
+export interface GlobalFilterProps<Data extends DataType>
+  extends UseGlobalFiltersInstanceProps<Data> {
+  globalFilterValue: string
+  placeholder: string
+}
+
+// Define a default UI for filtering
+export function DefaultGlobalFilter<Data extends DataType>({
+  globalFilterValue = '',
+  setGlobalFilter,
+  placeholder
+}: GlobalFilterProps<Data>) {
+  const onChange = useAsyncDebounce((value) => {
+    setGlobalFilter(value || undefined)
+  }, 200)
+
+  return (
+    <input
+      type='search'
+      value={globalFilterValue}
+      autoFocus
+      onChange={(e) => onChange(e.target.value)}
+      placeholder={placeholder}
+    />
+  )
+}

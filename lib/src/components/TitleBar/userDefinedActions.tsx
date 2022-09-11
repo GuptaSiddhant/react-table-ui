@@ -1,12 +1,12 @@
 import * as React from 'react'
 
 import type { DataType, TableContext } from '../../types'
-import createClassName from '../../utilities/createClassName'
+import clsx from '../../utilities/clsx'
 import Button from '../../common/Button'
 
-export const TableActions = <Data extends DataType>(
+export function TableActions<Data extends DataType>(
   context: TableContext<Data>
-): JSX.Element | null => {
+): JSX.Element | null {
   const { actionOptions: { tableActions = [] } = {} } = context.tableProps
 
   if (tableActions.length === 0) return null
@@ -27,9 +27,9 @@ export const TableActions = <Data extends DataType>(
   )
 }
 
-export const MultiRowActions = <Data extends DataType>(
+export function MultiRowActions<Data extends DataType>(
   context: TableContext<Data>
-): JSX.Element | null => {
+): JSX.Element | null {
   const { actionOptions: { multiRowActions = [] } = {} } = context.tableProps
   const { selectedFlatRows } = context.tableInstance
 
@@ -39,9 +39,7 @@ export const MultiRowActions = <Data extends DataType>(
   const disabled = selectedFlatRows.length === 0
 
   return (
-    <div
-      className={createClassName('MultiRowActions', disabled ? 'disabled' : '')}
-    >
+    <div className={clsx('MultiRowActions', disabled ? 'disabled' : '')}>
       {multiRowActions.map((action) => (
         <Button
           disabled={disabled}

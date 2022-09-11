@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { color, spacing } from '../utilities/theme'
-import createClassName from '../utilities/createClassName'
+import clsx from '../utilities/clsx'
 import styled from '../utilities/styled'
 
 export const CellStyle = styled('td')`
@@ -19,7 +19,7 @@ const Cell = React.forwardRef<
   return (
     <div
       {...props}
-      className={createClassName('td', 'Cell', className || '')}
+      className={clsx('td', 'Cell', className || '')}
       style={props.style}
       ref={ref}
     />

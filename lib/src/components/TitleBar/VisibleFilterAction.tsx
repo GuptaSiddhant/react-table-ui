@@ -4,10 +4,10 @@ import type { DataType, TableContext } from '../../types'
 import Button from '../../common/Button'
 import Icon from '../../common/Icon'
 
-const VisibleFilterAction = <Data extends DataType>({
+export default function VisibleFilterAction<Data extends DataType>({
   tableInstance,
   tableProps
-}: TableContext<Data>): JSX.Element | null => {
+}: TableContext<Data>): JSX.Element | null {
   const {
     state: { filtersVisible },
     toggleFiltersVisible
@@ -38,5 +38,3 @@ const VisibleFilterAction = <Data extends DataType>({
     </Button>
   )
 }
-
-export default VisibleFilterAction

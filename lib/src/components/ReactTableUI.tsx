@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import useReactTableUI from '../logic/useReactTableUI'
 import useTheme from '../logic/useTheme'
-import createClassName, { commonClassName } from '../utilities/createClassName'
+import clsx, { commonClassName } from '../utilities/clsx'
 import type { DataType, ReactTableUIProps, TableInstance } from '../types'
 
 import TitleBar from './TitleBar'
@@ -18,12 +18,12 @@ import Modal from './Modal'
  *
  * @category Component
  */
-const ReactTableUI = <Data extends DataType>({
+export default function ReactTableUI<Data extends DataType>({
   tableInstanceRef,
   ...tableProps
 }: ReactTableUIProps<Data> & {
   tableInstanceRef?: React.RefObject<TableInstance<Data>>
-}): JSX.Element => {
+}): JSX.Element {
   // Internal ref for table
   const tableRef = React.useRef<HTMLDivElement>(null)
 
@@ -41,10 +41,7 @@ const ReactTableUI = <Data extends DataType>({
   return (
     <div
       ref={tableRef}
-      className={createClassName(
-        commonClassName,
-        borderless ? '' : 'withBorder'
-      )}
+      className={clsx(commonClassName, borderless ? '' : 'withBorder')}
     >
       <TitleBar {...context} />
       <Table {...context} />
@@ -53,5 +50,3 @@ const ReactTableUI = <Data extends DataType>({
     </div>
   )
 }
-
-export default ReactTableUI

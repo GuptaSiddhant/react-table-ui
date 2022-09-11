@@ -2,9 +2,9 @@ import * as React from 'react'
 
 import type { DataType, HeaderProps } from '../types'
 
-export const DefaultColumnFilter = <Data extends DataType>({
+export function DefaultColumnFilter<Data extends DataType>({
   column: { filterValue, setFilter, render }
-}: HeaderProps<Data>) => {
+}: HeaderProps<Data>) {
   const renderHeader = render('Header')
   const renderHeaderString =
     typeof renderHeader === 'string' ? renderHeader : ''

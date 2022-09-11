@@ -1,4 +1,4 @@
-import { commonClassName } from './createClassName'
+import { commonClassName } from './clsx'
 
 /** Mock "styled-components" function to trick JS-in-CSS Intellisense */
 const styled = (element: string) => (

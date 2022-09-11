@@ -2,7 +2,7 @@ import type { ReactTableUIProps, ThemeOptions, DataType } from '../types'
 import useStylesheet from '../utilities/useStylesheet'
 import { pxToEm } from '../utilities/theme'
 import deepMerge from '../utilities/deepMerge'
-import { commonClassName } from '../utilities/createClassName'
+import { commonClassName } from '../utilities/clsx'
 
 const accent = {
   default: '#096ED1',

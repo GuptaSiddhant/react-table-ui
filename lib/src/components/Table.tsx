@@ -1,5 +1,5 @@
 import * as React from 'react'
-import createClassName from '../utilities/createClassName'
+import clsx from '../utilities/clsx'
 import type { DataType, TableContext } from '../types'
 import Head from '../components/Head'
 import Body from '../components/Body'
@@ -11,10 +11,10 @@ import useScrollPosition from '../logic/useScrollPosition'
  *
  * @category Component
  */
-const Table = <Data extends DataType>(
+export default function Table<Data extends DataType>(
   props: TableContext<Data> & React.HTMLAttributes<HTMLDivElement>
-) => {
-  const { tableInstance, tableProps, className = '', ...htmlAttributes } = props
+) {
+  const { tableInstance, tableProps, className = '' } = props
   const { getTableProps, rows } = tableInstance
   const {
     loadingOptions = {},
@@ -22,13 +22,9 @@ const Table = <Data extends DataType>(
     localeOptions: { text } = {}
   } = tableProps
 
-  const Loader: React.FC = () => (
-    <div className='loader'>{text?.loading || 'Loading'}...</div>
-  )
-
   const {
     loading = false,
-    Component: LoadingComponent = Loader,
+    Component: LoadingComponent = <Loader text={text?.loading} />,
     backgroundLoading = true
   } = loadingOptions
 
@@ -37,21 +33,20 @@ const Table = <Data extends DataType>(
     [data, loading, backgroundLoading]
   )
 
-  const [tableRef, { scrollPosX, scrollPosY }] = useScrollPosition()
+  const [ref, { scrollPosX, scrollPosY }] = useScrollPosition()
 
   return (
     <div
       {...getTableProps()}
-      {...htmlAttributes}
       aria-rowcount={rows.length}
-      className={createClassName(
+      className={clsx(
         'Table',
         'sticky',
         className,
-        scrollPosX > 0 ? 'scrollX' : '',
-        scrollPosY > 0 ? 'scrollY' : ''
+        scrollPosX > 0 && 'scrollX',
+        scrollPosY > 0 && 'scrollY'
       )}
-      ref={tableRef}
+      ref={ref}
     >
       {showLoading ? (
         <>{LoadingComponent}</>
@@ -66,4 +61,6 @@ const Table = <Data extends DataType>(
   )
 }
 
-export default Table
+function Loader({ text }: { text?: string }) {
+  return <div className='loader'>{text || 'Loading'}...</div>
+}

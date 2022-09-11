@@ -1,45 +1,15 @@
 import * as React from 'react'
 
 import type { DataType, TableContext } from '../../types'
-import useFullscreenAction from './FullscreenAction'
+import useFullscreenAction from '../../logic/useFullscreenAction'
 import Icon from '../../common/Icon'
 import useReachUI from '../../utilities/useReachUI'
 
 const defaultPreferencesIndicator = <Icon name='sliders' />
 
-const PageSizePreference = <Data extends DataType>({
-  tableInstance,
-  tableProps
-}: TableContext<Data>): JSX.Element | null => {
-  const {
-    state: { pageSize },
-    setPageSize
-  } = tableInstance
-  const { locale, text } = tableProps.localeOptions || {}
-  const { pageSizes = [10, 20, 50, 75, 100, 150] } =
-    tableProps.paginationOptions || {}
-
-  return (
-    <div>
-      {text?.pageSize || 'Page size'}
-      <select
-        name='pageSize'
-        defaultValue={pageSize}
-        onChange={(e) => setPageSize(parseInt(e.target.value, 10))}
-      >
-        {pageSizes.map((size) => (
-          <option key={size} value={size}>
-            {size.toLocaleString(locale)}
-          </option>
-        ))}
-      </select>
-    </div>
-  )
-}
-
-const PreferencesAction = <Data extends DataType>(
+export default function PreferencesAction<Data extends DataType>(
   context: TableContext<Data>
-): JSX.Element | null => {
+): JSX.Element | null {
   const { setModal } = context.tableInstance
   const text = context.tableProps.localeOptions?.text
   const fullScreenAction = useFullscreenAction<Data>(context)
@@ -79,4 +49,32 @@ const PreferencesAction = <Data extends DataType>(
   )
 }
 
-export default PreferencesAction
+function PageSizePreference<Data extends DataType>({
+  tableInstance,
+  tableProps
+}: TableContext<Data>): JSX.Element | null {
+  const {
+    state: { pageSize },
+    setPageSize
+  } = tableInstance
+  const { locale, text } = tableProps.localeOptions || {}
+  const { pageSizes = [10, 20, 50, 75, 100, 150] } =
+    tableProps.paginationOptions || {}
+
+  return (
+    <div>
+      {text?.pageSize || 'Page size'}
+      <select
+        name='pageSize'
+        defaultValue={pageSize}
+        onChange={(e) => setPageSize(parseInt(e.target.value, 10))}
+      >
+        {pageSizes.map((size) => (
+          <option key={size} value={size}>
+            {size.toLocaleString(locale)}
+          </option>
+        ))}
+      </select>
+    </div>
+  )
+}

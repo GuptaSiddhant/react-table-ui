@@ -17,10 +17,12 @@
     "example"
   ],
   "scripts": {
-    "build:lib": "yarn workspace react-table-ui build ",
-    "watch:lib": "yarn workspace react-table-ui watch ",
+    "build:lib": "yarn workspace react-table-ui build",
+    "dev:lib": "yarn workspace react-table-ui dev",
     "build:docs": "typedoc --emit docs",
-    "watch:docs": "typedoc --emit docs --watch"
+    "dev:docs": "typedoc --emit docs --watch",
+    "build:example": "yarn workspace react-table-ui-example build",
+    "dev:example": "yarn workspace react-table-ui-example dev"
   },
   "devDependencies": {
     "@types/node": "^12.12.38",
